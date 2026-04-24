@@ -1,0 +1,1161 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>叁斤｜用AI开了一家一人公司</title>
+  <meta name="description" content="叁斤的个人介绍主页。不上班，用AI知识库开了一家一人公司。">
+  <style>
+    :root {
+      --背景色: #f4eee2;
+      --背景深: #1f2a24;
+      --主文字: #1c1c18;
+      --次文字: #5f5b50;
+      --强调色: #c65a2e;
+      --强调深: #8f3f1e;
+      --卡片色: rgba(255, 250, 242, 0.78);
+      --卡片边框: rgba(34, 28, 21, 0.09);
+      --阴影: 0 24px 60px rgba(41, 28, 14, 0.12);
+      --大圆角: 28px;
+      --中圆角: 20px;
+      --小圆角: 14px;
+      --最大宽度: 1180px;
+      --过渡: 0.35s ease;
+      --无衬线字体: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC", "Source Han Sans SC", system-ui, -apple-system, sans-serif;
+      --衬线字体: "Songti SC", "STSong", "SimSun", "Noto Serif CJK SC", "Source Han Serif SC", serif;
+      --等宽字体: "SFMono-Regular", "Menlo", "Monaco", "Consolas", "Liberation Mono", monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--无衬线字体);
+      color: var(--主文字);
+      background:
+        radial-gradient(circle at top left, rgba(198, 90, 46, 0.14), transparent 28%),
+        radial-gradient(circle at 85% 18%, rgba(31, 42, 36, 0.12), transparent 24%),
+        linear-gradient(180deg, #f7f1e6 0%, #f1e7d7 45%, #efe6da 100%);
+      line-height: 1.75;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .页面壳 {
+      width: min(calc(100% - 32px), var(--最大宽度));
+      margin: 0 auto;
+    }
+
+    .顶部栏 {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(18px);
+      background: rgba(244, 238, 226, 0.72);
+      border-bottom: 1px solid rgba(34, 28, 21, 0.08);
+    }
+
+    .顶部栏内 {
+      width: min(calc(100% - 32px), var(--最大宽度));
+      margin: 0 auto;
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .标识 {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .标识徽章 {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--强调色), #e6a96e);
+      color: #fffaf4;
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      box-shadow: 0 10px 25px rgba(198, 90, 46, 0.25);
+    }
+
+    .标识文字 strong {
+      display: block;
+      font-size: 1rem;
+      letter-spacing: 0.04em;
+    }
+
+    .标识文字 span {
+      color: var(--次文字);
+      font-size: 0.84rem;
+    }
+
+    .导航 {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 14px;
+      color: var(--次文字);
+      font-size: 0.94rem;
+    }
+
+    .导航 a {
+      transition: color var(--过渡), transform var(--过渡);
+    }
+
+    .导航 a:hover {
+      color: var(--强调色);
+      transform: translateY(-1px);
+    }
+
+    .首屏 {
+      padding: 72px 0 40px;
+    }
+
+    .首屏网格 {
+      display: grid;
+      grid-template-columns: 1.25fr 0.85fr;
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    .主视觉,
+    .侧边信息,
+    .模块卡片,
+    .时间轴卡片,
+    .适合人群卡片,
+    .底部卡片 {
+      background: var(--卡片色);
+      border: 1px solid var(--卡片边框);
+      box-shadow: var(--阴影);
+      backdrop-filter: blur(14px);
+    }
+
+    .主视觉 {
+      border-radius: 36px;
+      padding: 42px;
+      position: relative;
+      overflow: hidden;
+      min-height: 620px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background:
+        linear-gradient(145deg, rgba(255, 248, 238, 0.92), rgba(248, 238, 225, 0.82)),
+        linear-gradient(120deg, rgba(198, 90, 46, 0.08), transparent 40%);
+    }
+
+    .主视觉::before {
+      content: "SANJIN";
+      position: absolute;
+      right: -18px;
+      top: 32px;
+      font-size: clamp(4.8rem, 12vw, 9rem);
+      font-weight: 900;
+      line-height: 0.85;
+      color: rgba(31, 42, 36, 0.06);
+      letter-spacing: 0.08em;
+      pointer-events: none;
+    }
+
+    .小标签 {
+      width: fit-content;
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(198, 90, 46, 0.18);
+      background: rgba(198, 90, 46, 0.08);
+      color: var(--强调深);
+      font-size: 0.84rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+    }
+
+    .首屏标题 {
+      margin-top: 20px;
+      font-family: var(--衬线字体);
+      font-size: clamp(2.5rem, 6vw, 5.6rem);
+      line-height: 1.08;
+      letter-spacing: -0.04em;
+      max-width: 10em;
+    }
+
+    .首屏标题 span {
+      color: var(--强调色);
+    }
+
+    .首屏说明 {
+      max-width: 640px;
+      margin-top: 20px;
+      color: var(--次文字);
+      font-size: 1.08rem;
+    }
+
+    .首屏按钮组 {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 30px;
+    }
+
+    .按钮 {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 52px;
+      padding: 0 22px;
+      border-radius: 999px;
+      font-weight: 700;
+      transition: transform var(--过渡), box-shadow var(--过渡), background var(--过渡);
+    }
+
+    .按钮.主按钮 {
+      background: var(--背景深);
+      color: #fff8f1;
+      box-shadow: 0 12px 28px rgba(31, 42, 36, 0.2);
+    }
+
+    .按钮.次按钮 {
+      border: 1px solid rgba(31, 42, 36, 0.14);
+      color: var(--背景深);
+      background: rgba(255, 255, 255, 0.38);
+    }
+
+    .按钮:hover {
+      transform: translateY(-2px);
+    }
+
+    .数据带 {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 36px;
+    }
+
+    .数据项 {
+      padding: 18px 16px;
+      border-radius: var(--小圆角);
+      background: rgba(255, 255, 255, 0.45);
+      border: 1px solid rgba(31, 42, 36, 0.08);
+    }
+
+    .数据项 strong {
+      display: block;
+      font-family: var(--等宽字体);
+      font-size: 1.4rem;
+      color: var(--背景深);
+    }
+
+    .数据项 span {
+      display: block;
+      margin-top: 4px;
+      color: var(--次文字);
+      font-size: 0.9rem;
+    }
+
+    .侧边信息 {
+      border-radius: 30px;
+      padding: 28px;
+      display: grid;
+      grid-template-rows: auto auto 1fr;
+      gap: 18px;
+      background:
+        linear-gradient(180deg, rgba(31, 42, 36, 0.94), rgba(36, 47, 41, 0.92)),
+        linear-gradient(145deg, rgba(255, 255, 255, 0.08), transparent);
+      color: #f7efe2;
+    }
+
+    .侧边信息 .小标签 {
+      background: rgba(255, 255, 255, 0.08);
+      color: #f6d7bf;
+      border-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .侧边标题 {
+      font-family: var(--衬线字体);
+      font-size: 2rem;
+      line-height: 1.25;
+    }
+
+    .侧边段落 {
+      color: rgba(247, 239, 226, 0.74);
+    }
+
+    .身份清单,
+    .方法清单 {
+      display: grid;
+      gap: 12px;
+    }
+
+    .身份项,
+    .方法项 {
+      padding: 14px 16px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .身份项 strong,
+    .方法项 strong {
+      display: block;
+      font-size: 0.95rem;
+      color: #fff7ed;
+    }
+
+    .身份项 span,
+    .方法项 span {
+      display: block;
+      margin-top: 4px;
+      color: rgba(247, 239, 226, 0.7);
+      font-size: 0.88rem;
+    }
+
+    section {
+      padding: 18px 0 0;
+    }
+
+    .章节抬头 {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 22px;
+    }
+
+    .章节标记 {
+      color: var(--强调色);
+      font-size: 0.82rem;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+    }
+
+    .章节标题 {
+      margin-top: 8px;
+      font-family: var(--衬线字体);
+      font-size: clamp(1.8rem, 3vw, 3rem);
+      line-height: 1.18;
+    }
+
+    .章节说明 {
+      max-width: 640px;
+      color: var(--次文字);
+    }
+
+    .三栏网格 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .模块卡片 {
+      border-radius: 24px;
+      padding: 28px;
+      min-height: 240px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .模块卡片::after {
+      content: "";
+      position: absolute;
+      right: -20px;
+      bottom: -20px;
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(198, 90, 46, 0.14), transparent 70%);
+      pointer-events: none;
+    }
+
+    .模块序号 {
+      font-family: var(--等宽字体);
+      font-size: 0.88rem;
+      color: var(--强调色);
+      letter-spacing: 0.12em;
+    }
+
+    .模块卡片 h3 {
+      margin-top: 12px;
+      font-family: var(--衬线字体);
+      font-size: 1.45rem;
+    }
+
+    .模块卡片 p {
+      margin-top: 12px;
+      color: var(--次文字);
+    }
+
+    .模块标签组 {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    .模块标签组 span {
+      padding: 7px 10px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      color: var(--强调深);
+      background: rgba(198, 90, 46, 0.08);
+      border: 1px solid rgba(198, 90, 46, 0.1);
+    }
+
+    .双栏布局 {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 18px;
+    }
+
+    .时间轴卡片,
+    .适合人群卡片,
+    .底部卡片 {
+      border-radius: 28px;
+      padding: 30px;
+    }
+
+    .时间轴 {
+      display: grid;
+      gap: 18px;
+      margin-top: 8px;
+    }
+
+    .时间轴项 {
+      display: grid;
+      grid-template-columns: 88px 1fr;
+      gap: 16px;
+      align-items: start;
+      padding-top: 18px;
+      border-top: 1px solid rgba(31, 42, 36, 0.08);
+    }
+
+    .时间轴项:first-child {
+      border-top: none;
+      padding-top: 0;
+    }
+
+    .时间轴年份 {
+      font-family: var(--等宽字体);
+      color: var(--强调色);
+      font-weight: 700;
+      font-size: 0.92rem;
+    }
+
+    .时间轴内容 h3 {
+      font-size: 1.1rem;
+    }
+
+    .时间轴内容 p {
+      margin-top: 6px;
+      color: var(--次文字);
+    }
+
+    .引语块 {
+      border-radius: 22px;
+      padding: 26px;
+      background: linear-gradient(135deg, rgba(31, 42, 36, 0.97), rgba(28, 37, 33, 0.92));
+      color: #f9f1e6;
+      min-height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .引语块 p {
+      font-family: var(--衬线字体);
+      font-size: clamp(1.35rem, 2.4vw, 2rem);
+      line-height: 1.6;
+    }
+
+    .引语块 small {
+      display: block;
+      margin-top: 18px;
+      color: rgba(249, 241, 230, 0.68);
+    }
+
+    .适合人群列表 {
+      display: grid;
+      gap: 14px;
+      margin-top: 14px;
+    }
+
+    .人群项 {
+      padding: 18px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.5);
+      border: 1px solid rgba(31, 42, 36, 0.08);
+    }
+
+    .人群项 strong {
+      display: block;
+      font-size: 1rem;
+    }
+
+    .人群项 p {
+      margin-top: 6px;
+      color: var(--次文字);
+      font-size: 0.95rem;
+    }
+
+    .底部区域 {
+      padding: 18px 0 72px;
+    }
+
+    .文章精选区 {
+      display: grid;
+      grid-template-columns: 1.08fr 0.92fr;
+      gap: 18px;
+    }
+
+    .文章列表卡片,
+    .文章引导卡片 {
+      border-radius: 28px;
+      padding: 30px;
+      background: var(--卡片色);
+      border: 1px solid var(--卡片边框);
+      box-shadow: var(--阴影);
+      backdrop-filter: blur(14px);
+    }
+
+    .文章列表 {
+      display: grid;
+      gap: 14px;
+      margin-top: 14px;
+    }
+
+    .文章项 {
+      display: block;
+      padding: 20px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.52);
+      border: 1px solid rgba(31, 42, 36, 0.08);
+      transition: transform var(--过渡), border-color var(--过渡), box-shadow var(--过渡);
+    }
+
+    .文章项:hover {
+      transform: translateY(-3px);
+      border-color: rgba(198, 90, 46, 0.28);
+      box-shadow: 0 16px 36px rgba(41, 28, 14, 0.1);
+    }
+
+    .文章项 span {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      padding: 0 10px;
+      border-radius: 999px;
+      background: rgba(198, 90, 46, 0.08);
+      color: var(--强调深);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+    }
+
+    .文章项 strong {
+      display: block;
+      margin-top: 12px;
+      font-size: 1.12rem;
+      line-height: 1.55;
+    }
+
+    .文章项 p {
+      margin-top: 8px;
+      color: var(--次文字);
+      font-size: 0.94rem;
+    }
+
+    .文章引导卡片 {
+      background: linear-gradient(135deg, rgba(31, 42, 36, 0.96), rgba(34, 45, 39, 0.92));
+      color: #f7efe2;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .文章引导卡片 p {
+      color: rgba(247, 239, 226, 0.72);
+    }
+
+    .底部卡片 {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 20px;
+      background:
+        linear-gradient(130deg, rgba(255, 249, 239, 0.92), rgba(246, 236, 220, 0.88)),
+        linear-gradient(90deg, rgba(198, 90, 46, 0.08), transparent 45%);
+    }
+
+    .联系标题 {
+      font-family: var(--衬线字体);
+      font-size: clamp(1.9rem, 3vw, 3rem);
+      line-height: 1.2;
+    }
+
+    .联系说明 {
+      margin-top: 14px;
+      color: var(--次文字);
+      max-width: 48em;
+    }
+
+    .联系方式组 {
+      display: grid;
+      gap: 12px;
+      align-content: start;
+    }
+
+    .二维码卡片 {
+      padding: 18px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.56);
+      border: 1px solid rgba(31, 42, 36, 0.08);
+      color: var(--主文字);
+    }
+
+    .二维码框 {
+      aspect-ratio: 1 / 1;
+      width: min(100%, 260px);
+      margin: 14px auto 0;
+      border-radius: 22px;
+      border: 1px dashed rgba(31, 42, 36, 0.18);
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.85), rgba(244, 238, 226, 0.96));
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 20px;
+      color: var(--次文字);
+      font-size: 0.92rem;
+      line-height: 1.7;
+    }
+
+    .二维码框 img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      border-radius: 18px;
+      display: block;
+      background: #ffffff;
+    }
+
+    .二维码说明 {
+      margin-top: 12px;
+      color: var(--次文字);
+      font-size: 0.88rem;
+      text-align: center;
+    }
+
+    .联系方式项 {
+      padding: 18px;
+      border-radius: 18px;
+      background: rgba(31, 42, 36, 0.94);
+      color: #f7efe2;
+    }
+
+    .联系方式项 span {
+      display: block;
+      color: rgba(247, 239, 226, 0.66);
+      font-size: 0.84rem;
+      letter-spacing: 0.08em;
+    }
+
+    .联系方式项 strong {
+      display: block;
+      margin-top: 6px;
+      font-size: 1.06rem;
+    }
+
+    .页脚 {
+      padding: 18px 0 36px;
+      color: var(--次文字);
+      font-size: 0.9rem;
+      text-align: center;
+    }
+
+    .淡入 {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .淡入.出现 {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 960px) {
+      .首屏网格,
+      .三栏网格,
+      .文章精选区,
+      .双栏布局,
+      .底部卡片 {
+        grid-template-columns: 1fr;
+      }
+
+      .主视觉 {
+        min-height: auto;
+      }
+
+      .数据带 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .章节抬头 {
+        align-items: start;
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .顶部栏 {
+        position: static;
+      }
+
+      .顶部栏内 {
+        padding: 14px 0;
+        align-items: start;
+        flex-direction: column;
+      }
+
+      .主视觉,
+      .侧边信息,
+      .模块卡片,
+      .时间轴卡片,
+      .适合人群卡片,
+      .底部卡片 {
+        padding: 22px;
+        border-radius: 22px;
+      }
+
+      .首屏 {
+        padding-top: 26px;
+      }
+
+      .首屏标题 {
+        font-size: 2.4rem;
+      }
+
+      .数据带 {
+        grid-template-columns: 1fr;
+      }
+
+      .时间轴项 {
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="顶部栏">
+    <div class="顶部栏内">
+      <div class="标识">
+        <div class="标识徽章">叁</div>
+        <div class="标识文字">
+          <strong>叁斤</strong>
+          <span>用AI开了一家一人公司</span>
+        </div>
+      </div>
+      <nav class="导航">
+        <a href="#关于我">关于我</a>
+        <a href="#我在做什么">我在做什么</a>
+        <a href="#方法体系">方法体系</a>
+        <a href="#适合谁">适合谁</a>
+        <a href="#文章精选">文章精选</a>
+        <a href="#联系">联系</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="页面壳">
+    <section class="首屏">
+      <div class="首屏网格">
+        <article class="主视觉 淡入 出现">
+          <div>
+            <div class="小标签">AI知识库 × 一人公司 × 真实实战派</div>
+            <h1 class="首屏标题">不上班，<span>用AI知识库</span>开了一家一人公司。</h1>
+            <p class="首屏说明">
+              我叫叁斤，30岁，住在惠州。换过20多份工作，也拿过一个月369元的工资。现在我不靠“人设包装”活着，而是靠一套自己真的每天在用的AI知识库系统，把内容、产品、交付和迭代跑起来。
+            </p>
+            <div class="首屏按钮组">
+              <a class="按钮 主按钮" href="#关于我">先认识我</a>
+              <a class="按钮 次按钮" href="#联系">看合作方式</a>
+            </div>
+          </div>
+
+          <div class="数据带">
+            <div class="数据项">
+              <strong>6年</strong>
+              <span>小红书实战经验</span>
+            </div>
+            <div class="数据项">
+              <strong>1000＋</strong>
+              <span>累计培训学员</span>
+            </div>
+            <div class="数据项">
+              <strong>770万＋</strong>
+              <span>操盘过单月GMV项目</span>
+            </div>
+            <div class="数据项">
+              <strong>500＋</strong>
+              <span>付费会员沉淀</span>
+            </div>
+          </div>
+        </article>
+
+        <aside class="侧边信息 淡入">
+          <div class="小标签">现在的我</div>
+          <div>
+            <h2 class="侧边标题">不是技术博主。<br>是把AI真正用进生意里的人。</h2>
+            <p class="侧边段落">
+              我不会写代码出身，但我会用AI、知识库和工作流，把一个人的能力放大成一支小团队的效果。
+            </p>
+          </div>
+
+          <div class="身份清单">
+            <div class="身份项">
+              <strong>自由职业者</strong>
+              <span>居家办公，用系统而不是靠熬时间工作。</span>
+            </div>
+            <div class="身份项">
+              <strong>AI实战派</strong>
+              <span>多AI协作，知识库驱动，强调真实产出和效率结果。</span>
+            </div>
+            <div class="身份项">
+              <strong>系统型创作者</strong>
+              <span>擅长把经验、内容、方法论整理成可复制的产品。</span>
+            </div>
+            <div class="身份项">
+              <strong>专业的老朋友</strong>
+              <span>不站在台上教训人，只把走过的坑和做成的系统讲明白。</span>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="关于我">
+      <div class="章节抬头 淡入">
+        <div>
+          <div class="章节标记">ABOUT SANJIN</div>
+          <h2 class="章节标题">如果只用一句话介绍我。</h2>
+        </div>
+        <p class="章节说明">
+          我不是“突然成功”的那种人。我的价值不在于多天才，而在于我把普通人的困境，一步一步做成了一套能跑的系统。
+        </p>
+      </div>
+
+      <div class="三栏网格">
+        <article class="模块卡片 淡入">
+          <div class="模块序号">01</div>
+          <h3>从底层走出来的人</h3>
+          <p>做过地推、发过传单、换过20多份工作，也经历过负债、收入不稳定、对未来极度迷茫的阶段。所以我说的话，不是站着说话不腰疼。</p>
+          <div class="模块标签组">
+            <span>真实经历</span>
+            <span>普通人视角</span>
+            <span>不装成功学</span>
+          </div>
+        </article>
+
+        <article class="模块卡片 淡入">
+          <div class="模块序号">02</div>
+          <h3>把经验变成系统的人</h3>
+          <p>我最擅长的，不是某个平台技巧，而是把散乱经验整理成方法论、SOP、知识库和产品，让原本只能靠我自己完成的事，开始可复制、可复用。</p>
+          <div class="模块标签组">
+            <span>方法论</span>
+            <span>知识库搭建</span>
+            <span>工作流设计</span>
+          </div>
+        </article>
+
+        <article class="模块卡片 淡入">
+          <div class="模块序号">03</div>
+          <h3>用AI做一人公司的人</h3>
+          <p>我现在所有业务的核心，不是某一个爆款账号，而是本地知识库、内容生产工作流、可出售的知识产品，以及持续迭代的个人系统。</p>
+          <div class="模块标签组">
+            <span>AI知识库</span>
+            <span>一人公司</span>
+            <span>长期主义</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="我在做什么">
+      <div class="双栏布局">
+        <article class="时间轴卡片 淡入">
+          <div class="章节标记">PATH</div>
+          <h2 class="章节标题">我是怎么走到这里的。</h2>
+          <div class="时间轴">
+            <div class="时间轴项">
+              <div class="时间轴年份">2017－2020</div>
+              <div class="时间轴内容">
+                <h3>反复换工作，也反复怀疑自己</h3>
+                <p>那几年我做过很多工作，没有一份真正让我看到长期希望。低收入、负债、迷茫，这些都是真的。</p>
+              </div>
+            </div>
+            <div class="时间轴项">
+              <div class="时间轴年份">2020</div>
+              <div class="时间轴内容">
+                <h3>第一次在互联网里看到机会</h3>
+                <p>开始接触小红书，一周涨粉1000＋，第一个月接广告赚到2000元。那一刻我意识到，普通人也许真的能靠互联网重新组织自己的人生。</p>
+              </div>
+            </div>
+            <div class="时间轴项">
+              <div class="时间轴年份">2020－2024</div>
+              <div class="时间轴内容">
+                <h3>长期深耕内容、运营和变现</h3>
+                <p>做过商单、电商、虚拟产品、获客服务、IP培训，也操盘过高GMV项目。不是只会讲概念，而是每个阶段都亲自下场做过。</p>
+              </div>
+            </div>
+            <div class="时间轴项">
+              <div class="时间轴年份">2025－现在</div>
+              <div class="时间轴内容">
+                <h3>从“做账号”升级到“做系统”</h3>
+                <p>微信被封、平台规则变化、产品下架，这些事情反而让我更确定一件事：账号是消耗品，知识库才是资产。于是我开始把重心彻底放到AI知识库和一人公司系统上。</p>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <aside class="引语块 淡入">
+          <p>“我不是教你怎么一夜翻身。<br>我更想做的，是把一个普通人怎么靠系统跑起来，尽量讲清楚。”</p>
+          <small>这也是我现在做内容、做产品、做培训的底层出发点。</small>
+        </aside>
+      </div>
+    </section>
+
+    <section id="方法体系">
+      <div class="章节抬头 淡入">
+        <div>
+          <div class="章节标记">SYSTEM</div>
+          <h2 class="章节标题">我现在主要在做三件事。</h2>
+        </div>
+        <p class="章节说明">
+          表面上看我是内容创作者，实际上我在搭一整套“个人能力放大系统”：内容能持续产出，方法能不断沉淀，产品能稳定交付。
+        </p>
+      </div>
+
+      <div class="三栏网格">
+        <article class="模块卡片 淡入">
+          <div class="模块序号">A</div>
+          <h3>做内容</h3>
+          <p>围绕“不上班、AI知识库、一人公司”持续输出公众号和小红书内容。不是纯情绪表达，而是让读者看到问题、方法和路径。</p>
+          <div class="模块标签组">
+            <span>公众号</span>
+            <span>小红书</span>
+            <span>内容体系</span>
+          </div>
+        </article>
+
+        <article class="模块卡片 淡入">
+          <div class="模块序号">B</div>
+          <h3>做产品</h3>
+          <p>把多年实战经验整理成《一人变现系统》、手册、教程、知识库和工具，让别人不只是“听懂”，而是真的能拿回去用。</p>
+          <div class="模块标签组">
+            <span>知识产品</span>
+            <span>AI工作流</span>
+            <span>实战教程</span>
+          </div>
+        </article>
+
+        <article class="模块卡片 淡入">
+          <div class="模块序号">C</div>
+          <h3>做培训</h3>
+          <p>面向个体和团队，帮助他们搭建自己的AI知识库和工作流。重点不在炫技，而在让AI真正变成懂业务、能协作的“第二大脑”。</p>
+          <div class="模块标签组">
+            <span>个人系统</span>
+            <span>企业培训</span>
+            <span>落地提效</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="适合谁">
+      <div class="双栏布局">
+        <article class="适合人群卡片 淡入">
+          <div class="章节标记">WHO IT HELPS</div>
+          <h2 class="章节标题">哪些人会更适合关注我。</h2>
+          <div class="适合人群列表">
+            <div class="人群项">
+              <strong>想摆脱死工资，但还不知道从哪开始的人</strong>
+              <p>你不一定现在就要辞职，但你大概率已经意识到，只靠一份工作，风险太高了。</p>
+            </div>
+            <div class="人群项">
+              <strong>已经是自由职业者，但一个人忙不过来的人</strong>
+              <p>你不是不努力，而是缺一套系统。AI如果还停留在聊天框阶段，就很难真正放大你的产出。</p>
+            </div>
+            <div class="人群项">
+              <strong>想把经验做成内容、产品和服务的人</strong>
+              <p>如果你手上已经有行业经验、服务经验或生活经验，那它们都有机会被整理成可以卖、可以传播、可以复用的资产。</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="适合人群卡片 淡入">
+          <div class="章节标记">WHAT I BELIEVE</div>
+          <h2 class="章节标题">我相信的，不只是“会用AI”。</h2>
+          <div class="适合人群列表">
+            <div class="人群项">
+              <strong>知识库大于账号</strong>
+              <p>平台规则会变，账号也会出问题，但沉淀下来的知识、方法和工作流，会越用越值钱。</p>
+            </div>
+            <div class="人群项">
+              <strong>系统大于勤奋</strong>
+              <p>靠硬扛可以撑一阵，但很难撑很久。真正可持续的状态，是让流程自己帮你跑起来。</p>
+            </div>
+            <div class="人群项">
+              <strong>真实大于包装</strong>
+              <p>我不喜欢贩卖焦虑，也不喜欢把自己包装成高高在上的老师。做过什么、踩过什么坑、验证过什么，我会说清楚。</p>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="文章精选">
+      <div class="章节抬头 淡入">
+        <div>
+          <div class="章节标记">ARTICLES</div>
+          <h2 class="章节标题">如果你想先看内容，可以从这几篇开始。</h2>
+        </div>
+        <p class="章节说明">
+          这几篇更接近我真正想表达的核心：不是单点工具教学，而是一个普通人怎么把AI、知识库和内容系统接进自己的生意里。
+        </p>
+      </div>
+
+      <div class="文章精选区">
+        <article class="文章列表卡片 淡入">
+          <div class="章节标记">精选文章</div>
+          <div class="文章列表">
+            <a class="文章项" href="https://my.feishu.cn/docx/MqiDdFBAEobGfHxOagbcV7bHnjc?from=from_copylink" target="_blank" rel="noopener noreferrer">
+              <span>AI知识库拆解</span>
+              <strong>Obsidian ＋ Claude Code，它们正在替我赚钱丨我的AI知识库拆解</strong>
+              <p>看我怎么把本地知识库、AI协作和内容生产接起来，让系统开始真正替我工作。</p>
+            </a>
+
+            <a class="文章项" href="https://my.feishu.cn/wiki/FS2Aw68TOiHFXUk52N4cwPHEnBb?from=from_copylink" target="_blank" rel="noopener noreferrer">
+              <span>实操复盘</span>
+              <strong>做小红书5年，一个人，一套AI体系，月入10w＋的实操复盘</strong>
+              <p>不是一句“我做到了”，而是把一个人怎么用系统撑起内容、变现和迭代，尽量拆给你看。</p>
+            </a>
+
+            <a class="文章项" href="https://my.feishu.cn/wiki/KouqwnI1XiPnEBkBjpgc1ttsntg?from=from_copylink" target="_blank" rel="noopener noreferrer">
+              <span>虚拟产品</span>
+              <strong>如何用AI原创虚拟产品在小红书赚钱？——选品篇</strong>
+              <p>如果你更关注“普通人怎么把经验和内容变成产品”，这篇会更适合你作为入口。</p>
+            </a>
+          </div>
+        </article>
+
+        <aside class="文章引导卡片 淡入">
+          <div>
+            <div class="章节标记">为什么先看文章</div>
+            <h2 class="章节标题">因为文章比标签，更能说明我是谁。</h2>
+          </div>
+          <p>
+            很多主页都会把自己写得很厉害，但我更希望你先看内容。看完这些文章，你会更容易判断：我讲的东西，是不是你现在真正需要的。
+          </p>
+          <div class="方法清单">
+            <div class="方法项">
+              <strong>先看系统</strong>
+              <span>你会看到AI不是噱头，而是一整套知识库和工作流的协作方式。</span>
+            </div>
+            <div class="方法项">
+              <strong>再看路径</strong>
+              <span>你会更清楚，一个普通人是怎么把内容、产品和收入路径慢慢搭起来的。</span>
+            </div>
+            <div class="方法项">
+              <strong>最后看合作</strong>
+              <span>如果价值观和方法一致，再继续往下聊，会更高效。</span>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="底部区域" id="联系">
+      <div class="底部卡片 淡入">
+        <div>
+          <div class="章节标记">CONNECT</div>
+          <h2 class="联系标题">如果你也想用AI，搭一套更像“公司”而不是“副业试试”的个人系统。</h2>
+          <p class="联系说明">
+            可以先从关注我的内容开始。我的内容不会只告诉你“AI很厉害”，而是尽量让你看见：一个普通人，怎么把内容、产品、工作流和收入路径慢慢搭起来。
+          </p>
+          <div class="首屏按钮组">
+            <a class="按钮 主按钮" href="javascript:void(0)">公众号：叁斤</a>
+            <a class="按钮 次按钮" href="javascript:void(0)">年度会员：一人变现系统</a>
+          </div>
+        </div>
+
+        <div class="联系方式组">
+          <div class="二维码卡片">
+            <span>微信联系</span>
+            <strong style="display:block; margin-top:6px; font-size:1.18rem;">Msan54</strong>
+            <div class="二维码框">
+              <img src="ScreenShot_2026-04-24_112421_377.png" alt="叁斤微信二维码" loading="lazy" decoding="async">
+            </div>
+            <div class="二维码说明">扫码即可添加微信。若手机端打开网页，也可以直接搜索微信号：Msan54。</div>
+          </div>
+
+          <div class="联系方式项">
+            <span>身份标签</span>
+            <strong>自由职业者／AI超级个体实战派／系统型创作者</strong>
+          </div>
+          <div class="联系方式项">
+            <span>主要方向</span>
+            <strong>AI知识库搭建、个人内容系统、经验产品化、一人公司方法论</strong>
+          </div>
+          <div class="联系方式项">
+            <span>适合合作</span>
+            <strong>个人系统搭建、AI提效培训、内容方法论产品、企业内部AI知识库启蒙</strong>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="页脚">
+      叁斤的个人介绍主页｜基于现有知识库信息整理制作
+    </div>
+  </main>
+
+  <script>
+    const 观察器 = new IntersectionObserver((条目们) => {
+      条目们.forEach((条目) => {
+        if (条目.isIntersecting) {
+          条目.target.classList.add("出现");
+          观察器.unobserve(条目.target);
+        }
+      });
+    }, { threshold: 0.16 });
+
+    document.querySelectorAll(".淡入").forEach((元素) => {
+      if (!元素.classList.contains("出现")) {
+        观察器.observe(元素);
+      }
+    });
+  </script>
+</body>
+</html>
