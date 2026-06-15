@@ -1,0 +1,7 @@
+# 只部署网页本身，以下构建 / 源文件不上线
+_模板.html
+build.py
+index.html.bak
+飞书文章备份
+.gitignore
+.vercelignore

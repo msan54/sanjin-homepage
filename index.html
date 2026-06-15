@@ -3,767 +3,187 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>叁斤｜用AI开了一家一人公司</title>
-  <meta name="description" content="叁斤的个人介绍主页。不上班，用AI知识库开了一家一人公司。">
+  <title>叁斤｜用 AI 做内容获客</title>
+  <meta name="description" content="叁斤的个人介绍。不上班，用 AI 知识库开了一家一人公司。目前在用 AI 做内容获客，帮你把个人的经验和能力，变成能持续带来客户的内容系统。">
   <style>
     :root {
       --背景色: #f4eee2;
       --背景深: #1f2a24;
       --主文字: #1c1c18;
-      --次文字: #5f5b50;
+      --次文字: #615c51;
       --强调色: #c65a2e;
       --强调深: #8f3f1e;
-      --卡片色: rgba(255, 250, 242, 0.78);
-      --卡片边框: rgba(34, 28, 21, 0.09);
-      --阴影: 0 24px 60px rgba(41, 28, 14, 0.12);
-      --大圆角: 28px;
-      --中圆角: 20px;
-      --小圆角: 14px;
-      --最大宽度: 1180px;
-      --过渡: 0.35s ease;
+      --卡片色: rgba(255, 250, 242, 0.82);
+      --卡片实色: #fdf8ef;
+      --卡片边框: rgba(34, 28, 21, 0.08);
+      --阴影: 0 16px 44px rgba(41, 28, 14, 0.09);
+      --阴影强: 0 24px 60px rgba(41, 28, 14, 0.13);
       --无衬线字体: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC", "Source Han Sans SC", system-ui, -apple-system, sans-serif;
-      --衬线字体: "Songti SC", "STSong", "SimSun", "Noto Serif CJK SC", "Source Han Serif SC", serif;
-      --等宽字体: "SFMono-Regular", "Menlo", "Monaco", "Consolas", "Liberation Mono", monospace;
+      --衬线字体: "Songti SC", "STSong", "Noto Serif CJK SC", "Source Han Serif SC", serif;
+      --等宽字体: "SFMono-Regular", "Menlo", "Monaco", "Consolas", monospace;
     }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
     body {
-      font-family: var(--无衬线字体);
-      color: var(--主文字);
+      font-family: var(--无衬线字体); color: var(--主文字);
       background:
-        radial-gradient(circle at top left, rgba(198, 90, 46, 0.14), transparent 28%),
-        radial-gradient(circle at 85% 18%, rgba(31, 42, 36, 0.12), transparent 24%),
-        linear-gradient(180deg, #f7f1e6 0%, #f1e7d7 45%, #efe6da 100%);
-      line-height: 1.75;
-      overflow-x: hidden;
+        radial-gradient(circle at top left, rgba(198, 90, 46, 0.12), transparent 30%),
+        radial-gradient(circle at 88% 15%, rgba(31, 42, 36, 0.10), transparent 26%),
+        linear-gradient(180deg, #f7f1e6 0%, #f1e7d7 48%, #efe6da 100%);
+      line-height: 1.78; overflow-x: hidden;
     }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    .页面壳 { width: min(calc(100% - 36px), 1160px); margin: 0 auto; }
 
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
+    /* 顶部栏 · 导航平铺 */
+    .顶部栏 { position: sticky; top: 0; z-index: 20; backdrop-filter: blur(18px); background: rgba(244, 238, 226, 0.78); border-bottom: 1px solid rgba(34, 28, 21, 0.07); }
+    .顶部栏内 { width: min(calc(100% - 36px), 1160px); margin: 0 auto; min-height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .标识 { display: flex; align-items: center; gap: 14px; flex-shrink: 0; }
+    .标识徽章 { width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg, var(--强调色), #e6a96e); color: #fffaf4; display: grid; place-items: center; font-weight: 800; letter-spacing: 0.04em; box-shadow: 0 10px 24px rgba(198, 90, 46, 0.24); }
+    .标识文字 strong { display: block; font-size: 1.04rem; letter-spacing: 0.04em; }
+    .标识文字 span { color: var(--次文字); font-size: 0.84rem; }
+    .导航 { display: flex; align-items: center; flex-wrap: wrap; gap: 32px; color: var(--次文字); font-size: 1rem; }
+    .导航 a { position: relative; transition: color 0.3s ease; }
+    .导航 a:hover { color: var(--强调色); }
+    .导航 a::after { content: ""; position: absolute; left: 0; bottom: -6px; width: 0; height: 2px; background: var(--强调色); transition: width 0.3s ease; }
+    .导航 a:hover::after { width: 100%; }
 
-    img {
-      max-width: 100%;
-      display: block;
-    }
-
-    .页面壳 {
-      width: min(calc(100% - 32px), var(--最大宽度));
-      margin: 0 auto;
-    }
-
-    .顶部栏 {
-      position: sticky;
-      top: 0;
-      z-index: 20;
-      backdrop-filter: blur(18px);
-      background: rgba(244, 238, 226, 0.72);
-      border-bottom: 1px solid rgba(34, 28, 21, 0.08);
-    }
-
-    .顶部栏内 {
-      width: min(calc(100% - 32px), var(--最大宽度));
-      margin: 0 auto;
-      min-height: 72px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 18px;
-    }
-
-    .标识 {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
-
-    .标识徽章 {
-      width: 42px;
-      height: 42px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--强调色), #e6a96e);
-      color: #fffaf4;
-      display: grid;
-      place-items: center;
-      font-weight: 800;
-      letter-spacing: 0.06em;
-      box-shadow: 0 10px 25px rgba(198, 90, 46, 0.25);
-    }
-
-    .标识文字 strong {
-      display: block;
-      font-size: 1rem;
-      letter-spacing: 0.04em;
-    }
-
-    .标识文字 span {
-      color: var(--次文字);
-      font-size: 0.84rem;
-    }
-
-    .导航 {
-      display: flex;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 14px;
-      color: var(--次文字);
-      font-size: 0.94rem;
-    }
-
-    .导航 a {
-      transition: color var(--过渡), transform var(--过渡);
-    }
-
-    .导航 a:hover {
-      color: var(--强调色);
-      transform: translateY(-1px);
-    }
-
-    .首屏 {
-      padding: 72px 0 40px;
-    }
-
-    .首屏网格 {
-      display: grid;
-      grid-template-columns: 1.25fr 0.85fr;
-      gap: 24px;
-      align-items: stretch;
-    }
-
-    .主视觉,
-    .侧边信息,
-    .模块卡片,
-    .时间轴卡片,
-    .适合人群卡片,
-    .底部卡片 {
-      background: var(--卡片色);
-      border: 1px solid var(--卡片边框);
-      box-shadow: var(--阴影);
-      backdrop-filter: blur(14px);
-    }
-
+    /* 首屏 · 竖版聚焦 */
+    .首屏 { padding: 60px 0 30px; }
     .主视觉 {
-      border-radius: 36px;
-      padding: 42px;
-      position: relative;
-      overflow: hidden;
-      min-height: 620px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      background:
-        linear-gradient(145deg, rgba(255, 248, 238, 0.92), rgba(248, 238, 225, 0.82)),
-        linear-gradient(120deg, rgba(198, 90, 46, 0.08), transparent 40%);
-    }
-
-    .主视觉::before {
-      content: "SANJIN";
-      position: absolute;
-      right: -18px;
-      top: 32px;
-      font-size: clamp(4.8rem, 12vw, 9rem);
-      font-weight: 900;
-      line-height: 0.85;
-      color: rgba(31, 42, 36, 0.06);
-      letter-spacing: 0.08em;
-      pointer-events: none;
-    }
-
-    .小标签 {
-      width: fit-content;
-      padding: 8px 14px;
-      border-radius: 999px;
-      border: 1px solid rgba(198, 90, 46, 0.18);
-      background: rgba(198, 90, 46, 0.08);
-      color: var(--强调深);
-      font-size: 0.84rem;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-    }
-
-    .首屏标题 {
-      margin-top: 20px;
-      font-family: var(--衬线字体);
-      font-size: clamp(2.5rem, 6vw, 5.6rem);
-      line-height: 1.08;
-      letter-spacing: -0.04em;
-      max-width: 10em;
-    }
-
-    .首屏标题 span {
-      color: var(--强调色);
-    }
-
-    .首屏说明 {
-      max-width: 640px;
-      margin-top: 20px;
-      color: var(--次文字);
-      font-size: 1.08rem;
-    }
-
-    .首屏按钮组 {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 14px;
-      margin-top: 30px;
-    }
-
-    .按钮 {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      min-height: 52px;
-      padding: 0 22px;
-      border-radius: 999px;
-      font-weight: 700;
-      transition: transform var(--过渡), box-shadow var(--过渡), background var(--过渡);
-    }
-
-    .按钮.主按钮 {
-      background: var(--背景深);
-      color: #fff8f1;
-      box-shadow: 0 12px 28px rgba(31, 42, 36, 0.2);
-    }
-
-    .按钮.次按钮 {
-      border: 1px solid rgba(31, 42, 36, 0.14);
-      color: var(--背景深);
-      background: rgba(255, 255, 255, 0.38);
-    }
-
-    .按钮:hover {
-      transform: translateY(-2px);
-    }
-
-    .数据带 {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 14px;
-      margin-top: 36px;
-    }
-
-    .数据项 {
-      padding: 18px 16px;
-      border-radius: var(--小圆角);
-      background: rgba(255, 255, 255, 0.45);
-      border: 1px solid rgba(31, 42, 36, 0.08);
-    }
-
-    .数据项 strong {
-      display: block;
-      font-family: var(--等宽字体);
-      font-size: 1.4rem;
-      color: var(--背景深);
-    }
-
-    .数据项 span {
-      display: block;
-      margin-top: 4px;
-      color: var(--次文字);
-      font-size: 0.9rem;
-    }
-
-    .侧边信息 {
-      border-radius: 30px;
-      padding: 28px;
-      display: grid;
-      grid-template-rows: auto auto 1fr;
-      gap: 18px;
-      background:
-        linear-gradient(180deg, rgba(31, 42, 36, 0.94), rgba(36, 47, 41, 0.92)),
-        linear-gradient(145deg, rgba(255, 255, 255, 0.08), transparent);
-      color: #f7efe2;
-    }
-
-    .侧边信息 .小标签 {
-      background: rgba(255, 255, 255, 0.08);
-      color: #f6d7bf;
-      border-color: rgba(255, 255, 255, 0.1);
-    }
-
-    .侧边标题 {
-      font-family: var(--衬线字体);
-      font-size: 2rem;
-      line-height: 1.25;
-    }
-
-    .侧边段落 {
-      color: rgba(247, 239, 226, 0.74);
-    }
-
-    .身份清单,
-    .方法清单 {
-      display: grid;
-      gap: 12px;
-    }
-
-    .身份项,
-    .方法项 {
-      padding: 14px 16px;
-      border-radius: 16px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-    }
-
-    .身份项 strong,
-    .方法项 strong {
-      display: block;
-      font-size: 0.95rem;
-      color: #fff7ed;
-    }
-
-    .身份项 span,
-    .方法项 span {
-      display: block;
-      margin-top: 4px;
-      color: rgba(247, 239, 226, 0.7);
-      font-size: 0.88rem;
-    }
-
-    section {
-      padding: 18px 0 0;
-    }
-
-    .章节抬头 {
-      display: flex;
-      align-items: end;
-      justify-content: space-between;
-      gap: 24px;
-      margin-bottom: 22px;
-    }
-
-    .章节标记 {
-      color: var(--强调色);
-      font-size: 0.82rem;
-      font-weight: 800;
-      letter-spacing: 0.16em;
-    }
-
-    .章节标题 {
-      margin-top: 8px;
-      font-family: var(--衬线字体);
-      font-size: clamp(1.8rem, 3vw, 3rem);
-      line-height: 1.18;
-    }
-
-    .章节说明 {
-      max-width: 640px;
-      color: var(--次文字);
-    }
-
-    .三栏网格 {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 18px;
-    }
-
-    .模块卡片 {
-      border-radius: 24px;
-      padding: 28px;
-      min-height: 240px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .模块卡片::after {
-      content: "";
-      position: absolute;
-      right: -20px;
-      bottom: -20px;
-      width: 110px;
-      height: 110px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(198, 90, 46, 0.14), transparent 70%);
-      pointer-events: none;
-    }
-
-    .模块序号 {
-      font-family: var(--等宽字体);
-      font-size: 0.88rem;
-      color: var(--强调色);
-      letter-spacing: 0.12em;
-    }
-
-    .模块卡片 h3 {
-      margin-top: 12px;
-      font-family: var(--衬线字体);
-      font-size: 1.45rem;
-    }
-
-    .模块卡片 p {
-      margin-top: 12px;
-      color: var(--次文字);
-    }
-
-    .模块标签组 {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 16px;
-    }
-
-    .模块标签组 span {
-      padding: 7px 10px;
-      border-radius: 999px;
-      font-size: 0.8rem;
-      color: var(--强调深);
-      background: rgba(198, 90, 46, 0.08);
-      border: 1px solid rgba(198, 90, 46, 0.1);
-    }
-
-    .双栏布局 {
-      display: grid;
-      grid-template-columns: 1.05fr 0.95fr;
-      gap: 18px;
-    }
-
-    .时间轴卡片,
-    .适合人群卡片,
-    .底部卡片 {
-      border-radius: 28px;
-      padding: 30px;
-    }
-
-    .时间轴 {
-      display: grid;
-      gap: 18px;
-      margin-top: 8px;
-    }
-
-    .时间轴项 {
-      display: grid;
-      grid-template-columns: 88px 1fr;
-      gap: 16px;
-      align-items: start;
-      padding-top: 18px;
-      border-top: 1px solid rgba(31, 42, 36, 0.08);
-    }
-
-    .时间轴项:first-child {
-      border-top: none;
-      padding-top: 0;
-    }
-
-    .时间轴年份 {
-      font-family: var(--等宽字体);
-      color: var(--强调色);
-      font-weight: 700;
-      font-size: 0.92rem;
-    }
-
-    .时间轴内容 h3 {
-      font-size: 1.1rem;
-    }
-
-    .时间轴内容 p {
-      margin-top: 6px;
-      color: var(--次文字);
-    }
-
-    .引语块 {
-      border-radius: 22px;
-      padding: 26px;
-      background: linear-gradient(135deg, rgba(31, 42, 36, 0.97), rgba(28, 37, 33, 0.92));
-      color: #f9f1e6;
-      min-height: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .引语块 p {
-      font-family: var(--衬线字体);
-      font-size: clamp(1.35rem, 2.4vw, 2rem);
-      line-height: 1.6;
-    }
-
-    .引语块 small {
-      display: block;
-      margin-top: 18px;
-      color: rgba(249, 241, 230, 0.68);
-    }
-
-    .适合人群列表 {
-      display: grid;
-      gap: 14px;
-      margin-top: 14px;
-    }
-
-    .人群项 {
-      padding: 18px;
-      border-radius: 18px;
-      background: rgba(255, 255, 255, 0.5);
-      border: 1px solid rgba(31, 42, 36, 0.08);
-    }
-
-    .人群项 strong {
-      display: block;
-      font-size: 1rem;
-    }
-
-    .人群项 p {
-      margin-top: 6px;
-      color: var(--次文字);
-      font-size: 0.95rem;
-    }
-
-    .底部区域 {
-      padding: 18px 0 72px;
-    }
-
-    .文章精选区 {
-      display: grid;
-      grid-template-columns: 1.08fr 0.92fr;
-      gap: 18px;
-    }
-
-    .文章列表卡片,
-    .文章引导卡片 {
-      border-radius: 28px;
-      padding: 30px;
-      background: var(--卡片色);
-      border: 1px solid var(--卡片边框);
-      box-shadow: var(--阴影);
-      backdrop-filter: blur(14px);
-    }
-
-    .文章列表 {
-      display: grid;
-      gap: 14px;
-      margin-top: 14px;
-    }
-
-    .文章项 {
-      display: block;
-      padding: 20px;
-      border-radius: 20px;
-      background: rgba(255, 255, 255, 0.52);
-      border: 1px solid rgba(31, 42, 36, 0.08);
-      transition: transform var(--过渡), border-color var(--过渡), box-shadow var(--过渡);
-    }
-
-    .文章项:hover {
-      transform: translateY(-3px);
-      border-color: rgba(198, 90, 46, 0.28);
-      box-shadow: 0 16px 36px rgba(41, 28, 14, 0.1);
-    }
-
-    .文章项 span {
-      display: inline-flex;
-      align-items: center;
-      min-height: 28px;
-      padding: 0 10px;
-      border-radius: 999px;
-      background: rgba(198, 90, 46, 0.08);
-      color: var(--强调深);
-      font-size: 0.78rem;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-    }
-
-    .文章项 strong {
-      display: block;
-      margin-top: 12px;
-      font-size: 1.12rem;
-      line-height: 1.55;
-    }
-
-    .文章项 p {
-      margin-top: 8px;
-      color: var(--次文字);
-      font-size: 0.94rem;
-    }
-
-    .文章引导卡片 {
-      background: linear-gradient(135deg, rgba(31, 42, 36, 0.96), rgba(34, 45, 39, 0.92));
-      color: #f7efe2;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      gap: 18px;
-    }
-
-    .文章引导卡片 p {
-      color: rgba(247, 239, 226, 0.72);
-    }
-
-    .底部卡片 {
-      display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap: 20px;
-      background:
-        linear-gradient(130deg, rgba(255, 249, 239, 0.92), rgba(246, 236, 220, 0.88)),
-        linear-gradient(90deg, rgba(198, 90, 46, 0.08), transparent 45%);
-    }
-
-    .联系标题 {
-      font-family: var(--衬线字体);
-      font-size: clamp(1.9rem, 3vw, 3rem);
-      line-height: 1.2;
-    }
-
-    .联系说明 {
-      margin-top: 14px;
-      color: var(--次文字);
-      max-width: 48em;
-    }
-
-    .联系方式组 {
-      display: grid;
-      gap: 12px;
-      align-content: start;
-    }
-
-    .二维码卡片 {
-      padding: 18px;
-      border-radius: 18px;
-      background: rgba(255, 255, 255, 0.56);
-      border: 1px solid rgba(31, 42, 36, 0.08);
-      color: var(--主文字);
-    }
-
-    .二维码框 {
-      aspect-ratio: 1 / 1;
-      width: min(100%, 260px);
-      margin: 14px auto 0;
-      border-radius: 22px;
-      border: 1px dashed rgba(31, 42, 36, 0.18);
-      background:
-        linear-gradient(135deg, rgba(255, 255, 255, 0.85), rgba(244, 238, 226, 0.96));
-      display: grid;
-      place-items: center;
-      text-align: center;
-      padding: 20px;
-      color: var(--次文字);
-      font-size: 0.92rem;
-      line-height: 1.7;
-    }
-
-    .二维码框 img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      border-radius: 18px;
-      display: block;
-      background: #ffffff;
-    }
-
-    .二维码说明 {
-      margin-top: 12px;
-      color: var(--次文字);
-      font-size: 0.88rem;
-      text-align: center;
-    }
-
-    .联系方式项 {
-      padding: 18px;
-      border-radius: 18px;
-      background: rgba(31, 42, 36, 0.94);
-      color: #f7efe2;
-    }
-
-    .联系方式项 span {
-      display: block;
-      color: rgba(247, 239, 226, 0.66);
-      font-size: 0.84rem;
-      letter-spacing: 0.08em;
-    }
-
-    .联系方式项 strong {
-      display: block;
-      margin-top: 6px;
-      font-size: 1.06rem;
-    }
-
-    .页脚 {
-      padding: 18px 0 36px;
-      color: var(--次文字);
-      font-size: 0.9rem;
-      text-align: center;
-    }
-
-    .淡入 {
-      opacity: 0;
-      transform: translateY(22px);
-      transition: opacity 0.8s ease, transform 0.8s ease;
-    }
-
-    .淡入.出现 {
-      opacity: 1;
-      transform: translateY(0);
-    }
+      position: relative; overflow: hidden; border-radius: 40px; padding: 64px 60px;
+      border: 1px solid var(--卡片边框); box-shadow: var(--阴影强); backdrop-filter: blur(14px);
+      background: linear-gradient(150deg, rgba(255, 249, 240, 0.95), rgba(247, 237, 223, 0.86)), linear-gradient(120deg, rgba(198, 90, 46, 0.07), transparent 42%);
+    }
+    .主视觉::before { content: "SANJIN"; position: absolute; right: -10px; top: 28px; font-size: clamp(4.5rem, 11vw, 9rem); font-weight: 900; line-height: 0.85; color: rgba(31, 42, 36, 0.05); letter-spacing: 0.06em; pointer-events: none; }
+    .主视觉文案 { position: relative; z-index: 1; max-width: 740px; }
+    .小标签 { display: inline-block; padding: 9px 16px; border-radius: 999px; border: 1px solid rgba(198, 90, 46, 0.18); background: rgba(198, 90, 46, 0.08); color: var(--强调深); font-size: 0.86rem; font-weight: 700; letter-spacing: 0.04em; }
+    .首屏标题 { margin-top: 24px; font-family: var(--衬线字体); font-size: clamp(2.6rem, 6vw, 4.8rem); line-height: 1.14; letter-spacing: -0.03em; }
+    .首屏标题 span { color: var(--强调色); }
+    .首屏说明 { max-width: 660px; margin-top: 22px; color: var(--次文字); font-size: 1.12rem; }
+    .首屏点睛 { margin-top: 18px; font-family: var(--衬线字体); font-size: clamp(1.3rem, 2.2vw, 1.75rem); color: var(--背景深); font-weight: 600; }
+    .首屏点睛 b { color: var(--强调色); }
+    .首屏按钮组 { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 32px; }
+    .按钮 { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 54px; padding: 0 26px; border-radius: 999px; font-weight: 700; font-size: 1rem; font-family: inherit; cursor: pointer; border: none; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+    .按钮.主按钮 { background: var(--背景深); color: #fff8f1; box-shadow: 0 12px 28px rgba(31, 42, 36, 0.2); }
+    .按钮.次按钮 { border: 1px solid rgba(31, 42, 36, 0.16); color: var(--背景深); background: rgba(255, 255, 255, 0.4); }
+    .按钮:hover { transform: translateY(-2px); }
+    .数据带 { position: relative; z-index: 1; margin-top: 48px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+    .数据项 { padding: 20px 18px; border-radius: 16px; background: rgba(255, 255, 255, 0.5); border: 1px solid rgba(31, 42, 36, 0.07); }
+    .数据项 strong { display: block; font-family: var(--等宽字体); font-size: 1.5rem; color: var(--背景深); }
+    .数据项 span { display: block; margin-top: 5px; color: var(--次文字); font-size: 0.9rem; }
+
+    /* 通用章节 */
+    section { padding: 52px 0 0; }
+    .章节抬头 { display: flex; align-items: end; justify-content: space-between; gap: 28px; margin-bottom: 30px; }
+    .章节标记 { color: var(--强调色); font-size: 0.8rem; font-weight: 800; letter-spacing: 0.18em; }
+    .章节标题 { margin-top: 10px; font-family: var(--衬线字体); font-size: clamp(1.9rem, 3vw, 2.8rem); line-height: 1.2; }
+    .章节说明 { max-width: 600px; color: var(--次文字); }
+
+    .三栏网格 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+    .模块卡片 { border-radius: 26px; padding: 32px; min-height: 230px; position: relative; overflow: hidden; background: var(--卡片色); border: 1px solid var(--卡片边框); box-shadow: var(--阴影); backdrop-filter: blur(12px); }
+    .模块卡片::after { content: ""; position: absolute; right: -22px; bottom: -22px; width: 120px; height: 120px; border-radius: 50%; background: radial-gradient(circle, rgba(198, 90, 46, 0.12), transparent 70%); pointer-events: none; }
+    .模块序号 { font-family: var(--等宽字体); font-size: 0.88rem; color: var(--强调色); letter-spacing: 0.1em; }
+    .模块卡片 h3 { margin-top: 14px; font-family: var(--衬线字体); font-size: 1.42rem; }
+    .模块卡片 p { margin-top: 14px; color: var(--次文字); }
+    .模块标签组 { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+    .模块标签组 span { padding: 7px 11px; border-radius: 999px; font-size: 0.8rem; color: var(--强调深); background: rgba(198, 90, 46, 0.08); border: 1px solid rgba(198, 90, 46, 0.1); }
+
+    .双栏布局 { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 20px; }
+    .时间轴卡片, .适合人群卡片 { border-radius: 30px; padding: 36px; background: var(--卡片色); border: 1px solid var(--卡片边框); box-shadow: var(--阴影); backdrop-filter: blur(12px); }
+    .时间轴 { display: grid; gap: 20px; margin-top: 18px; }
+    .时间轴项 { display: grid; grid-template-columns: 100px 1fr; gap: 18px; align-items: start; padding-top: 20px; border-top: 1px solid rgba(31, 42, 36, 0.08); }
+    .时间轴项:first-child { border-top: none; padding-top: 0; }
+    .时间轴年份 { font-family: var(--等宽字体); color: var(--强调色); font-weight: 700; font-size: 0.9rem; }
+    .时间轴内容 h3 { font-size: 1.12rem; }
+    .时间轴内容 p { margin-top: 7px; color: var(--次文字); }
+    .引语块 { border-radius: 26px; padding: 34px; background: linear-gradient(135deg, rgba(31, 42, 36, 0.97), rgba(28, 37, 33, 0.93)); color: #f9f1e6; display: flex; flex-direction: column; justify-content: space-between; }
+    .引语块 p { font-family: var(--衬线字体); font-size: clamp(1.4rem, 2.4vw, 2rem); line-height: 1.6; }
+    .引语块 small { display: block; margin-top: 20px; color: rgba(249, 241, 230, 0.66); }
+
+    /* 业务 · 方法三件事 */
+    .方法三件事 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; margin-bottom: 20px; }
+    .方法卡 { border-radius: 24px; padding: 30px; background: var(--卡片色); border: 1px solid var(--卡片边框); box-shadow: var(--阴影); backdrop-filter: blur(12px); }
+    .方法卡 .步 { font-family: var(--等宽字体); font-size: 0.82rem; color: var(--强调色); letter-spacing: 0.1em; }
+    .方法卡 h3 { margin-top: 10px; font-size: 1.28rem; }
+    .方法卡 p { margin-top: 12px; color: var(--次文字); font-size: 0.97rem; }
+    .方法结论 { grid-column: 1 / -1; border-radius: 18px; padding: 22px 26px; background: rgba(198, 90, 46, 0.08); border: 1px solid rgba(198, 90, 46, 0.14); color: var(--强调深); font-weight: 600; font-size: 1.05rem; }
+
+    /* 代表作 */
+    .文章列表 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+    .文章项 { display: block; padding: 26px; border-radius: 24px; cursor: pointer; background: var(--卡片色); border: 1px solid var(--卡片边框); box-shadow: var(--阴影); backdrop-filter: blur(12px); transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease; }
+    .文章项:hover { transform: translateY(-4px); border-color: rgba(198, 90, 46, 0.3); box-shadow: var(--阴影强); }
+    .文章项 .标 { display: inline-flex; align-items: center; min-height: 26px; padding: 0 11px; border-radius: 999px; background: rgba(198, 90, 46, 0.09); color: var(--强调深); font-size: 0.76rem; font-weight: 700; letter-spacing: 0.03em; }
+    .文章项 strong { display: block; margin-top: 14px; font-size: 1.16rem; line-height: 1.5; }
+    .文章项 p { margin-top: 10px; color: var(--次文字); font-size: 0.93rem; }
+    .文章项 .读 { margin-top: 16px; display: inline-flex; align-items: center; gap: 6px; color: var(--强调色); font-size: 0.88rem; font-weight: 700; }
+
+    /* 金句墙 */
+    .金句墙 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+    .金句卡 { border-radius: 24px; padding: 32px; min-height: 156px; display: flex; align-items: center; position: relative; overflow: hidden; background: var(--卡片色); border: 1px solid var(--卡片边框); box-shadow: var(--阴影); backdrop-filter: blur(12px); }
+    .金句卡::before { content: "\201C"; position: absolute; left: 16px; top: -8px; font-family: var(--衬线字体); font-size: 4.2rem; color: rgba(198, 90, 46, 0.15); }
+    .金句卡 p { font-family: var(--衬线字体); font-size: 1.22rem; line-height: 1.55; color: var(--背景深); position: relative; }
+    .金句卡.深 { background: linear-gradient(140deg, rgba(31, 42, 36, 0.96), rgba(34, 45, 39, 0.92)); border-color: rgba(255,255,255,0.06); }
+    .金句卡.深 p { color: #f7efe2; }
+    .金句卡.深::before { color: rgba(246, 215, 191, 0.2); }
+
+    /* 适合谁 */
+    .适合人群列表 { display: grid; gap: 16px; margin-top: 18px; }
+    .人群项 { padding: 20px; border-radius: 18px; background: rgba(255, 255, 255, 0.5); border: 1px solid rgba(31, 42, 36, 0.07); }
+    .人群项 strong { display: block; font-size: 1.02rem; }
+    .人群项 p { margin-top: 7px; color: var(--次文字); font-size: 0.95rem; }
+
+    /* 联系 */
+    .底部区域 { padding: 52px 0 80px; }
+    .底部卡片 { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 24px; border-radius: 32px; padding: 40px; border: 1px solid var(--卡片边框); box-shadow: var(--阴影强); backdrop-filter: blur(12px); background: linear-gradient(130deg, rgba(255, 249, 239, 0.94), rgba(246, 236, 220, 0.88)), linear-gradient(90deg, rgba(198, 90, 46, 0.07), transparent 46%); }
+    .联系标题 { font-family: var(--衬线字体); font-size: clamp(1.9rem, 3vw, 2.6rem); line-height: 1.28; }
+    .联系说明 { margin-top: 16px; color: var(--次文字); }
+    .联系方式组 { display: grid; gap: 14px; align-content: start; }
+    .二维码卡片 { padding: 20px; border-radius: 20px; background: rgba(255, 255, 255, 0.6); border: 1px solid rgba(31, 42, 36, 0.07); text-align: center; }
+    .二维码卡片 .qr标 { font-size: 0.84rem; letter-spacing: 0.08em; color: var(--次文字); }
+    .二维码框 { aspect-ratio: 1 / 1; width: min(100%, 230px); margin: 14px auto 0; border-radius: 20px; overflow: hidden; border: 1px solid rgba(31, 42, 36, 0.08); background: #fff; }
+    .二维码框 img { width: 100%; height: 100%; object-fit: contain; }
+    .二维码说明 { margin-top: 12px; color: var(--次文字); font-size: 0.86rem; }
+    .联系方式项 { padding: 18px 20px; border-radius: 18px; background: rgba(31, 42, 36, 0.94); color: #f7efe2; }
+    .联系方式项 span { display: block; color: rgba(247, 239, 226, 0.64); font-size: 0.82rem; letter-spacing: 0.06em; }
+    .联系方式项 strong { display: block; margin-top: 6px; font-size: 1.04rem; }
+    .页脚 { padding: 20px 0 40px; color: var(--次文字); font-size: 0.9rem; text-align: center; }
+
+    /* 阅读层 */
+    .阅读遮罩 { position: fixed; inset: 0; z-index: 60; display: none; background: rgba(20, 16, 12, 0.55); backdrop-filter: blur(6px); padding: 4vh 16px; overflow-y: auto; }
+    .阅读遮罩.显示 { display: flex; align-items: flex-start; justify-content: center; }
+    .阅读层 { position: relative; width: 100%; max-width: 760px; margin: auto; background: var(--卡片实色); border-radius: 28px; padding: 44px 48px 52px; box-shadow: 0 40px 100px rgba(20, 12, 4, 0.4); max-height: 92vh; overflow-y: auto; }
+    .阅读关闭 { position: sticky; top: 0; float: right; margin: -16px -16px 0 0; width: 42px; height: 42px; border-radius: 50%; border: none; cursor: pointer; background: rgba(31, 42, 36, 0.9); color: #fff8f1; font-size: 1.2rem; display: grid; place-items: center; z-index: 2; }
+    .阅读关闭:hover { background: var(--强调色); }
+    .阅读标签 { display: inline-flex; min-height: 26px; align-items: center; padding: 0 13px; border-radius: 999px; background: rgba(198, 90, 46, 0.1); color: var(--强调深); font-size: 0.8rem; font-weight: 700; }
+    .阅读标题 { margin-top: 16px; font-family: var(--衬线字体); font-size: clamp(1.5rem, 3vw, 2.1rem); line-height: 1.32; }
+    .阅读分隔 { margin: 24px 0; border: none; border-top: 1px solid rgba(31, 42, 36, 0.1); }
+    .阅读层正文 { font-size: 1.04rem; line-height: 1.92; color: #2a2a24; }
+    .阅读层正文 p { margin: 0 0 1.15em; }
+    .阅读层正文 h4 { margin: 1.9em 0 0.6em; font-size: 1.2rem; color: var(--背景深); }
+
+    .淡入 { opacity: 0; transform: translateY(24px); transition: opacity 0.8s ease, transform 0.8s ease; }
+    .淡入.出现 { opacity: 1; transform: translateY(0); }
 
     @media (max-width: 960px) {
-      .首屏网格,
-      .三栏网格,
-      .文章精选区,
-      .双栏布局,
-      .底部卡片 {
-        grid-template-columns: 1fr;
-      }
-
-      .主视觉 {
-        min-height: auto;
-      }
-
-      .数据带 {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-
-      .章节抬头 {
-        align-items: start;
-        flex-direction: column;
-      }
+      .三栏网格, .双栏布局, .底部卡片, .文章列表, .方法三件事 { grid-template-columns: 1fr; }
+      .数据带 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .金句墙 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .章节抬头 { align-items: start; flex-direction: column; }
     }
-
     @media (max-width: 680px) {
-      .顶部栏 {
-        position: static;
-      }
-
-      .顶部栏内 {
-        padding: 14px 0;
-        align-items: start;
-        flex-direction: column;
-      }
-
-      .主视觉,
-      .侧边信息,
-      .模块卡片,
-      .时间轴卡片,
-      .适合人群卡片,
-      .底部卡片 {
-        padding: 22px;
-        border-radius: 22px;
-      }
-
-      .首屏 {
-        padding-top: 26px;
-      }
-
-      .首屏标题 {
-        font-size: 2.4rem;
-      }
-
-      .数据带 {
-        grid-template-columns: 1fr;
-      }
-
-      .时间轴项 {
-        grid-template-columns: 1fr;
-        gap: 8px;
-      }
+      .顶部栏 { position: static; }
+      .顶部栏内 { padding: 14px 0; align-items: start; flex-direction: column; }
+      .导航 { gap: 18px; font-size: 0.94rem; }
+      .主视觉 { padding: 34px 26px; border-radius: 28px; }
+      .模块卡片, .时间轴卡片, .适合人群卡片, .方法卡, .金句卡, .底部卡片, .引语块 { padding: 24px; border-radius: 22px; }
+      .首屏 { padding-top: 26px; }
+      .首屏标题 { font-size: 2.4rem; }
+      .数据带, .金句墙 { grid-template-columns: 1fr; }
+      .时间轴项 { grid-template-columns: 1fr; gap: 8px; }
+      .阅读层 { padding: 28px 22px 36px; }
+      section { padding-top: 40px; }
     }
   </style>
 </head>
@@ -772,390 +192,2067 @@
     <div class="顶部栏内">
       <div class="标识">
         <div class="标识徽章">叁</div>
-        <div class="标识文字">
-          <strong>叁斤</strong>
-          <span>用AI开了一家一人公司</span>
-        </div>
+        <div class="标识文字"><strong>叁斤</strong><span>用 AI 做内容获客</span></div>
       </div>
       <nav class="导航">
         <a href="#关于我">关于我</a>
-        <a href="#文章精选">文章精选</a>
-        <a href="#我在做什么">我在做什么</a>
-        <a href="#方法体系">方法体系</a>
-        <a href="#适合谁">适合谁</a>
+        <a href="#经历">我的经历</a>
+        <a href="#业务">我在做什么</a>
+        <a href="#代表作">代表作</a>
+        <a href="#金句">金句</a>
         <a href="#联系">联系</a>
       </nav>
     </div>
   </header>
 
   <main class="页面壳">
+    <!-- 首屏 · 竖版聚焦 -->
     <section class="首屏">
-      <div class="首屏网格">
-        <article class="主视觉 淡入 出现">
-          <div>
-            <div class="小标签">AI知识库 × 一人公司 × 真实实战派</div>
-            <h1 class="首屏标题">不上班，<span>用AI知识库</span>开了一家一人公司。</h1>
-            <p class="首屏说明">
-              我叫叁斤，30岁，住在惠州。换过20多份工作，也拿过一个月369元的工资。现在我不靠“人设包装”活着，而是靠一套自己真的每天在用的AI知识库系统，把内容、产品、交付和迭代跑起来。
-            </p>
-            <div class="首屏按钮组">
-              <a class="按钮 主按钮" href="#关于我">先认识我</a>
-              <a class="按钮 次按钮" href="#联系">看合作方式</a>
-            </div>
+      <article class="主视觉 淡入 出现">
+        <div class="主视觉文案">
+          <div class="小标签">AI 内容获客 × 一人公司 × 真实实战派</div>
+          <h1 class="首屏标题">不上班，<span>用 AI 知识库</span><br>开了一家一人公司。</h1>
+          <p class="首屏说明">我是叁斤。目前在用 AI 做内容获客，帮你把个人的经验和能力，变成能持续带来客户的内容系统。</p>
+          <p class="首屏点睛">不是你学 AI，是 <b>AI 替你干活</b>。</p>
+          <div class="首屏按钮组">
+            <a class="按钮 主按钮" href="#业务">看我在做什么</a>
+            <a class="按钮 次按钮" href="#代表作">先读几篇文章</a>
           </div>
-
-          <div class="数据带">
-            <div class="数据项">
-              <strong>6年</strong>
-              <span>小红书实战经验</span>
-            </div>
-            <div class="数据项">
-              <strong>1000＋</strong>
-              <span>累计培训学员</span>
-            </div>
-            <div class="数据项">
-              <strong>770万＋</strong>
-              <span>操盘过单月GMV项目</span>
-            </div>
-            <div class="数据项">
-              <strong>500＋</strong>
-              <span>付费会员沉淀</span>
-            </div>
-          </div>
-        </article>
-
-        <aside class="侧边信息 淡入">
-          <div class="小标签">现在的我</div>
-          <div>
-            <h2 class="侧边标题">不是技术博主。<br>是把AI真正用进生意里的人。</h2>
-            <p class="侧边段落">
-              我不会写代码出身，但我会用AI、知识库和工作流，把一个人的能力放大成一支小团队的效果。
-            </p>
-          </div>
-
-          <div class="身份清单">
-            <div class="身份项">
-              <strong>自由职业者</strong>
-              <span>居家办公，用系统而不是靠熬时间工作。</span>
-            </div>
-            <div class="身份项">
-              <strong>AI实战派</strong>
-              <span>多AI协作，知识库驱动，强调真实产出和效率结果。</span>
-            </div>
-            <div class="身份项">
-              <strong>系统型创作者</strong>
-              <span>擅长把经验、内容、方法论整理成可复制的产品。</span>
-            </div>
-            <div class="身份项">
-              <strong>专业的老朋友</strong>
-              <span>不站在台上教训人，只把走过的坑和做成的系统讲明白。</span>
-            </div>
-          </div>
-        </aside>
-      </div>
-    </section>
-
-    <section id="文章精选">
-      <div class="章节抬头 淡入">
-        <div>
-          <div class="章节标记">ARTICLES</div>
-          <h2 class="章节标题">如果你想先看内容，可以从这几篇开始。</h2>
         </div>
-        <p class="章节说明">
-          这几篇更接近我真正想表达的核心：不是单点工具教学，而是一个普通人怎么把AI、知识库和内容系统接进自己的生意里。
-        </p>
-      </div>
-
-      <div class="文章精选区">
-        <article class="文章列表卡片 淡入">
-          <div class="章节标记">精选文章</div>
-          <div class="文章列表">
-            <a class="文章项" href="https://my.feishu.cn/docx/MqiDdFBAEobGfHxOagbcV7bHnjc?from=from_copylink" target="_blank" rel="noopener noreferrer">
-              <span>AI知识库拆解</span>
-              <strong>Obsidian ＋ Claude Code，它们正在替我赚钱丨我的AI知识库拆解</strong>
-              <p>看我怎么把本地知识库、AI协作和内容生产接起来，让系统开始真正替我工作。</p>
-            </a>
-
-            <a class="文章项" href="https://my.feishu.cn/wiki/FS2Aw68TOiHFXUk52N4cwPHEnBb?from=from_copylink" target="_blank" rel="noopener noreferrer">
-              <span>实操复盘</span>
-              <strong>做小红书5年，一个人，一套AI体系，月入10w＋的实操复盘</strong>
-              <p>不是一句“我做到了”，而是把一个人怎么用系统撑起内容、变现和迭代，尽量拆给你看。</p>
-            </a>
-
-            <a class="文章项" href="https://my.feishu.cn/wiki/KouqwnI1XiPnEBkBjpgc1ttsntg?from=from_copylink" target="_blank" rel="noopener noreferrer">
-              <span>虚拟产品</span>
-              <strong>如何用AI原创虚拟产品在小红书赚钱？——选品篇</strong>
-              <p>如果你更关注“普通人怎么把经验和内容变成产品”，这篇会更适合你作为入口。</p>
-            </a>
-          </div>
-        </article>
-
-        <aside class="文章引导卡片 淡入">
-          <div>
-            <div class="章节标记">为什么先看文章</div>
-            <h2 class="章节标题">因为文章比标签，更能说明我是谁。</h2>
-          </div>
-          <p>
-            很多主页都会把自己写得很厉害，但我更希望你先看内容。看完这些文章，你会更容易判断：我讲的东西，是不是你现在真正需要的。
-          </p>
-          <div class="方法清单">
-            <div class="方法项">
-              <strong>先看系统</strong>
-              <span>你会看到AI不是噱头，而是一整套知识库和工作流的协作方式。</span>
-            </div>
-            <div class="方法项">
-              <strong>再看路径</strong>
-              <span>你会更清楚，一个普通人是怎么把内容、产品和收入路径慢慢搭起来的。</span>
-            </div>
-            <div class="方法项">
-              <strong>最后看合作</strong>
-              <span>如果价值观和方法一致，再继续往下聊，会更高效。</span>
-            </div>
-          </div>
-        </aside>
-      </div>
+        <div class="数据带">
+          <div class="数据项"><strong>6 年</strong><span>小红书实战经验</span></div>
+          <div class="数据项"><strong>1000＋</strong><span>累计培训学员</span></div>
+          <div class="数据项"><strong>770 万＋</strong><span>单月操盘 GMV</span></div>
+          <div class="数据项"><strong>500＋</strong><span>付费会员沉淀</span></div>
+        </div>
+      </article>
     </section>
 
+    <!-- 关于我 -->
     <section id="关于我">
       <div class="章节抬头 淡入">
-        <div>
-          <div class="章节标记">ABOUT SANJIN</div>
-          <h2 class="章节标题">如果只用一句话介绍我。</h2>
-        </div>
-        <p class="章节说明">
-          我不是“突然成功”的那种人。我的价值不在于多天才，而在于我把普通人的困境，一步一步做成了一套能跑的系统。
-        </p>
+        <div><div class="章节标记">ABOUT SANJIN</div><h2 class="章节标题">如果只用一句话介绍我。</h2></div>
+        <p class="章节说明">我不是「突然成功」的那种人。我的价值不在于多天才，而在于我把普通人的经验，一步步做成了一套能跑的系统。</p>
       </div>
-
       <div class="三栏网格">
         <article class="模块卡片 淡入">
           <div class="模块序号">01</div>
-          <h3>从底层走出来的人</h3>
-          <p>做过地推、发过传单、换过20多份工作，也经历过负债、收入不稳定、对未来极度迷茫的阶段。所以我说的话，不是站着说话不腰疼。</p>
-          <div class="模块标签组">
-            <span>真实经历</span>
-            <span>普通人视角</span>
-            <span>不装成功学</span>
-          </div>
+          <h3>把经验变成系统的人</h3>
+          <p>我最擅长的，不是某个平台技巧，而是把散乱的经验整理成方法论、SOP 和知识库，让原本只能靠我自己完成的事，变得可复制、可复用。</p>
+          <div class="模块标签组"><span>方法论</span><span>知识库搭建</span><span>工作流设计</span></div>
         </article>
-
         <article class="模块卡片 淡入">
           <div class="模块序号">02</div>
-          <h3>把经验变成系统的人</h3>
-          <p>我最擅长的，不是某个平台技巧，而是把散乱经验整理成方法论、SOP、知识库和产品，让原本只能靠我自己完成的事，开始可复制、可复用。</p>
-          <div class="模块标签组">
-            <span>方法论</span>
-            <span>知识库搭建</span>
-            <span>工作流设计</span>
-          </div>
+          <h3>用 AI 做一人公司的人</h3>
+          <p>我现在所有业务的核心，不是某一个爆款账号，而是本地知识库、内容生产工作流、可出售的知识产品，以及持续迭代的个人系统。</p>
+          <div class="模块标签组"><span>AI 知识库</span><span>一人公司</span><span>长期主义</span></div>
         </article>
-
         <article class="模块卡片 淡入">
           <div class="模块序号">03</div>
-          <h3>用AI做一人公司的人</h3>
-          <p>我现在所有业务的核心，不是某一个爆款账号，而是本地知识库、内容生产工作流、可出售的知识产品，以及持续迭代的个人系统。</p>
-          <div class="模块标签组">
-            <span>AI知识库</span>
-            <span>一人公司</span>
-            <span>长期主义</span>
-          </div>
+          <h3>把 AI 用进生意里的人</h3>
+          <p>大专毕业后换过 20 多份工作，不是天生会做生意。我说的话不是站着说话不腰疼——每个阶段都自己下场做过，踩过的坑也都讲给你听。</p>
+          <div class="模块标签组"><span>真实经历</span><span>普通人视角</span><span>不装成功学</span></div>
         </article>
       </div>
     </section>
 
-    <section id="我在做什么">
+    <!-- 我的经历 -->
+    <section id="经历">
       <div class="双栏布局">
         <article class="时间轴卡片 淡入">
           <div class="章节标记">PATH</div>
           <h2 class="章节标题">我是怎么走到这里的。</h2>
           <div class="时间轴">
             <div class="时间轴项">
-              <div class="时间轴年份">2017－2020</div>
-              <div class="时间轴内容">
-                <h3>反复换工作，也反复怀疑自己</h3>
-                <p>那几年我做过很多工作，没有一份真正让我看到长期希望。低收入、负债、迷茫，这些都是真的。</p>
-              </div>
+              <div class="时间轴年份">2020 以前</div>
+              <div class="时间轴内容"><h3>一直在找一件能长期做的事</h3><p>大专毕业后换过 20 多份工作，没有一份让我看到长期的希望。我不是天生会做生意的人。</p></div>
             </div>
             <div class="时间轴项">
               <div class="时间轴年份">2020</div>
-              <div class="时间轴内容">
-                <h3>第一次在互联网里看到机会</h3>
-                <p>开始接触小红书，一周涨粉1000＋，第一个月接广告赚到2000元。那一刻我意识到，普通人也许真的能靠互联网重新组织自己的人生。</p>
-              </div>
+              <div class="时间轴内容"><h3>在小红书第一次找到方向</h3><p>疫情期间开始做小红书，一周涨粉 1000＋，第一个月接广告赚到 2000 元。那一刻我意识到，普通人也许真的能靠互联网重新组织自己的人生。</p></div>
             </div>
             <div class="时间轴项">
               <div class="时间轴年份">2020－2024</div>
-              <div class="时间轴内容">
-                <h3>长期深耕内容、运营和变现</h3>
-                <p>做过商单、电商、虚拟产品、获客服务、IP培训，也操盘过高GMV项目。不是只会讲概念，而是每个阶段都亲自下场做过。</p>
-              </div>
+              <div class="时间轴内容"><h3>五年深耕，每件事都亲自下场</h3><p>商单、电商、虚拟产品、获客服务、IP 培训都做过，操盘过单月 GMV 770 万＋ 的项目，培训过 1000＋ 学员。不是只会讲概念，是每个阶段都自己干过。</p></div>
             </div>
             <div class="时间轴项">
-              <div class="时间轴年份">2025－现在</div>
-              <div class="时间轴内容">
-                <h3>从“做账号”升级到“做系统”</h3>
-                <p>微信被封、平台规则变化、产品下架，这些事情反而让我更确定一件事：账号是消耗品，知识库才是资产。于是我开始把重心彻底放到AI知识库和一人公司系统上。</p>
-              </div>
+              <div class="时间轴年份">2025</div>
+              <div class="时间轴内容"><h3>想透了：账号是消耗品，知识库才是资产</h3><p>微信号被恶意举报封禁，被迫重建。这件事让我把重心彻底转向 AI 知识库——平台规则会变、账号会出问题，但沉淀下来的经验和系统不会。</p></div>
+            </div>
+            <div class="时间轴项">
+              <div class="时间轴年份">2026－现在</div>
+              <div class="时间轴内容"><h3>从「做账号」升级到「做系统」</h3><p>开始用 AI 帮别人把经验搭成知识库。第一个客户是位美业老板，两天就跑通了属于她自己业务的 AI 内容系统。我越来越确定：这条路才是我要长期做的事。</p></div>
             </div>
           </div>
         </article>
-
         <aside class="引语块 淡入">
-          <p>“我不是教你怎么一夜翻身。<br>我更想做的，是把一个普通人怎么靠系统跑起来，尽量讲清楚。”</p>
+          <p>「我不教你一夜翻身。<br>我更想做的，是把一个普通人怎么靠系统跑起来，尽量讲清楚。」</p>
           <small>这也是我现在做内容、做产品、做培训的底层出发点。</small>
         </aside>
       </div>
     </section>
 
-    <section id="方法体系">
+    <!-- 我在做什么 -->
+    <section id="业务">
       <div class="章节抬头 淡入">
-        <div>
-          <div class="章节标记">SYSTEM</div>
-          <h2 class="章节标题">我现在主要在做三件事。</h2>
-        </div>
-        <p class="章节说明">
-          表面上看我是内容创作者，实际上我在搭一整套“个人能力放大系统”：内容能持续产出，方法能不断沉淀，产品能稳定交付。
-        </p>
+        <div><div class="章节标记">WHAT I DO</div><h2 class="章节标题">表面是做内容，本质是做一件事。</h2></div>
+        <p class="章节说明">用 AI 做内容获客：把一个人的经验，变成能持续带来客户的内容系统。我把这件事拆成可复制的三步。</p>
       </div>
-
+      <div class="方法三件事 淡入">
+        <div class="方法卡"><div class="步">STEP 01</div><h3>搭知识库</h3><p>把你的行业经验、客户问题、成交案例、方法论结构化成文档，让 AI 随时调用。AI 能放大的，是你已经沉淀下来的东西。</p></div>
+        <div class="方法卡"><div class="步">STEP 02</div><h3>问对问题</h3><p>知道问题在哪，比知道答案更重要。用什么角度切、给谁看、踩过什么坑——这些判断力，AI 替代不了，但能被它放大。</p></div>
+        <div class="方法卡"><div class="步">STEP 03</div><h3>固化工作流</h3><p>选题、写作、自检、发布全部标准化，说一句话整个流程就跑起来。普通执行者也能稳定做出 80 分的内容。</p></div>
+        <div class="方法结论">结果：AI 变成熟悉你整套业务的合伙人，一个人干出一支团队的活。</div>
+      </div>
       <div class="三栏网格">
-        <article class="模块卡片 淡入">
-          <div class="模块序号">A</div>
-          <h3>做内容</h3>
-          <p>围绕“不上班、AI知识库、一人公司”持续输出公众号和小红书内容。不是纯情绪表达，而是让读者看到问题、方法和路径。</p>
-          <div class="模块标签组">
-            <span>公众号</span>
-            <span>小红书</span>
-            <span>内容体系</span>
-          </div>
-        </article>
-
-        <article class="模块卡片 淡入">
-          <div class="模块序号">B</div>
-          <h3>做产品</h3>
-          <p>把多年实战经验整理成《一人变现系统》、手册、教程、知识库和工具，让别人不只是“听懂”，而是真的能拿回去用。</p>
-          <div class="模块标签组">
-            <span>知识产品</span>
-            <span>AI工作流</span>
-            <span>实战教程</span>
-          </div>
-        </article>
-
-        <article class="模块卡片 淡入">
-          <div class="模块序号">C</div>
-          <h3>做培训</h3>
-          <p>面向个体和团队，帮助他们搭建自己的AI知识库和工作流。重点不在炫技，而在让AI真正变成懂业务、能协作的“第二大脑”。</p>
-          <div class="模块标签组">
-            <span>个人系统</span>
-            <span>企业培训</span>
-            <span>落地提效</span>
-          </div>
-        </article>
+        <article class="模块卡片 淡入"><div class="模块序号">A</div><h3>一人变现系统</h3><p>知识库 ＋ 社群的年度会员。帮想靠自己赚钱、但方向还没想清楚的人：想清方向、用 AI 做出能卖的产品、再用自媒体获客。</p><div class="模块标签组"><span>知识库</span><span>社群陪伴</span><span>AI 工作流</span></div></article>
+        <article class="模块卡片 淡入"><div class="模块序号">B</div><h3>AI 内容获客系统</h3><p>线下课。帮已经有业务的老板、咨询师、教练、博主，亲手搭一套属于自己业务的 AI 内容获客系统，带走能持续生产内容的能力。</p><div class="模块标签组"><span>线下实操</span><span>专属知识库</span><span>内容获客</span></div></article>
+        <article class="模块卡片 淡入"><div class="模块序号">C</div><h3>企业 / 门店定制</h3><p>上门帮老板把脑子里的经验，搭成员工和 AI 都能调用的专属知识库。按业务复杂度定制，详谈。</p><div class="模块标签组"><span>上门交付</span><span>团队可复用</span><span>按需定制</span></div></article>
       </div>
     </section>
 
+    <!-- 代表作 -->
+    <section id="代表作">
+      <div class="章节抬头 淡入">
+        <div><div class="章节标记">ARTICLES</div><h2 class="章节标题">如果想先看内容，从这几篇开始。</h2></div>
+        <p class="章节说明">文章比标签更能说明我是谁。点开就能直接读全文，不用跳来跳去。越靠前的，越贴近我现在做的事。</p>
+      </div>
+      <div class="文章列表 淡入" id="文章列表">
+<div class="文章项" data-article="a1"><span class="标">AI 知识库</span><strong>Obsidian + Claude Code，它们正在替我赚钱｜我的 AI 知识库拆解</strong><p>把定位、写作风格、方法论、产品体系全喂进 Obsidian + Claude Code，一个人干一支团队的活。完整拆解怎么搭、怎么用、为什么有效。</p><span class="读">点开读全文 →</span></div>
+<div class="文章项" data-article="a2"><span class="标">AI 内容获客</span><strong>我用 Obsidian 加 AI，搭了个小红书自动获客系统</strong><p>企业做小红书，最大的问题其实不是流量，是人。把老板的经验沉淀成 AI 能调用的知识库，普通运营也能稳定做出 80 分内容。</p><span class="读">点开读全文 →</span></div>
+<div class="文章项" data-article="a3"><span class="标">一人公司复盘</span><strong>做小红书 5 年，一个人，一套 AI 体系，月入 10w+ 的实操复盘</strong><p>深耕小红书第六年，我把所有业务推翻重做——账号被封那一周，收入没有减少。一套 AI 体系怎么撑起一个人。</p><span class="读">点开读全文 →</span></div>
+<div class="文章项" data-article="a4"><span class="标">AI 内容实操</span><strong>3 个动作，让 AI 写的小红书笔记没有 AI 味</strong><p>AI 味的根源不在「改」，在信息量。喂够真实信息、分步写、用清单检测，从源头收窄 AI 的输出范围。</p><span class="读">点开读全文 →</span></div>
+<div class="文章项" data-article="a5"><span class="标">AI 变现实操</span><strong>我用 AI 做虚拟电商，4 个月卖了 6 万+（附完整 SOP + 工具清单）</strong><p>从选品、做产品、写文案到上架，AI 帮我做了 80% 的工作。完整 SOP 和工具清单公开。</p><span class="读">点开读全文 →</span></div>
+<div class="文章项" data-article="a6"><span class="标">AI × 生活</span><strong>如何让 AI 接管自己的生活，替我赚钱？</strong><p>3 个月把 AI 渗透进生活每个角落——身体管理、消费决策、学习、内容系统、产品升级。不只是提效，是换个脑子。</p><span class="读">点开读全文 →</span></div>
+<div class="文章项" data-article="a7"><span class="标">认知</span><strong>AI 时代，流量能力比产品本身重要 100 倍</strong><p>AI 解决了「做出来」，但「被看到」这件事 AI 帮不了你，而且越来越稀缺。这是普通人真正的护城河。</p><span class="读">点开读全文 →</span></div>
+<div class="文章项" data-article="a8"><span class="标">产品升级</span><strong>我不再教小红书了</strong><p>做了两年的小红书运营社群，我把它推翻重来——从「教你做小红书」，变成「帮你搭一套靠自己赚钱的系统」。</p><span class="读">点开读全文 →</span></div>
+<div class="文章项" data-article="a9"><span class="标">方法论</span><strong>虚拟资料就是垃圾项目，90% 的人都赚不到钱</strong><p>90% 的人赚不到钱，是从第一步就做错了。我把踩过的坑整理成 6 条经验。</p><span class="读">点开读全文 →</span></div>
+<div class="文章项" data-article="a10"><span class="标">经验背书</span><strong>复盘贴｜6 年小红书运营经验，全写在这了｜认知篇</strong><p>流量和生意，根本是两件事。6 年下来我最大的转变，是从「流量操盘手」变成「资产搭建者」。</p><span class="读">点开读全文 →</span></div>
+<div class="文章项" data-article="a11"><span class="标">个人故事</span><strong>30 岁，盘点我尝试过的副业，失败了 19 个，最后 all in 小红书</strong><p>裸辞两年，盘点做过的十几个副业，有成功有失败。我并没有一帆风顺。</p><span class="读">点开读全文 →</span></div>
+      </div>
+    </section>
+
+    <!-- 金句墙 -->
+    <section id="金句">
+      <div class="章节抬头 淡入">
+        <div><div class="章节标记">WORDS</div><h2 class="章节标题">几句我常挂在嘴边的话。</h2></div>
+        <p class="章节说明">这些是我做内容、做产品时反复验证过的判断，也是我看 AI 这件事的底层视角。</p>
+      </div>
+      <div class="金句墙 淡入">
+        <div class="金句卡 深"><p>学 AI 是个伪命题，用了就等于学了。</p></div>
+        <div class="金句卡"><p>你有场景，什么 AI 都好用；没有场景，什么 AI 都没用。</p></div>
+        <div class="金句卡"><p>人人都有 AI，等于人人都没有 AI。</p></div>
+        <div class="金句卡"><p>工具三个小时，经验十多年。</p></div>
+        <div class="金句卡 深"><p>软件是你去适应它，AI 是它来适应你。</p></div>
+        <div class="金句卡"><p>AI 的想象力是无限的，创新是旧元素的重组。</p></div>
+      </div>
+    </section>
+
+    <!-- 适合谁 + 价值观 -->
     <section id="适合谁">
       <div class="双栏布局">
         <article class="适合人群卡片 淡入">
           <div class="章节标记">WHO IT HELPS</div>
           <h2 class="章节标题">哪些人会更适合关注我。</h2>
           <div class="适合人群列表">
-            <div class="人群项">
-              <strong>想摆脱死工资，但还不知道从哪开始的人</strong>
-              <p>你不一定现在就要辞职，但你大概率已经意识到，只靠一份工作，风险太高了。</p>
-            </div>
-            <div class="人群项">
-              <strong>已经是自由职业者，但一个人忙不过来的人</strong>
-              <p>你不是不努力，而是缺一套系统。AI如果还停留在聊天框阶段，就很难真正放大你的产出。</p>
-            </div>
-            <div class="人群项">
-              <strong>想把经验做成内容、产品和服务的人</strong>
-              <p>如果你手上已经有行业经验、服务经验或生活经验，那它们都有机会被整理成可以卖、可以传播、可以复用的资产。</p>
-            </div>
+            <div class="人群项"><strong>想靠自己赚钱、但方向还没想清楚的人</strong><p>你不一定现在就要辞职，但你大概率已经意识到，只靠一份工作，风险太高了。</p></div>
+            <div class="人群项"><strong>已经是自由职业、但一个人忙不过来的人</strong><p>你不是不努力，是缺一套系统。AI 如果还停在聊天框阶段，很难真正放大你的产出。</p></div>
+            <div class="人群项"><strong>已经有业务和经验、想用 AI 放大效率的人</strong><p>老板、咨询师、教练、博主——你最值钱的是这些年积累的经验，现在的问题是它们还在你脑子里。</p></div>
           </div>
         </article>
-
         <article class="适合人群卡片 淡入">
           <div class="章节标记">WHAT I BELIEVE</div>
-          <h2 class="章节标题">我相信的，不只是“会用AI”。</h2>
+          <h2 class="章节标题">我相信的，不只是「会用 AI」。</h2>
           <div class="适合人群列表">
-            <div class="人群项">
-              <strong>知识库大于账号</strong>
-              <p>平台规则会变，账号也会出问题，但沉淀下来的知识、方法和工作流，会越用越值钱。</p>
-            </div>
-            <div class="人群项">
-              <strong>系统大于勤奋</strong>
-              <p>靠硬扛可以撑一阵，但很难撑很久。真正可持续的状态，是让流程自己帮你跑起来。</p>
-            </div>
-            <div class="人群项">
-              <strong>真实大于包装</strong>
-              <p>我不喜欢贩卖焦虑，也不喜欢把自己包装成高高在上的老师。做过什么、踩过什么坑、验证过什么，我会说清楚。</p>
-            </div>
+            <div class="人群项"><strong>知识库 > 账号</strong><p>平台规则会变，账号也会出问题，但沉淀下来的知识、方法和工作流，会越用越值钱。</p></div>
+            <div class="人群项"><strong>系统 > 勤奋</strong><p>靠硬扛可以撑一阵，但很难撑很久。真正可持续的状态，是让流程自己帮你跑起来。</p></div>
+            <div class="人群项"><strong>真实 > 包装</strong><p>我不贩卖焦虑，也不把自己包装成高高在上的老师。做过什么、踩过什么坑，我都说清楚。</p></div>
           </div>
         </article>
       </div>
     </section>
 
+    <!-- 联系 -->
     <section class="底部区域" id="联系">
       <div class="底部卡片 淡入">
         <div>
           <div class="章节标记">CONNECT</div>
-          <h2 class="联系标题">如果你也想用AI，搭一套更像“公司”而不是“副业试试”的个人系统。</h2>
-          <p class="联系说明">
-            可以先从关注我的内容开始。我的内容不会只告诉你“AI很厉害”，而是尽量让你看见：一个普通人，怎么把内容、产品、工作流和收入路径慢慢搭起来。
-          </p>
+          <h2 class="联系标题">如果你也想用 AI，搭一套更像「公司」而不是「副业试试」的个人系统。</h2>
+          <p class="联系说明">可以先从读我的内容开始。我的内容不会只告诉你「AI 很厉害」，而是尽量让你看见：一个普通人，怎么把经验、内容、工作流和获客路径，慢慢搭成一套系统。聊得来，再往下聊合作。</p>
           <div class="首屏按钮组">
-            <a class="按钮 主按钮" href="javascript:void(0)">公众号：叁斤</a>
-            <a class="按钮 次按钮" href="javascript:void(0)">年度会员：一人变现系统</a>
+            <span class="按钮 主按钮">公众号：叁斤</span>
+            <span class="按钮 次按钮">小红书：叁斤</span>
           </div>
         </div>
-
         <div class="联系方式组">
           <div class="二维码卡片">
-            <span>微信联系</span>
+            <div class="qr标">微信联系</div>
             <strong style="display:block; margin-top:6px; font-size:1.18rem;">Msan54</strong>
-            <div class="二维码框">
-              <img src="ScreenShot_2026-04-24_112421_377.png" alt="叁斤微信二维码" loading="lazy" decoding="async">
-            </div>
-            <div class="二维码说明">扫码即可添加微信。若手机端打开网页，也可以直接搜索微信号：Msan54。</div>
+            <div class="二维码框"><img src="ScreenShot_2026-04-24_112421_377.png" alt="叁斤微信二维码" loading="lazy"></div>
+            <div class="二维码说明">扫码加微信，或直接搜微信号：Msan54</div>
           </div>
-
-          <div class="联系方式项">
-            <span>身份标签</span>
-            <strong>自由职业者／AI超级个体实战派／系统型创作者</strong>
-          </div>
-          <div class="联系方式项">
-            <span>主要方向</span>
-            <strong>AI知识库搭建、个人内容系统、经验产品化、一人公司方法论</strong>
-          </div>
-          <div class="联系方式项">
-            <span>适合合作</span>
-            <strong>个人系统搭建、AI提效培训、内容方法论产品、企业内部AI知识库启蒙</strong>
-          </div>
+          <div class="联系方式项"><span>主要方向</span><strong>AI 内容获客、个人知识库搭建、经验产品化、一人公司方法论</strong></div>
+          <div class="联系方式项"><span>适合合作</span><strong>个人 / 企业 AI 知识库搭建、AI 内容获客培训、内容方法论产品</strong></div>
         </div>
       </div>
     </section>
 
-    <div class="页脚">
-      叁斤的个人介绍主页｜基于现有知识库信息整理制作
-    </div>
+    <div class="页脚">叁斤的个人介绍 · 用 AI 做内容获客</div>
   </main>
+
+  <!-- 阅读层 -->
+  <div class="阅读遮罩" id="阅读遮罩" aria-hidden="true">
+    <div class="阅读层" role="dialog" aria-modal="true">
+      <button class="阅读关闭" id="阅读关闭" aria-label="关闭">✕</button>
+      <span class="阅读标签" id="阅读标签"></span>
+      <h2 class="阅读标题" id="阅读标题"></h2>
+      <hr class="阅读分隔">
+      <div class="阅读层正文" id="阅读正文"></div>
+    </div>
+  </div>
+
+  <!-- 文章全文库 -->
+  <div id="文章库" hidden>
+<article data-id="a1" data-title="Obsidian + Claude Code，它们正在替我赚钱｜我的 AI 知识库拆解" data-tag="AI 知识库">
+<p>春节期间，我搭了一套 obsidian+Claude code 的 AI 知识库，把我的定位、写作风格、内容方法论、产品体系等信息全部放进去。</p>
+<p>现在它能帮我写公众号、做小红书、整理录音、管理选题、管理日程……一个人干一支团队的活。</p>
+<p>公众号从月更变成日更，写一篇几千字的内容，从大半天缩减到一个小时，内容质量都还不错，数据比手搓的还好一些。小红书一天至少可以产出 20篇 优质搜索笔记，有几条曝光量不高的笔记，都在默默出单。</p>
+<p>这一套知识库，还帮我做出了 2 份虚拟产品在卖，一份卖39，一份单价599。上个月参加富贵老师线下课，把录音丢进去，一个下午整理出十几份富贵老师的核心方法论文件，AI 写内容的时候，可以直接调用。</p>
+<p>朋友公司10个人的团队，月产值还没我一个人高。这可能是我做自由职业以来，找到的最大杠杆。下面是完整的知识库拆解，怎么搭的、怎么用的、为什么有效。</p>
+<p>大部分人用AI的方式，是打开一个对话框，粘贴一段背景信息，拿到回复，关掉。下次可能需要重新解释你是谁、你做什么、你想要什么。</p>
+<p>但问题并不出在AI，而是你没给它任何东西可以记住。</p>
+<p>我的 AI 每次启动，会自动加载400多行协作规则、13个skills技能包、我最近在想什么。不需要我解释任何东西，它已经知道一切。</p>
+<p>现在，我只需要跟AI说一句「从选题库随机选一个写公众号」，它会自己找素材、套方法论、按我的风格写好，改改就能发。小红书也一样。</p>
+<p>obs + cc ，在我这，已经相当于是一个能做事情的员工了，而且效率很高。</p>
+<h4>1、为什么你需要自己的AI知识库</h4>
+<p>在搭这套知识库之前，我用过飞书知识库、IMA知识库、NotebookLM，还试过好几个AI笔记工具，但都不好用。</p>
+<p>飞书、IMA这类知识库，把资料丢进去问问题，回答的还可以，但让它做任务就不行。它不能根据你的方法论帮你写小红书笔记，不能帮你整理录音，不能帮你处理文件。</p>
+<p>NotebookLM好一些，做任务和问答都行，但不够方便。没办法让它直接在你电脑上操作文件，没办法让它记住你的写作风格，也不能实时写内容进去，每次都要重新解释一遍。</p>
+<p>后来在 X 上看到有人分享 Obsidian + Claude code 的用法，试了一下，真就是理想中的知识库搭配！！</p>
+<p>先简单解释下，Obsidian是本地笔记软件，所有文件都存在自己电脑上，markdown格式。</p>
+<p>Claude code能直接读取和操作你电脑上的文件。两个东西接在一起，AI就能看到你所有的笔记、方法论、素材库，还能直接帮你创建文件、整理文件夹、写内容。</p>
+<p>举个最直观的例子。</p>
+<p>同样是让AI「帮我写一篇小红书搜索笔记」：直接问AI，它给你一篇通用的、正确但没有灵魂的内容。</p>
+<p>用我的知识库：AI 先自己搜一遍关键词下的笔记，分别有什么特点读我的搜索SEO方法论（9章，从搜索排名的底层逻辑到关键词布局规则），再读对应产品的卖点和关键词库。</p>
+<p>然后按我定义好的写作规范生成，标题怎么写、关键词怎么布局、开头怎么戳痛点、结尾怎么留钩子，全部有规则。写完还会自动跑一遍质量自检。</p>
+<p>同样的AI，同样的模型，输出质量完全不同。</p>
+<h4>2、知识库全貌</h4>
+<h4>2.1 目录结构</h4>
+<p>整个目录结构，大概长这样：我是按照我的习惯来的，就是「内容在哪里产生、在哪里沉淀、在哪里输出」等等，现在可能会复杂一些，把我个人日程规划和手机记录的内容也同步进去。</p>
+<p>几个关键的设计说一下。</p>
+<p>1.内容有明确的流水线状态：选题库→待发布→已发布。文章在系统里有具体位置，我不需要记「这篇写到哪了」，看文件在哪个文件夹就知道。</p>
+<p>AI写完自检通过，自动从选题库移到待发布。</p>
+<p>我修改发布完，手动移到已发布（能做到全自动）。每篇文章在知识库里只存在于一个位置，就不会很乱。</p>
+<p>2.方法论按主题分类，不按来源分。</p>
+<p>很多人的笔记写作方法是按「这是XX课学的」「这是XX书的」来区分，找的时候很痛苦。</p>
+<p>我是按主题分的，搜索SEO的方法论、内容创作的方法论、营销与销售的方法论。AI写搜索笔记的时候直接去搜索SEO文件夹读方法论，不需要知道这个方法论最早是从哪门课学的。</p>
+<p>3.产品库和内容库分开。</p>
+<p>AI写产品引流笔记的时候去产品库读卖点和关键词，写个人IP内容的时候去内容库读素材和定位文件。</p>
+<p>各取所需，不会串。</p>
+<h4>2.2 CLAUDE.md：写给AI的关键文件</h4>
+<p>整套系统里最重要的一个文件。</p>
+<p>这个Claude code会自动生成，放在根目录，每次启动都会自动读取。你可以理解成写给新员工的入职手册，比如你的业务是什么、怎么配合你工作、什么事绝对不能碰。</p>
+<p>我的CLAUDE.md大概400行，核心几块：1.你在和谁协作。</p>
+<p>不只是告诉AI「我是谁」，而是AI需要知道的一切背景。包括我的业务是什么、核心产品是什么、目标人群分几类（按转化效率排优先级）、产品转化路径是什么。</p>
+<p>AI读完这些，就知道它是在帮谁，做什么任务。</p>
+<p>2.协作原则。</p>
+<p>「直接给方案，不要反问我要什么风格」「中文优先，包括注释和文件名」「所有中文内容用中文标点」。这些都是后面慢慢加的。AI会默认用英文标点符号，一个个修改挺麻烦的，所以，直接写进CLAUDE.md，让AI用中文标点符号。</p>
+<p>3.行为约束。</p>
+<p>这是最关键的一块。我写了四条不能违反的铁律：不能移动、重命名、删除任何已有文件（除非我明确确认）；内容文件只归档不删除；必须等我说「提交」才执行；不能修改其他Skill的配置文件。</p>
+<p>为什么这么严格？因为AI有时候会「好心办坏事」，它觉得帮你整理文件夹是好事，但它可能把你正在写的草稿移到了你找不到的地方。</p>
+<p>4.项目索引。</p>
+<p>每个文件夹干什么、文件怎么命名、内容发布流程怎么走。AI读完就知道新建的文件该放哪里、叫什么名字。我之前没写这个的时候，AI经常把文件存在奇怪的路径，我要到处找。</p>
+<p>5.任务快速参考。</p>
+<p>写公众号用哪个Skill、写搜索笔记用哪个Skill、处理录音用哪个Skill、做产品分析用哪个Skill。AI会知道做什么任务的时候该调用什么skill。</p>
+<p>CLAUDE.md不是一次写完的。第一版大概30行，就告诉AI我是谁、我做什么。后来用着用着，发现AI老犯某些错误，比如用英文标点、擅自删文件、把文件存错位置等等，所以就把规则一条条加上去。</p>
+<p>两个月，才长到400行。</p>
+<p>这个文件本质上是你和AI的协作协议。你踩过的每一个坑，都会变成里面的一条规则。用得越久，AI犯的错越少。</p>
+<h4>2.3 叁斤说明书：把自己数字化</h4>
+<p>CLAUDE.md告诉AI怎么工作。叁斤说明书告诉AI你具体是谁，是个什么样的人。</p>
+<p>这个文件夹里有几个核心文件：1.人物档案。</p>
+<p>我的完整背景，换过20份工作、最惨一个月369块、怎么接触小红书、怎么开始自由职业。AI写内容需要穿插个人经历的时候，就来这里找。</p>
+<p>2.新IP定位。</p>
+<p>一句话定位、人设关键词、目标人群画像（四类人群的具体特征和内容策略）、内容方向配比、写作调性要求。这个文件有400多行，是我反复调整过的。AI写任何IP内容之前都会先读这个。</p>
+<p>3.活素材库。</p>
+<p>我最近在用的故事、案例、金句、新认知。分「当季素材」和「经典素材」。AI写文章的时候优先从当季素材选，不会每篇都用同一个故事。</p>
+<p>结合其他的流程，这里会快速补新的素材，比如跟朋友聊天冒出的想法、给学员做咨询时的发现、自己踩过的坑，在处理这些任务的时候，都会增加素材。</p>
+<p>……</p>
+<p>这些文件加在一起，AI读完之后比大部分人更了解我。它知道我的定位、我的风格、我的产品体系、我的真实经历、我最近在想什么。</p>
+<h4>2.4 Skills</h4>
+<p>这是整套系统的执行层。</p>
+<p>普通人用AI，每次都要在对话框里写一大段提示词——解释背景、说明要求、定义格式。而且每次都要重新写。Skill把这些全部提前写好存成文件，用的时候说一句话就触发。</p>
+<p>我目前有13个Skill：光看表格没有感觉，拆一个具体的Skill给你看看里面是什么。</p>
+<p>拿「搜索笔记生成」来说，这个Skill文件的流程大概是这样：1.触发条件：当我说「写xx关键词的搜索笔记」的时候触发。</p>
+<p>2.执行链路：AI会先通过MCP接口去小红书搜这个关键词，看排名靠前的笔记是什么类型、什么结构、什么切入角度，相当于先做一轮竞品调研。</p>
+<p>然后判断用户搜这个词想干什么（是了解概念、找方法、还是看案例），再去读搜索SEO方法论（9章内容，写了搜索排名的四层漏斗原理）。</p>
+<p>结合刚才调研到的排名规律，去读关键词库找到这个词属于哪个优先级，再去活素材库找跟选题相关的真实案例。</p>
+<p>然后按内嵌的写作规范来写，标题要踩到核心词、关键词密度要多少、关键词在哪些位置必须出现、开头用什么结构、结尾怎么引导互动等等都有要求。</p>
+<p>3.质量自检：写完之后，AI会自己跑一遍检查清单，比如关键词密度够不够、标题有没有踩到核心词、开头三行有没有钩子、有没有违规表述等等。过了自检才会保存到待发布文件夹。没过的会重新修改一遍，直到没问题才会保存。</p>
+<p>这就是Skill和「写个好的提示词」的区别。不管多厉害的AI，光靠提示词都是不够用的，Skill是工作流，里面内嵌了方法论、规范、自检机制。AI每次执行都按同一套标准来，不会因为你今天写提示词偷了个懒就输出质量下降。</p>
+<p>而且，这些流程、方法论，都是会成长的，不是固定的，会随着知识库的丰富，变得越来越完善。</p>
+<p>我有几条曝光量只有几十到几百的搜索笔记，都在默默的持续出单。搜索笔记不需要爆，它需要的是被搜到的时候排在前面。</p>
+<p>AI每次都老老实实遵守搜索排名的规则，比我自己凭感觉写靠谱多了。</p>
+<h4>3、真实工作流</h4>
+<p>下面分享几个我每天在用的工作流，我觉得对内容创作者会有些帮助。</p>
+<h4>3.1 写公众号</h4>
+<p>公众号是我的主阵地之一，以前写一篇要大半天，很长一段时间，我的公众号都是周更，甚至做过月更，因为写一篇真挺不容易的，我又那么懒……</p>
+<p>现在能做到日更，真的一大半功劳都要归给AI，整个流程是这样：我一般上午会去咖啡店办公，去到地方点杯咖啡，等咖啡的时候跟AI说「从选题库随机选一个写公众号」。</p>
+<p>AI先扫描选题库，看哪些选题还没写过。然后会检查最近10篇文章的内容方向配比，AI实战占了多少、个人故事占了多少……如果某个方向连续3篇缺席，会优先推荐那个方向的选题。</p>
+<p>我之前有一段时间连着写了好几篇个人感观点类的内容，完全没发现自己跑偏了，后面数据严重下滑，给AI分析之后才反应过来。后来把配比追踪写进了Skill，AI帮我盯着，某一类型的内容不能超过一定比例。</p>
+<p>选好选题之后，AI读我的IP定位文件，知道我的定位是什么、该用什么调性。再读活素材库，匹配跟选题相关的个人经历和案例，确保内容里面的案例和奖励不是编的，是我真实做过的事。</p>
+<p>这一步非常重要，用AI写过内容都知道，AI会瞎编故事和案例，如果做IP，用的素材都是AI瞎编的，那就没什么意义了。</p>
+<p>都确定好后，AI会按我定义好的写作流程来写文章。写完不是直接给我，先自己跑一遍检查：1.去AI化检测：有没有比喻句、名人引用、排比句、「在这个XX的时代」式开头等等，这些都是AI写作的典型痕迹，检测到就自动改掉。</p>
+<p>2.内容力审视：三个维度（均来自富贵老师的分享），有没有「降维打击」的段落（站在更高视角看问题）、作者自己的情绪有没有变化（不是全程平铺直叙）、菜市场测试（大爷大妈能不能听懂，听不懂说明写复杂了）。</p>
+<p>3.IP辨识度测试：把我的署名换成别人，这篇文章还成立吗？如果换个名字也毫无违和感，说明没有个人特色，AI会标出来。</p>
+<p>4.平台合规检查：有没有具体收入数字、有没有「轻松赚钱」类话术。我之前因为用了「网赚」类表述被公众号删过两篇文章，吃过亏，所以把合规写成了硬规则。</p>
+<p>整个流程跑完，咖啡也做好了，接下来就是修改细节、补充一些个人判断等等，一篇公众号从选题到发布，大概一个小时。以前是大半天。</p>
+<h4>3.2 写小红书搜索笔记</h4>
+<p>跟AI说「帮我用“AI知识库”这个关键词写一篇搜索笔记」。</p>
+<p>AI第一步不是直接写，而是先通过MCP去小红书搜这个关键词，看现在排名靠前的笔记长什么样，比如，内容是什么类型、什么结构、什么切入角度。相当于先派AI去做了一轮竞品调研。</p>
+<p>然后判断用户搜这个词的意图，是想了解概念，还是想找方法，想看案例？不同意图对应不同的内容结构。</p>
+<p>接着读搜索SEO方法论。这套方法论有9章，都是我从实操数据和各种课程里提炼出来的。写了搜索排名的底层逻辑、关键词怎么布局、标题怎么写、正文怎么结构化。</p>
+<p>然后去读活素材库，找跟选题相关的真实案例。有真实案例的笔记和没有的，读起来完全不是一个感觉。</p>
+<p>写完跑质量自检。关键词密度够不够、标题有没有踩到核心词、开头有没有钩子、有没有话题标签、结尾有没有引导互动。过了才保存。</p>
+<p>大部分流程其实跟公众号的类似，只是写作的方法和风格不同，写作前也多了一步验证环节。</p>
+<h4>3.3 语音日记 → 知识沉淀</h4>
+<p>作为内容创作者，我每天都会记录一些东西，以前都会记在飞书、flomo、备忘录……现在全部在obsidian。</p>
+<p>比如，散步的时候突然想到一个选题方向，掏出手机直接记录到obsidian（推荐豆包输入法，打字都省了）。跟朋友吃饭聊到一个观点，觉得能写篇文章，全部录下来。</p>
+<p>以前这些东西就躺在手机里了，固定时间复盘的时候才用得上，我是INTP，对于记录、复盘这类任务的热情只有3天……</p>
+<p>现在不一样。MacBook上装了闪电说，随身带着录音工具，任何时候都能记录，录完自动转文字，没有一步是多余的。</p>
+<p>录音文件同步到Obsidian里，然后跟AI说「处理日常输入」。</p>
+<p>AI自动扫描文件，找到没处理过的段落（处理过的会打上标记，下次不重复），然后从一堆散乱的口语里面把有价值的东西挑出来：把有用的信息更新到素材库，下次AI写文章需要这类观点的时候，直接调用。</p>
+<p>或者把值得展开的想法，放到选题库。</p>
+<p>有待办事项，单独列出来放到苹果提醒事项里。</p>
+<p>我不需要分类、整理。动嘴说就行，AI把碎片变成系统里能用的东西。</p>
+<p>这套流程把「想到」和「记住」之间的摩擦降到最低。（P人狂喜）3.4 录音 → 知识提炼这个跟日常碎碎念不同，是处理较长的录音，比如课程、咨询、交流会。</p>
+<p>上个月去杭州参加了富贵老师两天一夜线下课，100人，讲情绪营销。富贵老师讲的方法论、现场案例、我在互动环节说的话、跟旁边学员的交流……全部都录下来，信息量很大。</p>
+<p>如果靠自己记笔记整理，要花不少时间，而且一定会漏掉很多细节。</p>
+<p>这次回来后，我把录音转成逐字稿，存成md文件。跟AI说「处理录音」。</p>
+<p>AI先通读全文，判断这是什么类型的录音，我区分了「外部课程、咨询对话、朋友交流等等」。不同类型有不同的提取重点。</p>
+<p>这次是「外部课程学习」，AI一段段读，从里面提取：1.方法论——情绪营销的底层逻辑、八步成交SOP、卖点到买点的翻译方法。</p>
+<p>2.可直接用的策略——标题要用人群词 + 痛点词 + 效果词 + 时效词的公式。</p>
+<p>3.案例故事——老师讲的案例、学员分享的案例，以后写文章能用。</p>
+<p>4.金句——课上那些一句话就能戳到人的表达。</p>
+<p>5.我自己说的话——互动环节我说了什么，AI会单独标出来（我的录音工具能识别“叁斤”的声音）。</p>
+<p>6.可延伸的选题——从课程内容里挖出来的、我可以写成文章的方向。</p>
+<p>整个流程跑完，整理的不是一份阅读笔记，而是会把关联度高的方法论直接更新到方法论文件夹，以后AI写内容会自动调用。同时更新的还有素材库、选题库等等。</p>
+<p>以前听完课觉得收获很大，虽然自己学会了，但不可避免的会忘掉大部分。</p>
+<p>现在，不仅自己学会了，你的AI也学会了，而且你的AI学会的，还能直接用。</p>
+<h4>3.5 做虚拟产品</h4>
+<p>Obsidian + Claude code的知识库，不仅能帮你写内容，还能帮你从零做出一个可以卖的虚拟产品。</p>
+<p>整个流程大概是这样的。</p>
+<p>第一步，大量收集信息。</p>
+<p>比如，我要做一个产品，会先把这个领域的优质内容全部收集到Obsidian里。包括文章、教程、课程笔记，能找到的都存进来。</p>
+<p>我装了一个网页采集工具，把YouTube链接发给Claude code，它自动把视频内容提取转成markdown文本。不需要自己看完整个视频再手动做笔记，AI帮你把内容变成可处理的文本。</p>
+<p>国内的网页内容也一样，发链接就可以。</p>
+<p>第二步，AI处理和整理框架。</p>
+<p>原始素材可能有几十份，散乱、质量参差不齐。</p>
+<p>AI会先通读所有内容，帮你提炼核心知识点、梳理逻辑框架、找出重复和矛盾的地方。不需要自己整理，AI帮你做第一轮整理，输出一个完整的产品框架。</p>
+<p>第三步，结合个人素材写成产品。</p>
+<p>这一步是关键。如果只是整理别人的内容，那只是搬运二创，没有个人特点。</p>
+<p>所以，需要AI去读你的素材库、你的方法论文件、个人经历等等，把你的案例、判断和实战经验加进去。</p>
+<p>最终出来的是「你的知识 + 你的经验 + 行业优质内容」融合出来的原创产品。</p>
+<p>这个方法，做成什么形态都行，PDF、PPT、知识库都可以。</p>
+<p>为什么这个方式做出来的东西质量高？因为信息量大。靠手动整理，能看的资料有限，写出来容易有盲区。AI帮我处理几十份素材，覆盖面广得多。</p>
+<p>人只负责两件事：判断哪些信息有价值、补自己的实战经验。这两件事AI做不了，也是产品有竞争力的原因。</p>
+<h4>3.6 个人成长流程</h4>
+<p>这个跟做虚拟产品是同一套能力，方向不同。做产品是「输出给别人」，读书是「输入给自己」，但输入完了也能变成产品。</p>
+<p>比如，我最近在读《行为》（讲人类行为的生物学基础），很长，几十万字，我很难专注的读下去，所以我把阅读的任务交给了AI。</p>
+<p>整个流程是这样：把电子书的内容存进Obsidian，跟AI说「帮我做速读指南」。AI通读全书，提炼每章核心概念、关键实验等等，生成一份速读指南。</p>
+<p>我先看速读指南建立全书框架，然后挑感兴趣的章节精读。精读的时候AI会帮我做笔记，还有，它会做两件更有价值的事：1.写精读笔记把书里的概念、实验、结论整理成结构化的知识文件。每个概念标注来源（哪一章哪个实验），以后引用有据可查。读完还会出测验题帮你检验有没有真正理解。</p>
+<p>2.提炼思维模型从书的内容中提取可以应用到实际业务场景的模型。比如从《行为》里我提炼出了一份「行为学与人性底层认知」方法论，包含用户决策的生物学基础、环境怎么塑造行为、情绪怎么影响判断……</p>
+<p>这份方法论直接存到方法论文件夹，AI以后写营销内容、做产品分析的时候自动调用。</p>
+<p>所以，AI读书，不是读完了就完了。这些精读笔记和方法论，整理一下就能同步到飞书的「一人变现系统」知识库里。用户买的产品就多了一个板块。</p>
+<p>我读书学到的东西，既内化成了自己的认知，也让AI多了一套可以调用的方法论，还让产品多了可以交付的内容。</p>
+<p>知识库让「学习」和「生产」变成了同一件事。</p>
+<h4>4、进化系统，AI越用越像你</h4>
+<p>这个需要单独讲，因为它是整套系统里最有差异化的设计。</p>
+<p>AI写的东西和我自己写的，总有差距。不管怎么调整话术，用了知识库，也一样，因为AI没有个人风格。</p>
+<p>我的做法是，让AI生成2个文案，一个给我修改，一个原档，然后让AI学我的修改方式。</p>
+<p>整个流程是这样：1、AI帮我写一篇文章，一份原稿，自动存档到文件夹，另一份是放到待发布的内容。</p>
+<p>2、我在待发布的文案上改成满意的版本，发布，然后拖到已发布文件夹。</p>
+<h4>3、积累几篇后，我可以让AI「执行进化学习」</h4>
+<p>4、AI自动把原稿和我的终稿配对，逐段对比，我删了什么、改了什么、加了什么5、提取跨篇的共性规律6、把规律写进修改规律文件7、下次写文章，AI在写的时候自动遵守这些规律现在有了可以进化的skill之后，已经能明显感觉到AI写出来的东西越来越符合我的要求了。</p>
+<p>进化系统的本质是：把「人改AI」这个动作做了记录，然后反哺。而且不仅是文案本身能进化，学习的方法论，也能同步到skill里面，人在学习的同时，AI也在学习。</p>
+<h4>5、MCP：让 AI 链接到你的工具</h4>
+<p>前面讲的都是AI在知识库内部干活，但实际工作中，信息不只在知识库里，还在小红书上、日历里、各种外部工具中。</p>
+<p>MCP是让AI连接外部工具的协议。装一个MCP，AI就多了一个能力。我目前只装了两个。</p>
+<h4>5.1 小红书MCP</h4>
+<p>这个MCP可以让AI能直接搜索小红书、读帖子正文、读评论区。</p>
+<p>单独用它就是一个搜索工具，跟我的Skill配合起来，就有很多可以想象的空间。</p>
+<p>之前看别人分享过一个挖掘产品需求的skill，我修改了一下，做成了「小红书选题挖掘」Skill。</p>
+<p>现在我说「帮我看看AI知识库方向有没有需求」，AI做的不是简单搜索，而是执行一套完整的调研流程：1.四路搜索取证。AI自动搜四组关键词：• 求助类：「AI知识库怎么搭」「Obsidian怎么用」，目标是找正在找解决方案的人• 吐槽类：「AI写的内容太假了」「知识库搭不起来」，找对现有方案不满的人• 替代类：「有没有比XX更好的」，找在对比选择的人• 交易类：「求AI知识库推荐」「多少钱」，找已经准备付费的人四组关键词覆盖用户从「发现问题」到「准备买单」的完整链路。</p>
+<p>2.深入读帖子和评论。</p>
+<p>搜到帖子之后，AI不只看标题，会点进去读正文和评论区。评论区经常比正文更有价值。</p>
+<p>正文可能是营销内容，但评论区的吐槽和提问是真实需求。</p>
+<p>比如一篇讲AI知识库的帖子，评论区有人说「看了好多教程还是搭不起来，有没有现成的」，这就是一个真实的产品需求信号。</p>
+<p>3.帖型分类和信号提取。</p>
+<p>AI会对每篇帖子做分类，并且从里面提取痛点关键词、需求信号、情绪倾向。</p>
+<p>4.生成选题并自动分流。</p>
+<p>提取完的选题，AI会判断这个选题适合写IP内容（公众号/小红书）还是写产品引流笔记，自动分类到对应的选题库。</p>
+<p>整个过程我说一句话，AI跑完，我拿到的是一批经过分析的、带信号标注的、已经分好类的选题。</p>
+<p>这就是我用MCP + Skill的方式，MCP提供能力（搜索小红书），Skill定义怎么用这个能力（四路搜索→深入读帖→分类提取→选题分流）。</p>
+<h4>5.2 日历和提醒事项MCP</h4>
+<p>自由职业很重要的一件事是记录自己的工作时间和工作任务。</p>
+<p>没有打卡机，没有老板给你安排任务，一天下来经常觉得「忙了一天但不知道忙了什么」。如果不主动记录，你根本不知道时间花在哪了。</p>
+<p>这些年来我一直在找任务管理和日历工具，试过很多APP。有的功能太重太复杂，有的同步有问题，有的用着用着就收费了，而且还很多广告。</p>
+<p>目前最好用、最干净的，是苹果自带的日历和提醒事项。一个生态内全部打通，手机、电脑全部都能同步，不需要额外装什么东西。</p>
+<p>而且ios的提醒事项，是可以同步在日历里展示的，也就是打开日历，就能看到所有任务，做完任务也可以在日历上写复盘，非常方便。</p>
+<p>而现在，装了日历的MCP之后，AI能直接读取和操作日历、提醒事项。</p>
+<p>1.记录工作时间。</p>
+<p>我每个任务结束后都会写一下复盘，就是几点到几点，做了什么事。现在，我会让AI帮我把任务细节和复盘全部记到日历里。</p>
+<p>比如，「今天上午写了公众号文章、下午处理了两段录音、晚上做了一个咨询」，AI直接写到日历对应的时间段。到周末我说「帮我看看这周工作了多少小时」，AI读日历帮我统计。</p>
+<p>这个真的P人狂喜，目前没有找到更好的流程能做这个事情。</p>
+<p>2.管理任务和提醒。</p>
+<p>因为AI能直接修改提醒事项，所以我可以让Claude code给我安排任务，每天应该做什么事情，都让AI安排。</p>
+<p>全程在Claude code里一句话搞定。需要记录的时候，也是cc记录，写复盘。也能让cc分析我这一周的工作情况大概是怎样，有没有问题。</p>
+<p>3.结合知识库做复盘。</p>
+<p>AI能同时看到我的日历（做了什么）和知识库（产出了什么），做周复盘的时候它能帮我分析：这周哪些时间花在了内容生产上、哪些花在了系统搭建上、产出效率怎么样。</p>
+<p>就相当于是一个时时都盯着我的工作助理，对自由职业的小伙伴来说应该很有帮助。</p>
+<h4>6、复利效应</h4>
+<p>这套系统最核心的特征不是「能干什么」，是「越用越强」。</p>
+<p>两个多月，下来，每一个环节、每一个功能都越用越完善，关键是每个功能之间还能互相加强。</p>
+<p>比如，知识库越来越丰富，AI写内容时能调用的素材和方法论就越多，输出质量越高。</p>
+<p>输出质量越高，我改的越少，改的地方越精准，进化系统提取的规律越有价值。</p>
+<p>规律越准，下一篇的初稿质量又更高。</p>
+<p>这是一个正向飞轮，就不需要每天花额外的时间维护知识库，而是融入你的日常工作，比如，录语音、写文章、改稿子、听课，这些动作本身就在给知识库投喂内容。</p>
+<p>知识库越强，你的工作效率越高，省出来的时间又能喂更多东西进去。</p>
+<p>怎么让飞轮转起来？</p>
+<p>1、每天录一段。语音日记、碎碎念，让AI处理。这是最低成本的输入。</p>
+<p>2、改完文章收集起来。让AI对比原稿和终稿，提取修改规律。大部分人改完就发了，浪费了最有价值的学习材料。</p>
+<p>3、遇到问题就加规则。CLAUDE.md和Skill都是用出来的，不是设计出来的。</p>
+<h4>7、知识库本身就是产品</h4>
+<p>我的本地知识库是「叁斤的大脑」，方法论、Skill、素材库是给自己用的。</p>
+<p>但可以把其中一部分拆出来，整理成飞书或Notion知识库，卖给别人。本地知识库用的是Obsidian +Claude code，需要一定门槛。</p>
+<p>飞书知识库不需要任何技术，打开浏览器就能看，适合卖给用户。</p>
+<p>我的「一人变现系统知识库」就是这么来的，从本地知识库里拆出可复用的方法论和框架，打包成飞书知识库产品，这也是我目前重点在做的虚拟产品。</p>
+<p>只需要搭建一次，两头用。一边给自己提效，一边拿出去卖。</p>
+<p>而且这个产品是持续更新的。</p>
+<p>前面讲了，我读一本书，AI帮我做精读笔记和思维模型，整理完直接同步到飞书，产品就多了一个板块，多一分内容。</p>
+<p>我去参加线下课，录音处理完，部分方法论我又可以同步到飞书。也就是说，用户买的不是一个做完就不动的PDF，是一个持续在长的知识库。</p>
+<p>这就是我做虚拟产品的逻辑，整个过程在Obsidian + Claude code里完成。以前做一份手册要一两周，现在核心时间花在「判断哪些信息有价值」和「补自己的案例」，AI负责剩下的环节。</p>
+<h4>8、从零搭建</h4>
+<p>看到这里可能觉得复杂。其实起点很简单，我的第一版也很粗糙。</p>
+<h4>8.1 装Obsidian</h4>
+<p>官网下载安装，免费的，全平台都有。建一个知识库，可以先建几个初始文件夹：代码块1你的知识库/2├──输入箱/←新内容先丢这里3├──知识库/←方法论、学习笔记4├──内容生产/←选题、草稿、已发布5├──产品库/←产品资料6├──素材库/←故事、案例、金句7└──.claude/skills/←AI技能包不需要更复杂了。用起来之后自然会根据需求加。我现在的目录结构也是两个月里慢慢长成这样的。</p>
+<p>为什么用Markdown格式？这个格式AI能直接读、直接写。不像Word或飞书文档还要转换。</p>
+<p>Markdown就是纯文本加几个符号，AI处理起来没有障碍。</p>
+<h4>8.2 装Claude code</h4>
+<p>这就是个终端工具，网上教程很多，搜一下就有，这里不赘述。</p>
+<p>装完怎么连接知识库？</p>
+<p>用cd命令进入你的Obsidian知识库文件夹，然后输入claude启动。就这一步，AI就能读到你所有文件了。</p>
+<p>最简单的方式是，把整个文件夹拖到终端，再打开Claude code，或者打开后把文件夹拖进去，就能在里面工作了。</p>
+<p>也能直接设置指定目录打开，这个可以让AI帮你做好。</p>
+<p>第一次用可以试试：「帮我看看这个文件夹里有什么」「读取XX文件帮我总结一下」「帮我在输入箱创建一个新笔记」。你会发现AI真的在你电脑上操作文件，不是在对话框里模拟。</p>
+<h4>8.3 写CLAUDE.md</h4>
+<p>在知识库根目录建一个CLAUDE.md文件。第一版写着几个部分就够了：1、你是谁、你做什么（大约3-5句话）。</p>
+<p>2、你希望AI怎么协作（比如，直接给方案、用中文……）。</p>
+<p>3、文件夹各是干什么的。</p>
+<p>4、什么事不能做（不能删文件、不能自动提交代码）。</p>
+<p>写完重启Claude code，AI就已经认识你了。</p>
+<p>然后最重要的事：用的过程中发现AI犯了什么错，立刻往CLAUDE.md里加一条规则。</p>
+<p>这个文件是用出来的。一边用，一边完善，整个文件会越来越丰富。</p>
+<h4>8.4 开始用</h4>
+<p>CLAUDE.md写好之后，不要想着一步到位把系统搭完美。直接开始用。</p>
+<p>跟AI说你想干什么就行。</p>
+<p>比如「帮我把这段录音整理成笔记」「帮我写一篇小红书笔记，主题是XX」。说人话，不需要学什么提示词技巧。</p>
+<p>AI做得不好，直接告诉它哪里不好，你纠正它的过程，就是在教它怎么配合你。</p>
+<p>如果有反复要纠正的问题，就直接写进CLAUDE.md，下次就不用再说了。</p>
+<p>用了一段时间，你会发现有些任务反复在做，比如每次都要解释同样的背景、同样的要求、同样的格式。</p>
+<p>这时候再考虑把它固化成Skill（一个写清楚触发条件、执行步骤、输出规范的文件），让AI一句话就能执行整套流程。</p>
+<p>语音输入是门槛最低的喂料方式，我用的是闪电说和AI录音笔，每天录一段复盘或灵感，文字放到Obsidian，让AI处理。</p>
+<p>我不需要自己分类、整理，AI会把碎片变成系统里能用的东西。</p>
+<p>这套系统的本质，不是让知识库好看、有条理。是解决一个问题：一个人怎么干出一支团队的活。</p>
+<p>方法论是AI的教科书，Skill是工作手册，CLAUDE.md是协作协议。每一层都在让AI更懂你。</p>
+<p>搭在一起，AI就不再是一个每次都要从头解释的对话框了。它是一个越来越懂你的工作系统。</p>
+</article>
+<article data-id="a2" data-title="我用 Obsidian 加 AI，搭了个小红书自动获客系统" data-tag="AI 内容获客">
+<p>企业做小红书获客，遇到最大的问题是什么？</p>
+<p>你可能会认为是没流量，或者不会做，导致账号起不来、转化不稳定。</p>
+<p>但我跟很多老板聊过后发现，都不是，真正的问题其实是人。</p>
+<p>老板懂业务，但没办法天天做运营的工作；</p>
+<p>想招个操盘手，发现招不到厉害的，因为真正厉害的小红书操盘手，大多都干 一人公司 去了。他自己就能把内容、投放、搜索、成交全部想清楚，大概率自己就能出去接项目，不会想上班的。</p>
+<p>所以，很多企业最后会变成两种状态：要么老板亲自下场，要么招一个普通运营凑合着用。但普通运营虽然有执行力，做出来的效果却始终不太理想</p>
+<p>这看起来是内容问题，其实本质是运营没有被系统化。以前这件事没得选，但现在有了 AI，这一切都已经改变了。</p>
+<p>企业不一定非要把所有希望押在一个坐班的操盘手身上，只需要把老板的业务经验、操盘手对内容判断、用户的问题、平台规则等等，沉淀成一套能被 AI 调用的知识库，就行了。</p>
+<p>我这里说的自动获客，不是 AI 自动成交，也不是发完笔记客户就马上上门，而是把关键词、素材、SEO 规则和写作流程系统化，让内容持续围绕真实搜索需求发布。</p>
+<p>只要内容长期命中用户正在搜的问题，获客就不再完全依赖你的运营今天有没有灵感、状态好不好。</p>
+<p>这样，一个普通运营配合这套 AI ，也有机会稳定做出 80 分左右的内容。这已经能解决很多企业小红书运营里最现实的问题。</p>
+<h4>1、企业缺的是运营经验</h4>
+<p>现在很多老板做小红书，会遇到一个问题，就是自己对行业明明非常了解，但运营就是写不出想要的内容。</p>
+<p>举个很简单的例子。</p>
+<p>大部分老板都知道客户需求，还知道同行哪些说法是瞎扯的，但这些东西都在老板脑子里。</p>
+<p>运营要写一篇笔记，只能不断向老板确认选题方向、案例和关键词等等；老板在忙的话，运营就只能自己猜，自己写。</p>
+<p>这就是企业做小红书最常见的状态，干活的人拿不到真正有价值的判断。</p>
+<p>而小红书内容最值钱的地方，根本不是运营的文笔，而是价值判断。就是用户现在搜什么词，这个词背后是真需求还是随便看看，产品应该从哪个角度切进去，用哪些素材能建立信任……这些才是真正有价值的</p>
+<p>如果这些判断都靠某一个人临场发挥，内容就永远不稳定。这才是企业小红书真正的问题。</p>
+<h4>2、AI 可以把经验变成系统</h4>
+<p>我自己做小红书 6 年多，前几年基本都是手写。每天刷小红书找灵感，看哪个爆了，就会想自己是不是也能写类似方向；</p>
+<p>这种方式不适合长期做，但没办法，因为所有东西都在脑子里。脑子里的东西，没法复用，没法批量，也没法交给别人执行。</p>
+<p>所以在春节的时候，我用 Obsidian 加 Claude Code 搭了一套小红书内容知识库，就感到无比震惊。</p>
+<p>我把对内容的判断、案例都存到Obsidian，Claude Code 在帮我写笔记的时候，就会我的方法和案例。这两个东西合在一起， AI 在写内容之前，就已经知道我的业务是什么、用户是谁、素材在哪里……</p>
+<p>这也是我越来越确定的一件事：现在做小红书获客，已经没太大难度了。</p>
+<p>不只是小红书，抖音、公众号……都一样。</p>
+<p>没有知识库，AI 每次都是从零开始。它不知道你的客户为什么进店、为什么不成交、为什么愿意复购，最后写出来的大概率还是一堆正确但没用的内容。</p>
+<p>因为它没有你的业务上下文。</p>
+<p>但如果这些东西都沉淀进知识库，AI 就成了一个能调用企业经验的内容操盘手；普通运营也不再是从零开始写，而是站在一套已经整理好的判断系统上执行。</p>
+<h4>3、如何搭建内容系统</h4>
+<p>具体到我自己的方式，最核心的是四个模块。</p>
+<h4>3.1 关键词库</h4>
+<p>企业做小红书，第一层不是写内容，是先知道用户会搜什么。我会把关键词分成三类：业务核心词、下拉词和痛点词。</p>
+<p>业务核心词直接对应你要做的业务，比如「AI知识库」「小红书获客」「一人公司」；</p>
+<p>下拉词是用户在小红书搜索时，平台自动联想出来的长尾词，这些是真实用户已经在搜的；</p>
+<p>痛点词则来自评论区、客户咨询记录、对标账号笔记和成交聊天记录。</p>
+<p>很多时候，用户不会直接搜你的产品名，而是搜自己的问题。他可能不会搜「AI内容系统」，但会搜「小红书怎么稳定获客」……</p>
+<p>关键词库的价值，就是让内容从一开始就对准真实需求。</p>
+<p>搜索这些词的人，本来就在找解决方案，内容只要持续覆盖这些入口，就有机会把泛流量变成更精准的潜在客户。否则你写得再认真，也可能只是在自嗨。</p>
+<h4>3.2 素材库</h4>
+<p>很多企业内容看起来像广告，是因为没有素材支撑，最后只能反复罗列卖点、概括客户反馈，或者讲一些行业里谁都不会反对的正确废话。</p>
+<p>但真正能建立信任的，是客户问过的问题，销售遇到过的异议，还有产品在哪些场景里解决了用户真正的问题等等。这些东西如果不沉淀，那真是对内容资产的巨大浪费。</p>
+<p>我自己的素材库里，会放个人经历、用户问题、对标账号拆解等等。</p>
+<p>企业也一样，门店老板可以放客户到店前后的变化，咨询师可以放真实咨询中的高频问题，知识博主可以放过去几年写过的文章、课程和答疑记录。</p>
+<p>我理解的素材库，重点不在于存了多少东西，而在于这些东西是否能被 AI 调用。</p>
+<p>每条素材最好都知道适合什么主题、能调动什么情绪、用过几次、是否还能继续用，否则素材越存越多，最后还是停在「找不到、调不动、用不上」这一步。</p>
+<h4>3.3 方法论库</h4>
+<p>这一层是写给 AI 看的规则。</p>
+<p>比如小红书 SEO 规则：</p>
+<p>标题前面要放核心词和限定词，一篇笔记只打一个主要搜索词，正文里要自然出现核心词和同义词，标题、正文、标签要指向同一个类目。</p>
+<p>这些规则都是经验，存在操盘手的脑子里，换一个人可能就不会了。但只要写成文档，AI 每次生成内容时就能照着执行。</p>
+<p>这里面还要放企业自己的表达规则，比如禁用词、卖点边界、案例尺度、广告感表达，这些都要提前写清楚。</p>
+<p>很人写的内容有 AI 味，会认为 AI 不行。</p>
+<p>其实更多时候，是因为你没有给它规则。它只能用网上最常见的表达来写，写出来当然像废话。</p>
+<h4>3.4 AI 写作工作流</h4>
+<p>我在 Claude Code 里写了一个「搜索笔记生成」的 skill。</p>
+<p>每次要写笔记，我不是直接说「帮我写一篇小红书」，而是让它先看关键词库，确定这篇要打哪个搜索词，再去素材库里找适合的案例和表达，然后按 SEO 方法论生成初稿。</p>
+<p>如果需要，它还能通过小红书 MCP 去搜当前头部笔记，看看这个关键词下面大家都在怎么写，评论区用户真正关心什么。</p>
+<p>也就是说，整个流程不是靠一句万能提示词，而是在生成之前先确定需求、证据和规则，再让 AI 工作流把这些东西调出来，组合成一篇能用的初稿。</p>
+<p>四个模块放在一起，系统才真的能跑起来。</p>
+<h4>4、普通运营为什么也能用</h4>
+<p>这套东西对企业最大的价值，不是省掉运营，而是降低对单个高手的依赖。</p>
+<p>我举一个我自己的使用场景。我打开 Claude Code，告诉它从「AI知识库」这个词的下拉词库里随机选 3 个，按 SEO 方法论各写一篇搜索笔记。</p>
+<p>它会先看这 3 个词对应的搜索需求，再调出我 Obsidian 里的方法论和素材库，然后生成初稿。</p>
+<p>这些笔记是为了长期占住精准搜索入口。</p>
+<p>比如，用户可能会搜「AI知识库怎么搭」，那我的系统都能围绕这些需求持续产出内容。</p>
+<p>我做的事主要是终审和发布。</p>
+<p>终审也不是重写一遍，而是看 AI 味的句子有没有改回我的语气，以及素材有没有用对。</p>
+<p>这里有个前提，我必须说清楚。</p>
+<p>AI 生成不是全自动，全自动内容没有 IP 感，也没有业务判断。我现在更认可的比例，是 AI 生成 80%，人工优化 20%，那 20% 是真实案例、说话方式和踩过的坑，也是内容最后有没有信任感的关键。</p>
+<p>企业做小红书也是一样，不要指望 AI 替你凭空变出一个操盘手。</p>
+<p>更现实的方式是，老板和操盘手先把判断沉淀进知识库，普通运营用这套知识库出初稿，最后由懂业务的人做终审。</p>
+<p>这样运营不是在猜老板怎么想，AI 也可以调用企业已经验证过的经验，稳定性自然会比纯手写高很多。</p>
+<h4>5、老板要先整理自己的知识库</h4>
+<p>很多人一听 AI 知识库，就会先问工具，纠结 Obsidian、飞书、Claude Code 这些怎么选。这些都重要，但不是第一步。</p>
+<p>第一步是把你脑子里的东西倒出来，包括客户画像、购买原因、购买前顾虑、小红书搜索习惯、真实成交案例，以及那些新运营很难一下子理解的内容判断。</p>
+<p>这些东西不整理，换什么工具都没用，因为 AI 能放大的，是你已经沉淀下来的东西。</p>
+<p>判断、素材、方法论越清楚，AI 的输出就越接近你的业务；</p>
+<p>反过来，前面什么都没有，它只能给你一堆看起来完整、但没有业务味道的内容。</p>
+<p>所以企业做小红书，下一步不是招一个操盘手。这种人当然好，但很少。</p>
+<p>更现实的做法，是先把现有业务里最值钱的东西整理出来，包括老板的经验、销售的聊天记录、客户的真实问题、操盘手的内容规则，以及过往发过的有效笔记。</p>
+<p>这些东西沉淀下来，才是企业真正的小红书内容资产。只要这套知识库在，企业的内容判断就不会每次都从零开始。</p>
+<p>这件事最值钱的地方，不是 AI 本身，而是你终于把 一个人的经验，变成了一套别人也能执行的系统。</p>
+<p>这才是企业用 AI 做小红书获客，真正应该先补上的一课。</p>
+</article>
+<article data-id="a3" data-title="做小红书 5 年，一个人，一套 AI 体系，月入 10w+ 的实操复盘" data-tag="一人公司复盘">
+<p>哈喽，我是叁斤，深耕小红书马上第六年了，过去做过小红书博主、电商、引流、代运营、培训……</p>
+<p>虽然能做出一些成绩，但这些业务本质上都是拿时间换钱，时间有上限，收入就有天花板。一旦账号被封，或者停更，收入就没了。</p>
+<p>今天这篇复盘有点长，但对你 一定 很有帮助。</p>
+<p>在25年初，我把所有的业务模式做了巨大的调整，完全放弃了 B 端培训和代运营，专注经营自己的 IP账号和虚拟产品。</p>
+<p>在10月份的时候我微信被封了，主账号被封 7 天，工作号永久封号，当时真感觉天塌了。但从封号到解封，有一周左右的时间，在与外界几乎断联的情况下，我收入并没有因此减少。</p>
+<p>所以，我眼中的自由职业，不应该是随处办公，而是我不工作，系统依然在为我赚钱。</p>
+<p>这篇文章，就是这个系统的完整拆解。</p>
+<p>目录：1. 三个关键认知2. 五个可落地的系统3. 两个长期主义的坚持4. 只有写下来，才是你的我是一个挺中二的人,喜欢看《完美世界》。里面男主「以身为种」，不选主流修炼体系，自己开辟新路。 我也在做类似的事情。</p>
+<p>做自由职业这几年，我发现有三种常见模式：快钱模式： 追热点、割韭菜，见效快但不持久。</p>
+<p>团队模式： 做MCN、规模化，天花板高但管理累。</p>
+<p>系统模式 ： 搭知识库+AI，可持续可扩展。</p>
+<p>今天重点讲我如何用 AI 搭建这套系统。</p>
+<h4>1、三个关键认知</h4>
+<p>认知1：账号是消耗品，知识库才是资产原来大家都在讲私域，只有私域的资产才是自己的。</p>
+<p>但在 10 月份的时候，我的微信账号被封，主账号禁言 7 天，工作号永久封号，几个月心血差点白费，这时我开始怀疑是不是我对私域有什么误解。</p>
+<p>问了很多人，有几个专门做私域的大佬，他们一个微信号上万人，也永久封号，一下封几个，损失几万个私域用户。</p>
+<p>还有一些小红书、抖音的博主，做到几十上百万粉丝，账号一个不小心账号就被封了，所有沉淀都归零。</p>
+<p>而且平台规则一旦有任何改动，过往的玩法全部都会失效。</p>
+<p>就像现在小红书虚拟产品出了反盗版的新规，80%搬运、盗版资料的玩法都会死。</p>
+<p>但是在我封号期间，我的公众号内容在持续传播，小红书店铺在持续出单，知识库的内容在继续累积……</p>
+<p>所以，现在我会觉得，微信号、自媒体账号、粉丝，这些都是虚的，私域也不应该是「加到微信」。</p>
+<p>只有你的观点 、你的经验、你的影响力……这些才是真的不受任何平台影响的私域。</p>
+<p>把这些内容沉淀在知识库，才是真正的资产。而你的账号，只是知识库对外展示的方式之一。有这个知识库，你可以创造无数个账号。</p>
+<p>什么是知识库？简单来说，知识库是一个工厂，只要你愿意，它就可永远为你生产内容。</p>
+<p>我有几个知识库，写过的文章、我对小红书的理解、学习到的新东西……全部都有对应的地方可以放。</p>
+<p>要写内容的时候，可以随时从知识库中调取。</p>
+<p>认知2：低客单 ≠ 低收入很多人在往高客单上靠，普遍认知是： 高客单 = 高收入 。</p>
+<p>这并没错，但更多情况下是： 高客单 = 高时间成本，很难逃出用时间换钱的陷阱。</p>
+<p>我之前做过广告代投、代运营，也能收到比较高的价格，但是为此我要投入大量的时间。</p>
+<p>而且，这些业务都是在消耗我，在没有团队的情况下，我的收入有上限，甲方会随时找你，提意见，算下来跟上班没太大区别。</p>
+<p>后来自己做了虚拟电商，卖几十块钱的手册，一个月能卖几百单，但除了产品搭建外，每天只需要花1 小时左右处理笔记问题，时间上节约了很多。</p>
+<p>我也跟很多赚到钱的老板聊，并不是每一个都做高客单，很多做的都是低客单。</p>
+<p>包括 AI 产品出海这些，都算低客单。 但大部分都是「边际成本为零」的产品，在产品搭建好之后，无限复制，无限售卖。</p>
+<p>所以，低客单 并不等于 低收入，取决于你的产品形态。</p>
+<p>认知3：AI 不只是工具，还是你的分身如果你让 AI 写一篇小红书笔记，不管用多厉害的 AI ，提示词写的多好，这个笔记都不会太好，你们可以试试。</p>
+<p>因为 AI 不是你，它的知识库过于庞大，你给再多限制，再多风格，写的内容也很少是能用的。</p>
+<p>但是，如果你把前面搭建的知识库全部喂给 AI ，训练一个专属分身或者智能体，那就不一样了，它能提取知识库的内容，给你输出信息，AI 只是帮你提炼和重构而已。</p>
+<p>比如，我写了一个《小红书个人IP起号手册》，我是把 5 年小红书相关的笔记、常见问题、案例整理成知识库，再把这些知识库给 AI ，让它帮我提炼一个框架。</p>
+<p>在我审核过没问题后，再提取信息，填充内容。最后人工审核、优化细节、加入独家经验，上架售卖。</p>
+<p>这份资料就不是单纯 AI 自己瞎写的，而是几乎涵盖了我过往的知识，AI 帮我整理而已。</p>
+<p>喂给 AI 什么信息，取决于你要做什么。比如我要沉淀学习知识库的时候，我会给他播客、音频、优质文章的内容给他。</p>
+<p>跟一个 AI 聊的越久，就越了解你。现在我的Gemini 和Claude ，比我老婆还了解我。</p>
+<p>给你们看下，有个人知识库的 AI ，写出来的文案：这跟我写的其实没太大区别了，我并没有给什么提示词，只是说「帮我写个以xxxx为题的文案」，并且交代一些背景。</p>
+<h4>2、五个可落地的系统</h4>
+<p>认知到位了，接下来就是搭建具体系统。</p>
+<p>这五个系统，是我的完整路径。每个系统都可以单独运转，组合起来就是我的超级个体操作系统。</p>
+<p>系统1：知识库为圆心的内容生产流以前要写一个内容，得刷同行，刷对标，或者自己头脑风暴。找到选题后再憋文案，写好发布。</p>
+<p>一篇公众号文章得写半天，一条小红书笔记也至少半小时到一小时。</p>
+<p>而现在，我只要持续学习，把所有的想法、观点、学习笔记都沉淀到知识库，由 AI 协助我输出内容，我就有源源不断的选题、内容。</p>
+<p>我的输入源有几个：1.播客/音频/采访把你觉得优质的播客等内容，用通义听悟转成逐字稿，再用 AI 生成详细笔记（通义的笔记不咋地）。</p>
+<p>笔记沉淀在知识库，引用原文，随时可以学习和回看。</p>
+<p>2.优质内容/文章在抖音、小红书等渠道刷到好的内容，全部用get笔记存起来。如果有条件有技能，可以自己开发一个工具，把内容沉淀在飞书多维表格。</p>
+<p>get笔记会分析内容框架，把这些也沉淀在知识库。</p>
+<p>3.实操经验有任何的思路、想法，都会写成短文案，采集到飞书多维表格。在写成完整思路和流程后，再沉淀到知识库。</p>
+<p>比如， 我的每一条公众号文章、每一条朋友圈文案，都在飞书有备份。</p>
+<p>这些知识库沉淀好后，全部下载，给notebooklm 或者 Ima知识库，个人觉得notebooklm无敌！</p>
+<p>系统2：把经验做成产品我的店铺一共上架了 3 个资料产品，《小红书个人IP起号手册》《小红书虚拟电商手册》《小红书商单变现手册》，每一个都是几万字的手册。</p>
+<p>但这些产品都不是单独写出来的，而是用 AI 做出来的。</p>
+<p>把我所有零散的知识、系统的知识进行汇总、整理，再按不同主题，重组成一份完整的资料。</p>
+<p>比如，《小红书个人IP起号手册》，写这个的时候，我是有一份完整的「小红书运营手册」，而且我想了一下，做小红书这几年，我最推崇的观点，就是做 IP。</p>
+<p>不管电商、虚拟、引流还是啥，其实都离不开 IP ，做得好的全部都是 IP 账号。</p>
+<p>所以，我把「小红书运营手册」大部分相关内容给 AI ，并且把我这几年做个人 IP 的一些思路、想法，都跟 AI 讲。</p>
+<p>让 AI 基于我的信息，帮我整理一个手册框架。</p>
+<p>然后，我会对照其他 IP 大佬们的课程，把框架修修补补，最后让 AI 基于框架完整写给我。</p>
+<p>这样确保写出来的内容是我的，不是 AI 瞎写，也不是抄袭别人的。</p>
+<p>在写完之后，自己还要一点点补充，补充图片、案例、方法，把文字写成口语化等等，最后才上线。</p>
+<p>这里唯一要做的，就是沉淀你的知识库。</p>
+<p>系统3：像搭积木一样做虚拟产品做虚拟产品最忌讳的是啥？花大量时间打造一个完美产品，然后才开始卖。</p>
+<p>这是绝对的错误，先不讲产品会不会过时，最关键的是， 产品不可能完美。而且做得越好，就越担心卖不出去。</p>
+<p>为了逃避「卖不出去」的问题，就一直不卖。不卖就不会失败， 就不会背锅。</p>
+<p>当别人问「你虚拟资料为什么不赚钱？」，你会找借口「产品没做好」「我没去做笔记」。</p>
+<p>但不管虚拟产品还是什么，只有「卖」的动作才是最关键的。</p>
+<p>你可以把想象中的完美产品拆成一个个组件，再把一个个组件分别完成，做好第一个组件的时候，就可以上架卖了。</p>
+<p>比如，我的《小红书个人IP起号手册》，在写到 2 万字左右的时候，我就开始卖了。</p>
+<p>然后我写着「持续更新中」。根据用户反馈，不断优化产品。</p>
+<p>当用户说，不知道怎么变现的时候，我增加「小红书变现方式拆解」。</p>
+<p>当用户说，不知道怎么选赛道的时候，我增加「热门赛道推荐」。</p>
+<p>当用户说，不知道怎么学习，不知道怎么起号的时候，我再附赠学习计划、起号SOP……</p>
+<p>就这么凑吧凑吧，就从 2 万字凑到 6 万字。</p>
+<p>当用户说，想接广告变现的时候，我又新增了《小红书商单变现手册》……</p>
+<p>产品的矩阵就这么搭建起来。</p>
+<p>整个虚拟产品的搭建过程，都是在卖的过程中让它变完美。 就像积木，一块一块拼起来，才是有意义的。完整的积木，谁买啊……</p>
+<p>系统4：用SOP解决售后问题不管卖啥，几乎都会遇到售后问题，这里说的售后不是退货这些，是一些问题。虚拟产品也不例外，会有很多奇奇怪怪的问题。</p>
+<p>比如，发的货在哪里？怎么看？能不能给我pdf？看不懂、怎么起号……</p>
+<p>刚开始的时候会花很多时间处理这个，后来全部SOP化。</p>
+<p>比如，发货的时候附带一份「收货说明」，一步步教如何查看链接、打开链接……</p>
+<p>加微信赠送《小红书问答手册》，只要有问题的，都先去看手册。</p>
+<p>觉得不够详细，看不懂怎么起号的，五星好评后，填写信息做一对一定位方案（AI 智能体完成）。</p>
+<p>把这些都搞完之后，几乎没什么售后问题，需要问问题的就会加微信，赠送问答手册，也解决了80%小红书问题。</p>
+<p>省事很多。</p>
+<p>系统5：搭建安全的私域矩阵前面说了，私域不只是加微信。但加微信确实是现在很重要的动作。为了保守，这一步我做了几个备用方案。</p>
+<p>1.所有引流路径放到飞书。</p>
+<p>购买小红书虚拟产品的，我会发飞书链接给他。飞书里面可以选择加微信、飞书或者关注公众号。</p>
+<p>公众号加的，我也会给一个「叁斤个人说明书」，里面放我的联系方式。</p>
+<p>简单来说，在加微信前过滤一遍。</p>
+<p>为啥？</p>
+<p>因为封号封怕了。而飞书的好处是，我可以实时更换联系方式。</p>
+<p>前面图片我放了 3 个联系方式，微信封了，我可以立马更换一个二维码，后面再加的，就到新的微信上。</p>
+<p>这也是我说的， 知识库才是资产。 只要知识库对用户有用，她是一定会经常打开看看的。</p>
+<p>2.陌生用户先加企微我现在好怂啊……过滤一遍还不够，还得先加企微……</p>
+<p>现在大部分的微信用户，我都用企业微信再过一遍，避免同行举报之类的，朋友圈就同步个人微信的朋友圈。</p>
+<p>完全不用担心企业微信没人味，我换了企微之后，转化率没有因此变低。但是收款更大胆了，能聊的东西更多了。</p>
+<p>还有，企微只是过滤一遍，对于付费超过399（社群费用）的，我肯定会加到个人微信去。</p>
+<p>我的完整流程是：小红书发内容 ➡️ 购买手册 ➡️ 加企微/关注公众号 ➡️ 升高客单价公众号发内容 ➡️ 加企微 ➡️ 私域卖产品有这几步筛选，我的私域安全多了。当时微信封号的时候，很多发信息没回的，会从公众号、飞书上找到我最新的联系方式，所以并没有因此减少收入。</p>
+<h4>3、两个长期主义的坚持</h4>
+<p>系统搭好了，接下来就是长期坚持。</p>
+<p>现在的互联网项目，永远是 28 定律，甚至 19 定律。</p>
+<p>按照我过往带项目的经验，训练营类型的产品，90% 的人做不成，其中有超过一半没坚持到训练营结束就放弃了。</p>
+<p>我能走到今天，靠的是这两个长期主义的选择。</p>
+<p>坚持1：透明，就是最好的营销很多做知识付费的，在网上发内容的时候会搞神秘，营造焦虑，制造稀缺，搞发售啥的。</p>
+<p>不可否认，他们比我赚钱多了……</p>
+<p>我的做法是，会在公众号更新很多教程啥的，包括我做产品的流程，类似的内容更新了很多。</p>
+<p>我并不怕别人学会之后会怎么样，我相信大部分人是懒的。</p>
+<p>10000个人看过文章，1000个人会尝试操作，100个人坚持走完整个流程，10个人能拿到一些小结果。</p>
+<p>这是看文章学习的正常转化率，所以发这些教程，并不会影响我私域的课程转化。</p>
+<p>还有，我不是什么大佬，关注过我的可能会了解，2025年我才开始接触 AI ，我属于一边学、一边用的类型，丝毫没有掩盖这些。</p>
+<p>所以私域用户、公众号用户是能看到我在成长的，能看到过程，能看到结果。知道我是怎么从小白，成长过来的。</p>
+<p>我的店铺啥的，也都能被搜索到，结果可视化，所以对我来说，造假、夸大收入似乎没啥意义。</p>
+<p>搞发售流程也不适合我，虽然很赚钱。因为我觉得现在是信息过载的时代，加上 AI 工具爆发，「知识」本身已经变得不值钱了。</p>
+<p>信任、服务，才是真正值钱的。</p>
+<p>发售的流程，很多事靠憋单，靠分销，消耗的是别人的信任，我觉得我还不配……</p>
+<p>所以我会尽可能的透明化，我所有信息都能公开，只有信任之后消费，我才觉得这个事是值得的。</p>
+<p>坚持2：不跟他人拼体力，要拼系统做虚拟电商，有很多的流派，全自动批量上产品、全自动做笔记……，还有很多是招人批量做这些事。</p>
+<p>这些都能赚钱，但跟我之前做代运营、做服务，没啥区别，这不是我想要的。</p>
+<p>为啥？</p>
+<p>首先，我的成就感不来自管理了多少人，赚多少钱，发多少笔记，而来自我的系统运行效率提升了多少。</p>
+<p>其次，我不懂 AI 技术方面的问题（工作流、自动流都不懂），既然只有一个人，还不懂技术，而且已经30岁了，熬不动了……一天工作时间只能 5 小时……</p>
+<p>我跟人拼体力，拼上品的数量、拼笔记数量？那我不是找死吗……</p>
+<p>我能拼的只有系统。</p>
+<p>在新的知识库搭建完成后，不管小红书算法怎么变，只要我的知识库还在，我随时可以用 AI 生成新的内容去适配新平台。</p>
+<p>只要我的知识库持续更新，我的内容持续有人看，不管微信私域管理怎么严格，我都可以让这些人再加我别的私域。</p>
+<p>只有写下来，才是你的这就是我「以身为种」的路子。</p>
+<p>以5年经验为种子，以知识库为基础，以 AI 做分身，长出一个超级个体系统。</p>
+<p>这个系统让我不再靠卖时间赚钱，不再被平台规则束缚，也不再需要搭建团队。</p>
+<p>我不知道能走多远，但很清楚的是， 不再用体力换钱，而是用系统创造价值。这条路一定是对的。</p>
+<p>这一切，都是依靠「知识库」。</p>
+<p>如果你的经验、你的过往、你的产品……都只存在你脑子里，那就白瞎。只有系统化做成知识库，这些东西才能被显现出来，才能被 AI 用上。</p>
+<p>能把过往和经验写下来的人，在哪个时代都是赢家。</p>
+<p>往前看，PC互联网，在贴吧、论坛发表观点，能吸引大量的铁粉。</p>
+<p>再往前倒两年，自媒体的黄金时代，把个人经验写下来的人，能获得大量粉丝，甚至能获得工作机会。</p>
+<p>比如李叫兽，在公众号发了大量的优质内容，后来携团队加入百度，任副总裁（虽然后面离职了）。</p>
+<p>而现在 AI 时代，写下来的人可以赢两次：第一次：帮自己理清思路，更系统的思考问题。</p>
+<p>第二次：喂给AI，放大产出。</p>
+<p>如果你也想搭建自己的系统，第一步：现在就开始写你的知识库。</p>
+</article>
+<article data-id="a4" data-title="3 个动作，让 AI 写的小红书笔记没有 AI 味" data-tag="AI 内容实操">
+<p>前两天有个小伙伴用 AI 写了一篇笔记，自己读觉得还行，但发出去数据很差，而且被平台标注为AI写的。</p>
+<p>然后问我怎么办，为什么我用 AI 写内容，不会被判定 AI ？</p>
+<p>今天就跟大家讲下，如何让 AI 帮你写的内容，彻底没有 AI 味，更像是你自己写的。</p>
+<p>其实我们去网上搜「AI写文案去AI味」，是有很多教程的，但大多都是把「首先」换成「说白了」，加几个「哈哈」「真的」「绝了」，删掉排比句……类似这样的。</p>
+<p>如果你照着改了一圈，会发现依然很假，因为这些教程都在教你怎么「改」。</p>
+<p>但 AI 味的根源并不在于改，而是需要先了解，为什么 AI 写的内容会有 AI 味？了解背后的原理后，我们根本不用逐字逐句去改。</p>
+<p>AI 味的根本问题是信息量</p>
+<p>AI 味重的文章有三个共同特征：结构工整，信息空洞，而且全篇没有「我」，就是缺乏人格化。</p>
+<p>结构工整，是因为 AI 默认输出「首先/其次/最后」这种非常规范的格式。</p>
+<p>这是在 AI 大模型训练之初就已经决定了的，大模型自带的语言风格就是这样，它自然就优先选则这种结构。</p>
+<p>信息空洞，是因为 AI 只能用它训练过的通用说法。</p>
+<p>AI 是不知道你做了几年、什么行业，也不知道你过往经历，不知道你客户说过什么，所以只能写「很多人都在用」「效果非常好」这种看起来就很空洞的废话。</p>
+<p>没有「我」，会导致内容缺乏人格化，因为你压根没告诉 AI 你是谁。</p>
+<p>包括你的经历、你的判断、你的语气习惯、你讨厌的表达方式，这些信息AI全都不知道。</p>
+<p>这些问题，全指向同一个根本原因：你给 AI 的信息太少了。</p>
+<p>信息量越少，写的内容就越有 AI 味。这跟 AI 的工作原理有关，我们先大概解释一下 AI 工作的基础。</p>
+<p>AI 写东西不是像人一样先想好再写，它是一个字一个字往下猜的，就是它会看着你给的所有文字，猜「下一个字最可能是什么」，然后写出来，再猜下一个，如此循环，一个字一个字吐出整篇文章。</p>
+<p>它猜的依据，就是训练数据里所有文本的统计规律。</p>
+<p>我举个例子。</p>
+<p>你说「帮我写一篇爆文」。</p>
+<p>但「爆文」这个词太宽了，AI 的训练数据里有几百万种爆文，风格、结构、调性全都不一样。AI 不知道你要哪种，每个字都只能选最多人写过的那个。</p>
+<p>这就是最大公约数，就是 AI 味的来源。</p>
+<p>但如果你说「写一篇小红书笔记，标题用疑问句，开头用一个我自己做小红书引流踩过坑的真实经历切入，500字，目标人群是有自己门店但不知道怎么在小红书上获客的老板，语气像朋友私聊」</p>
+<p>每一个信息都非常具体，且输出范围有限定，范围越小，输出越不像「最大公约数」，越不像 AI。</p>
+<p>所以去 AI 味最根本的逻辑，是把AI的输出范围收窄到「只有你这个人、你这个业务、你这种说话方式」才会写出来的东西。</p>
+<p>下面三个动作，就是从源头收窄这个范围。</p>
+<p>动作一：给 AI 喂够你的真实信息</p>
+<p>你说「帮我写一篇关于实体店怎么通过小红书获客的笔记」。</p>
+<p>如果其他人也说同一句话。</p>
+<p>那你们得到的，是非常相似的一篇笔记。</p>
+<p>因为你们给的信息完全一样，只有一句话。AI 没有任何依据来区分你和其他人，只能给一个通用版本。</p>
+<p>有一个概念叫「任务同理心」：</p>
+<p>如果你把这个写作任务交给一个真人朋友帮忙，他需要知道哪些信息才能写好？你只要把这些信息给AI，输出就完全不一样。</p>
+<p>具体要给的信息是这 4 个：</p>
+<h4>1、告诉它你是谁</h4>
+<p>要非常详细，比如「我做了6年小红书，说话很直接，不喜欢绕弯，从来不用比喻和类比，段落写得很短，经常一句话就是一段」。</p>
+<p>你的行业经历、说话习惯、写作风格，这些是让AI「写得像你」的关键信息。</p>
+<h4>2、告诉它写给谁看</h4>
+<p>你说「写给想获客的人看」，那约等于没说。</p>
+<p>小红书有无数的行业，比如开美容院的老板，和做知识付费的博主，他们的获客方式完全不一样，用户需求也不同。</p>
+<p>所以要具体一些，比如写上「开了 3 年美容院，客单价 500～2000，想通过小红书吸引同城客户到店，搜过“美容院小红书怎么做”“实体店获客”等具体关键词」，那 AI 立刻知道该用什么语气、什么案例。</p>
+<h4>3、告诉它你不要什么</h4>
+<p>写明白，我们「不要用比喻和类比，不要用名人名言，不要写赋能、闭环、抓手……，不要用“首先其次最后”结构，不要在结尾写祝福和升华……」。</p>
+<p>有时候，禁止清单比鼓励清单管用得多。你告诉AI不能做什么，它的输出空间立刻缩小一大截。</p>
+<h4>4、给它你的真实素材</h4>
+<p>包括你自己踩过的坑、你客户问过的真实问题、你的真实数据、客户说过的原话。</p>
+<p>AI 可以帮你把真实经历写得更通顺，但它编不出你的经历。</p>
+<p>没有素材，AI 只能编编造经历和案例，这是AI味最重的来源之一。</p>
+<p>我自己的做法是把人物档案、写作风格、产品信息、素材库全都整理成文件，每次写内容，AI 会直接把这些信息当上下文。</p>
+<p>所以别人只看到我发一篇笔记，看不到背后是整个知识库在支撑这篇笔记的质量。</p>
+<p>没有知识库之前，我们也可以用提示词去优化信息量，给你看一个对比。</p>
+<p>改前指令：</p>
+<p>「帮我写一篇小红书笔记，营销我的美容院，面部护理和皮肤管理的产品。」</p>
+<p>改后指令：</p>
+<p>「帮我写一篇小红书笔记。我开了一家美容院，做面部护理和皮肤管理，开了3年，客户主要是25-35岁女性。这篇写给同城有皮肤问题、想做护理但还没选定去哪家的女生看。</p>
+<p>要用到我的真实案例：上个月有个客户来的时候满脸痘印，做了3次护理基本淡化了。说话要真实接地气，不要太营销，不要用『首先其次最后』结构，段落要短。不要写『限时优惠』『快来体验』这种话。大约600字左右。」</p>
+<p>你可以去试试，这两版出来的东西，完全不是一个级别。</p>
+<p>前者是通用模板，后者是你自己的内容。</p>
+<p>AI不是写不好，是它不知道你要什么。你给的上下文越具体，AI的输出就越不像AI，因为它写的是你的经验，不是互联网上的平均值。</p>
+<p>动作二：先让AI出结构，不要让它一步写完</p>
+<p>AI 味第二重的特征是结构太工整。</p>
+<p>「首先……其次……再次……最后……」「不是X，而是Y」这种结构，一篇文章会出现三四次。</p>
+<p>为什么会这样？因为你让 AI 一步写完了。</p>
+<p>AI 在「一次性写完整篇」这个任务模式下，默认会选最完整、最安全的结构。</p>
+<p>完整 = 工整 = AI 味。</p>
+<p>我的解决办法是分步写。</p>
+<h4>1、先让 AI 给 3 个不同角度</h4>
+<p>同一个主题，可以从痛点切、从反常识切、从个人经历切。先让 AI 给方向，我选一个。</p>
+<h4>2、选定角度后，让 AI 出大纲</h4>
+<p>只出段落标题和每段要讲什么，不写正文。</p>
+<h4>3、让 AI 批判自己的大纲</h4>
+<p>这一步是关键。你直接问它：</p>
+<p>「这个大纲哪里最弱？结构是不是太对称了？有没有真实经验支撑？开头是不是太套路？」</p>
+<p>AI 不会主动质疑自己的输出。但你明确要求它找问题，它通常能指出来，比如结构太对称、段落安排平铺直叙等等。</p>
+<p>这些问题都是 AI 味的来源。</p>
+<h4>4、改完大纲，让 AI 展开每段要点</h4>
+<h4>5、最后才写正文</h4>
+<p>为什么分步比一步好？</p>
+<p>因为在大纲阶段改一句话，影响的是整个段落甚至整篇文章的走向。在正文阶段改一个词，只影响一个词。改得越早，杠杆越大。</p>
+<p>你在大纲阶段就把结构调成不对称的、有起伏的、有个人经历穿插的，AI写正文时就不会默认输出「首先/其次/最后」，因为你给它的大纲本来就不是这个结构。</p>
+<p>这也呼应前面说的 AI 工作原理：</p>
+<p>大纲本身就是上下文。你的大纲越具体、越有个人色彩，AI在这个基础上展开的正文就越不像通用模板。</p>
+<p>很多人用AI写内容，从头到尾就一轮对话。</p>
+<p>我自己写东西，从来不会一轮出成品，一般情况下至少要三轮才能写好：</p>
+<p>第一轮定角度，第二轮写结构，第三轮写正文。</p>
+<p>这个习惯也是踩了很多次「一步到位出废稿」的坑之后才养成的。多花几分钟，可以省掉后面半小时的改稿。</p>
+<p>动作三：用清单检测，不要凭感觉改</p>
+<p>AI 写内容最大的坑，就是自己改了半天，觉得没 AI 味了，发出去还是被平台识别出 AI 。</p>
+<p>这一般有两个原因。</p>
+<p>第一，你自己看多了，脱敏了，感觉不准。就像我们一直盯着一个汉字，时间长了会突然不认识这个字一样。</p>
+<p>第二，AI 有一个训练出来的倾向叫「迎合」。</p>
+<p>你问它「这篇还有AI味吗」，它大概率说「整体很自然，可以发布」。AI 被训练成让用户满意，它倾向于顺着你。你越暗示你觉得改好了，它越不会反驳。</p>
+<p>我的做法是，不问「有没有AI味」。而是给 AI 一份检测清单，让它逐项扫描，命中了标出来，先扣分再给修改方向。</p>
+<p>我自己从好几个博主那里整理了一份去AI化检测清单，这里我挑了最常见的几类，你可以直接拿来用。</p>
+<p>1、开头「钩子+痛点+承诺」三件套。前三句在制造焦虑，中间给方法，结尾升华祝福。这是 AI 最常用的模板，也是最容易被识别的。</p>
+<p>2、「然而」「事实上」「值得注意的是」密集出现。至少要删掉一半，不需要这么多连接词。</p>
+<p>3、结尾「你值得」式祝福。把最后一段删掉再读一遍，检查文章是不是已经讲完了？讲完了就别加。</p>
+<p>4、「我有个朋友」但没有名字、没有行业、没有具体发生了什么。想不起细节就换成自己的经历，或者直接删掉。</p>
+<p>5、「你可能觉得XX，但其实不是」。这话是你真听人说过，还是编出来方便反驳的？编的就删。</p>
+<p>6、「我把它叫做XX法」出现两次以上。一次够了，多了就成AI的仪式感。</p>
+<p>7、「1.7秒」「2.3秒」这种没人量过的精确数字。你当时真感受到的是什么？用嘴上会说的词就行。</p>
+<p>8、通篇零犹豫，每个判断都绝对自信。哪里你自己也没完全想通？写出来。真犹豫比假自信可信十倍。</p>
+<p>9、全文情绪曲线太光滑，没有一处拐弯。真实的思考一定有卡住的地方，别修得太圆。</p>
+<p>写完一篇内容，把这份清单和文章一起丢给AI，说一句「按这份清单逐项扫描这篇文章，命中的标出来，先扣分再给修改方向，不要写鼓励性废话」，当然，最快捷的方式是融合到你的skill里面，这是另一个技巧，我们下次说。</p>
+<p>这里注意两个细节。</p>
+<p>第一，让 AI 扣分的时候不要透露你的期望。不要说「我觉得改得差不多了，你帮我确认一下」，这等于在暗示AI说「没问题」。直接丢清单+文章，不加任何预判。</p>
+<p>第二，如果AI说全部通过，再追问一句：「如果你必须从这篇文章里挑出3个最像 AI 写的地方，是哪3个？」强制它找问题，比让它主动发现靠谱。</p>
+<p>这比你自己盯着看半小时有效率得多。</p>
+<p>所以，AI 味不是什么玄学，也不需要研究语言学。给够你的信息，分步写，写完用清单检测，把「帮我写一篇」升级成一个完整的协作流程，AI味就从根上少了。</p>
+<p>方法不复杂。难的是你愿不愿意花十分钟把自己的信息整理好，而不是扔一句话就要成品。</p>
+</article>
+<article data-id="a5" data-title="我用 AI 做虚拟电商，4 个月卖了 6 万+（附完整 SOP + 工具清单）" data-tag="AI 变现实操">
+<p>5月份我开了个新的小红书店铺，卖《小红书IP起号实战手册》，定价39元。</p>
+<p>到现在不到4个月左右，这个单品卖了1000多份，销售额5万+，还打印成了纸质版，69元卖了</p>
+<p>200+份，销售额1.4万。</p>
+<p>一个号，单产品稳定销量六万多，很多人问我怎么做的，今天把完整流程公开。</p>
+<p>从选品、做产品、写文案到上架，AI 帮我做了80% 的工作。</p>
+<p>很多人做虚拟资料，累死累活单账号一个月赚几百一千。现在用AI，效率可以翻了10倍。</p>
+<p>这篇文章有点长，包含很多实操步骤，建议收藏。</p>
+<p>做原创的虚拟电商，无非就是这4步： 选品 → 做产品 → 引流 → 优化。</p>
+<p>以前每一步都要耗费大量时间，现在用AI，每个环节都能大幅提效。</p>
+<p>1. AI 协助选品分析</p>
+<p>新手做虚拟电商，最大的问题是不知道做什么产品。</p>
+<p>包括带私教和生财航海，都发现新手在选品是最头疼的。</p>
+<p>得去小红书、抖音、拼多多、淘宝等渠道，手动搜索「电子书」「模板」这些关键词，一个个点进店</p>
+<p>铺看销量、看价格、看评论。</p>
+<p>然后把数据整理到Excel表格里，对比分析哪个赛道好做、哪个客单价合适、竞争大不大。 一整天时间</p>
+<p>都花在这。</p>
+<p>而你用AI，真的可以10分钟搞定。</p>
+<p>只需要 2 个东西： 产品销量数据和一个能对话的AI</p>
+<h4>1.1. 收集爆品数据</h4>
+<p>打开「小红书生活研究所」或者灰豚数据、野马数据，找到近期热卖的虚拟产品。</p>
+<h4>1.2. 导出数据给 AI 分析</h4>
+<p>打开一个 AI，直接把表格丢给它，问：</p>
+<p>分析这些虚拟产品，从以下维度评估：</p>
+<p>1. 哪个赛道适合新手？</p>
+<p>2. 客单价范围</p>
+<p>3. 竞争程度</p>
+<p>4. 制作难度</p>
+<p>5. 是否容易侵权</p>
+<p>给出3个推荐产品，并说明理由。</p>
+<p>图示是案例，数据没有导入很多，但也给了一些比较靠谱的产品方向。</p>
+<h4>1.3. 按需求挖掘产品</h4>
+<p>选好大方向后，还要验证具体需求和产品。</p>
+<p>继续问AI：</p>
+<p>我当时问的时候，AI 给的建议有：</p>
+<p>小红书个人IP起号（从0开始做IP）</p>
+<p>小红书商单变现（如何接广告）</p>
+<p>小红书电商运营（如何开店卖货）</p>
+<p>我最终选了「个人IP起号」作为起步，因为需求最大，而且我有5年小红书运营经验，做原创没问题。</p>
+<p>这里有几个新手要避坑的点：</p>
+<p>不要 让AI直接告诉你做什么最赚钱，最好给 AI 具体的爆品数据，让它帮你分析。</p>
+<p>不要 选自己完全不懂的赛道（除非你不做原创）。做原创的话，一定要选你有经验或者愿意学习的领</p>
+<p>域</p>
+<p>2.  AI 协助生成原创产品</p>
+<p>以前我做《小红书运营手册》知识库，纯手写，10万字写了整整1个月。</p>
+<p>这次做《小红书IP起号实战手册》，我用AI，3天搞定 5 万字。只需要有 Gemini 2.0 Pro这 1 个AI 工</p>
+<p>具，完全够用。</p>
+<h4>2.1. 准备知识库</h4>
+<p>知识库就是说，你需要给 AI 投喂什么内容。我原来写的《小红书运营手册》在这个环节正好派上用</p>
+<p>场。</p>
+<p>写这一份资料，我准备了：</p>
+<p>1.《小红书运营手册》（10万字）</p>
+<p>2.公众号发过的小红书运营文章（10篇左右）</p>
+<p>3.我给学员做过的账号定位方案（5份）</p>
+<p>4.对标产品的目录结构（参考别人怎么写）</p>
+<p>投喂的资料大约15万字左右，这里有个小技巧，相关内容的 知识库越多，AI生成质量越高。建议至少</p>
+<p>3 万字以上。</p>
+<h4>2.2. 投喂给Gemini</h4>
+<p>打开Gemini，分批投喂（一次投喂太多会卡）。</p>
+<p>大致提示词：</p>
+<p>我想做一个《小红书IP起号实战手册》，目的是教会新手如何从0在小红书搭建个人IP并变现。 我会给</p>
+<p>你提供我的知识库，包括我的运营经验、方法论、案例等。你先学习就好，不要输出任何内容。</p>
+<p>【这里粘贴知识库第1部分，大约5万字】</p>
+<p>在资料生成环节，其实提示词没那么重要，把你的需求讲明白就行。</p>
+<h4>2.3. 让AI生成框架</h4>
+<p>投喂完知识库后，不要让AI直接写内容，先让它生成框架。</p>
+<p>基于我的知识库，帮我设计《小红书IP起号实战手册》的框架。</p>
+<p>要求：</p>
+<p>1. 分为5-7个章节</p>
+<p>2. 每个章节包含3-5个小节</p>
+<p>3. 适合新手，从0到1的完整流程</p>
+<p>4. 重实操，少理论</p>
+<p>5. 每个章节都要能解决用户的具体问题</p>
+<p>只输出框架，不要写具体内容。</p>
+<p>AI 会给你输出一些框架，你要手动检查一遍框架，觉得没问题，就让AI继续。</p>
+<p>这一步一定不要偷懒，如果框架不对，后面全白做。</p>
+<h4>2.4. 逐章生成内容</h4>
+<p>不要让AI一次性写完整本书，要逐章生成，质量更高。</p>
+<p>可以参考这个提示词：</p>
+<p>基于我的知识库，写《小红书IP起号实战手册》的【第一章：个人IP定位】。</p>
+<p>要求：</p>
+<p>1. 用我的语言风格（口语化、接地气、不装逼）</p>
+<p>2. 多举例子，少讲理论</p>
+<p>3. 给具体步骤，不要空话</p>
+<p>4. 不要用&quot;综上所述&quot;&quot;总而言之&quot;这种官话</p>
+<p>AI 会输出第一章的完整内容，我当时生成第一章后，发现有几个问题：</p>
+<p>1. AI编造了一些我没说过的数据</p>
+<p>2. 语气还是有点官方，不够口语化</p>
+<p>3. 缺少我的个人案例</p>
+<p>所以 AI 生成后，还是要人工修改，但是幅度不大。重复这个步骤，生成剩下的章节。</p>
+<p>这一步，最重要的是：</p>
+<p>必须逐章检查，删掉AI瞎编的部分</p>
+<p>AI生成80%，人工优化20%，人工优化部分最重要！一定要加入你的个人经验和真实案例</p>
+<p>3.  批量生成内容</p>
+<p>做虚拟电商，产品做好了，还要写笔记引流。</p>
+<p>一篇笔记从选题、写标题、写正文、找配图，至少要半小时。一天写10条笔记，5小时就没了。</p>
+<p>而且我发现，自己憋选题特别费劲，经常不知道写什么。</p>
+<p>现在我用AI仿写爆款笔记,30分钟批量生成10条。</p>
+<h4>3.1. 找对标爆款</h4>
+<p>打开小红书，搜索产品相关的关键词，找到点赞、收藏高的笔记。</p>
+<p>我的筛选标准：</p>
+<p>✅ 点赞+收藏 &gt; 1000</p>
+<p>✅ 内容跟我的产品相关</p>
+<p>✅ 结构清晰，可仿写</p>
+<p>找到10条对标笔记，复制笔记内容。</p>
+<h4>3.2. 输入薯光创作器</h4>
+<p>打开 薯光创作器 https://sgcreator.zhimoxiezuo.cn/ ，选择「文案仿写」功能。</p>
+<p>输入对标笔记，再输入我的产品信息：</p>
+<p>AI 会生成一篇新的笔记，但是为了保证效果最好，一般我会在 AI 改写后再人工微调一点点。</p>
+<p>4. 数据分析+优化</p>
+<p>以前做小红书店铺，我每周都要花几个小时看数据：</p>
+<p>哪些笔记数据好？为什么好？</p>
+<p>哪些笔记没流量？是封面问题还是选题问题？</p>
+<p>产品卖得怎么样？利润率多少？</p>
+<p>下周该调整什么？</p>
+<p>光是看这些数据就非常费劲了。</p>
+<p>现在我用 AI ，可以一键自动生成数据报告，10分钟看完，马上知道问题在哪。</p>
+<p>你只需要把订单详情、笔记详情等数据导出给AI，就能自动帮你分析。你还可以跟他说：以可视化</p>
+<p>html 格式输出。</p>
+<p>AI 就会像图片右边这样，直接给你一个可视化数据分析报告。</p>
+<p>这一步大部分 AI 都能做到，但我试了一下，最新的Claude4.5生成效果最好， 用最简单的提示词，就</p>
+<p>能生成最全面，最详细的数据分析报告 ，还能指导我下一步应该做什么/</p>
+<p>5.  新手最容易踩的5个坑</p>
+<h4>5.1.  完全依赖AI，不做人工筛选</h4>
+<p>我 刚开始用AI生成内容时，以为 AI 足够厉害，直接把生成的内容上架了。结果用户反馈说「内容太空</p>
+<p>洞，没有实操价值」，还产生了一些差评。</p>
+<p>后来我发现，AI会输出一些框架性很强的空话、重复啰嗦、讲大道理。</p>
+<p>然后调整了非常多内容， AI 生成80%，人工优化20%，增加了很多真实的案例，也给了实操 SOP ，用</p>
+<p>户反馈才慢慢变好。</p>
+<h4>5.2. 追求完美，迟迟不上架</h4>
+<p>现在还有一些私教学员追求完美的，做产品很容易让自己进入心流状态，很爽。但虚拟电商重点并不</p>
+<p>在产品，在于内容和流量， 完美的产品是不存在的。</p>
+<p>我一般都会跟学员讲，先上架1.0版本，快速验证市场需求，根据用户反馈，迭代2.0、3.0版本。边卖</p>
+<p>边优化，比闭门造车更有效。</p>
+<p>我的手册现在已经是2.0版本了，比1.0版本好用太多，但如果我一直追求完美，可能到现在还没上架。</p>
+<h4>5.3. 评论区比销量更重要</h4>
+<p>我每天都会看评论区，用户在问什么？哪些地方不理解？</p>
+<p>然后我会根据评论反馈，不断更新手册内容。</p>
+<p>而且我发现，回复评论越用心，用户下单的概率就越高。</p>
+<p>为什么很多人用做虚拟资料都做不起来？一方面是他还在靠手搓，搬运，以一己之力对抗别人一个团</p>
+<p>队。</p>
+<p>另一方面，他们把 AI 当成偷懒工具，生成的内容不检查就上架，结果产品质量差，用户不买单。</p>
+<p>这篇文章写了很久，把我用 AI 做虚拟电商的流程公开了。</p>
+<p>从选品、做产品、写文案到上架，每个环节都有工具、有步骤、有避坑提醒。</p>
+<p>如果你也想用AI做虚拟电商，这篇SOP可以直接抄作业。</p>
+</article>
+<article data-id="a6" data-title="如何让 AI 接管自己的生活，替我赚钱？" data-tag="AI × 生活">
+<p>去年 11 月，我用 AI 的场景主要还是在小红书运营、虚拟产品开发的场景。</p>
+<p>到今天已经过去 3 个月，我把 AI 一步步渗透到生活每一个角落。</p>
+<p>现在大部分 AI 的帖子都是如何提效、如何赚钱、如何搞工作流，我来写点不一样的，AI 如何一步步接管了我的生活、学习和业务。</p>
+<p>在最近 3 个月，AI 帮我做了这些事情：1、身体管理：用 AI 做减脂计划和调整饮食结构，体重从 72kg 降到 63kg，减了18斤，恢复正常身材，甘油三酯从6.0（超高）降到正常（配合药物）2、消费决策：用 AI 做了两次最理性的购物决策，经过 AI 计算投产比，我买了一副2300元的降噪耳机和一个1200元的AI录音工具3、知识学习：从 0 到 1 用 AI 学会了 Claude code、自己搭建🪜、快速学习行业知识、搭建学习知识库4、内容系统：用 Claude Code 搭建了小红书搜索笔记系统、公众号内容系统、Skill进化系统，还能把录音内容自动归类、整理方法论和内容选题5、产品升级：社群从399元升级到499元，产品定位从「小红书运营社群」重新定义为「一人变现系统」</p>
+<p>这些事情，每一件都是我跟 AI 深度对话、反复迭代的结果。</p>
+<p>我想说的主要 2 点：第一，AI 不是只能在工作中提效，而是生活中每一个地方，都能用 AI ，不存在「我用不上」这个说法。</p>
+<p>第二，现在不是 「AI 能帮我做什么」，而是「你想用 AI 做什么」</p>
+<p>下面逐个讲讲我是怎么做的，给各位老板换换脑子。</p>
+<p>对某一部分感兴趣的，可以直接点击：1、AI 管理身体2、AI 辅助消费决策3、AI 辅助学习4、AI 搭建内容体系5、AI 驱动产品升级6、AI 管理工作全局一、AI 管理身体这是最让我意外的应用场景。我从来没想过 AI 能管我的身体，直到我真的把体重降下来。</p>
+<p>⚠️ 重要提醒以下是我自己（叁斤）跟 AI 的对话以及让 AI 给我健康建议，但是，我都有结合医师给的意见一起参考。</p>
+<p>甚至会把跟医生的对话记录发给 AI 一起参考，而不是仅用 AI 给建议，也不是单纯听 AI 建议。</p>
+<p>身体有任何问题，第一时间是去医院，找医生。其次，才是借助 AI 一起看懂你的身体情况。</p>
+<h4>1.1 分析体检报告</h4>
+<p>去年10月，我做了一次全身体检。报告拿回来一堆数据，看不懂。</p>
+<p>当时离去医院找医生看报告还有两天，我就把完整的体检报告发给了Claude、Gemini，同时把我的基本情况详细描述了一遍：身高、体重、作息、运动情况、饮食结构、身体情况、哪里有不适，全部详细写了一份文档。</p>
+<p>Claude的分析比我预期的详细得多。它告诉我「甘油三酯6.0属于严重超标」，还把我的所有症状和体检数据做了关联分析，为什么我容易疲劳？可能30-40%是睡眠问题导致的。</p>
+<p>然后它给我按优先级排了清单：第一优先级是高血脂，应该立即就医。</p>
+<p>第二优先级饮食调整。</p>
+<p>第三优先级作息调整。</p>
+<p>第四优先级运动增加。</p>
+<p>第五优先级情绪管理。</p>
+<p>我后来去医院，医生说的跟 Claude 分析的方向基本一致。但Claude给的信息量远比医生多，医生只说了「少吃多运动」，Claude给了具体的食谱、运动计划和睡眠调整方案。</p>
+<h4>1.2 甘油三酯：从6.0降到2.94</h4>
+<p>一个多月后我去复查，甘油三酯从6.0降到了2.94，下降了51%。但总胆固醇和低密度脂蛋白反而升高了。</p>
+<p>我又把新的检查报告发给Claude，它帮我对比了两次结果，分析出我的高血脂有较强的遗传倾向，单靠生活方式调整不够。</p>
+<p>医生开了两种药，Claude也帮我解释了每种药的作用和注意事项。</p>
+<p>后来 Claude 逐渐变成了我的「24小时营养顾问」。</p>
+<p>我问它：冬天能不能吃清炖羊肉？可以，但选瘦羊肉、撇掉浮油、每周1次。</p>
+<p>生椰拿铁能不能喝？不能，椰浆饱和脂肪极高，喝一杯等于一天努力白费。</p>
+<p>……</p>
+<h4>1.3 减重 18 斤</h4>
+<p>减重这件事，我从2021年喊到2025年，嘴上的减肥从来没听过，身体上的减肥从来没开始。</p>
+<p>在体检之后，医生多次强调要减重，运动，我才重新重视起来，开始让 AI 规划做减脂计划。</p>
+<p>一共经历了 2 个阶段：第一阶段，是靠 AI 的饮食建议和运动计划，大约从 72kg 降到了 66.4 kg，就卡住不动了。</p>
+<p>而且虽然体重降了，肚子看起来还是很大，然后发现这叫腹型肥胖，不能按原来的减肥方式继续。</p>
+<p>第二阶段，我让 AI 换一个更专业的角度来看这个问题。</p>
+<p>我问它：如果你要选一位顶尖专家来帮我规划减脂方案，你会选谁？</p>
+<p>它选了Peter Attia，代谢健康与长寿医学领域的专家。</p>
+<p>然后 AI 以 Peter Attia 的思路，给我设计了一套 12 周腹部脂肪攻坚计划。</p>
+<p>包含三个维度：营养重构，针对甘油三酯的。</p>
+<p>训练系统，每周4次45分钟。</p>
+<p>睡眠优化，调整到23点前入睡。</p>
+<p>同时，我也参考了另一个 AI 给的方案，基于Dr. Jason Fung的间歇性断食理论，最后让Claude帮我把两套方案融合，保留 Fung 的16:8断食框架和进食顺序，结合 Attia 的高蛋白策略和系统抗阻训练。</p>
+<p>它甚至给我做了一个每周的执行表格，精确到每天几点做什么、每餐吃什么蛋白质搭配什么蔬菜、每个训练日的具体动作和组数。</p>
+<p>还有一个「食材快速选择指南」，蛋白质库、蔬菜库、主食库，每个都标了优先级，让我直接照着买菜。</p>
+<p>日常执行中，我也是经常咨询 AI 。</p>
+<p>有一次晚上10点，我想吃烧烤，但第二天又想吃酸汤火锅。我把这个纠结发给Claude，它帮我做了一个很理性的分析：今天的摄入量大约 1000～1100 大卡，处于明显热量缺口，饿是正常的。但快 10 点了吃烧烤，油大盐重消化慢，不如忍到明天吃酸汤火锅，酸汤底热量低，可以涮大量蔬菜，性价比更高。</p>
+<p>最后我选了吃一小把坚果垫肚子，第二天安心吃了火锅。</p>
+<p>这种日常的微决策，看起来不起眼，但累积起来就是体重从72到63的过程。</p>
+<p>最近还去看了中医，拿了一些中药，也发给 AI ，结合我的身体情况，给我一些健康上的调整计划。</p>
+<p>因为体重已经降到正常情况了，所以这次给的饮食结构，没有那么极端。</p>
+<p>同时还调整了作息、运动等锻炼计划，现在正在执行中～二、AI 辅助消费决策这个场景可能很多人没想过，买东西也需要AI？</p>
+<p>其实，就是看一个东西值不值得买，但「值不值」这是个抽象概念，不想乱花钱，就要做理性的消费投产比分析，但我还是没什么概念，所以只能借助 AI 。</p>
+<p>以前买东西的方式是，看到一个产品，心动了，然后在「买」和「不买」之间纠结很久，最后要么冲动购买，要么一直拖着。没有系统的决策框架。</p>
+<p>AI帮我建立了一个消费决策的流程：先确认需求是否真实存在，再做成本收益分析，最后选渠道。</p>
+<h4>2.1 购买降噪耳机，AI 说这是生产力工具，买！</h4>
+<p>我想买索尼XM6降噪耳机，官网2500，淘宝百亿补贴2100，京东2300。不知道该不该买，也不知道买哪个。</p>
+<p>我把完整的情况告诉Claude：经常户外办公、环境吵、需要在高铁上看书。</p>
+<p>Claude的分析分了三层：第一，是否应该买。</p>
+<p>它把我的需求定义为「生产力工具需求」而不是「消费冲动」，然后算了一笔账。</p>
+<p>2100 元用 3 年，日均 1.9 元，如果每天多帮我专注30分钟，按我的时薪换算，完全划算。</p>
+<p>所以结论是：买。</p>
+<p>第二层，买哪个渠道。</p>
+<p>它列了一个对比表，淘宝最便宜但可能是港版、售后走店铺；京东贵200但次日达、7天无理由；官网最贵但最有保障。</p>
+<p>它的建议是：如果淘宝是天猫官方旗舰店就选2100，否则选京东2300，200元差价买的是省心和时间。</p>
+<p>第三层，它还帮我做了心理分析：「你说有点贵，但月收入xx万+，2100约占x%，不算伤筋动骨。</p>
+<p>你真正纠结的不是价格，而是不确定这个投入能否带来预期效果。然后建议我把买耳机当作一次「需求验证实验」，买京东的，7天无理由，不满意就退。</p>
+<h4>2.2 AI录音工具</h4>
+<p>录音工具的决策也挺有意思，值得分享一下，因为跟 AI 经历了两轮讨论。</p>
+<p>第一轮是安克录音豆，899元。</p>
+<p>刚出来的时候很多人都在推荐，我也有些心动，就问了一下。但我是一人公司，没有会议需求，就没想买。</p>
+<p>后来有个朋友说他的AI 录音工具用法是「早上开着录，晚上复盘看自己说了什么，能不能提炼出一条观点」，这个需求一下子击中了我。</p>
+<p>我让Claude帮我做决策分析。</p>
+<p>它先帮我拆解了痛点：痛点A是「想到了但忘记记」，痛点B是「记了但没整理」。</p>
+<p>然后问我卡在哪一步。</p>
+<p>我说了几个实际场景：iPhone录音经常自动中断、走路开车时没法打字、线下活动没录到的素材，然后再也想不起来。</p>
+<p>Claude听完说「你的情况已经过了要不要买的决策点了。痛点已验证、工具链闭合、899对你的财务状况是小额支出。去下单吧。」</p>
+<p>它又劝我买东西……</p>
+<p>第二轮是我后来又发现了另一个产品，1249元，更贵一些，需要跟安克做对比。</p>
+<p>这次我把两个产品的详情页截图全部发给Claude，它做了一个非常详细的对比表，价格、重量、续航、存储、麦克风、AI平台、免费额度、付费订阅、特色功能，全部列出来。</p>
+<p>最终它推荐Plaud，核心原因是续航：安克单次8小时，Plaud有20小时。以我的使用场景（可能上午交流、下午讲课），8小时中间要充电会打断使用，20小时基本覆盖一整天。</p>
+<h4>三、AI辅助学习</h4>
+<p>很多人用AI查资料、翻译、写文案。但我发现AI最被低估的能力，是可以帮你把别人的知识转化为自己的认知。</p>
+<h4>3.1 从 129 个模型中筛选出 1 个</h4>
+<p>我在做一个叫「超级个体进化知识库」的产品，其中一个模块是思维模型。我想从查理·芒格推荐的思维模型入手，但芒格的模型体系太庞大了，我不知道该从哪里开始。</p>
+<p>于是我给Claude下了一个任务：第一，找出芒格完整的思维模型清单。它搜索整理出了129个模型，按8个学科分类。</p>
+<p>第二，筛选。这129个里，筛选出对超级个体/自由职业者有用的。筛出了40个。</p>
+<p>然后再从这40个里，找出对我当前的业务直接有用，筛出了10个，每一个都对应了我的具体场景。</p>
+<p>第三，在这10个里选 1 个最优先录入知识库的。它选了「逆向思维」。选择理由写了一整页，这是芒格使用频率最高的模型、是「模型的模型」。</p>
+<h4>3.2 微积分思维：数学概念如何变成创业思维</h4>
+<p>逆向思维之后，我更新了「微积分思维」。</p>
+<p>我想起很多年前在某个公众号上看过微积分思维，但具体忘记了，而且微积分本身是数学概念，大部分人听到就头大，我也不会。</p>
+<p>但其实，微积分的核心思想跟公式没关系，是一套关于「拆解」和「累积」的思维方式。</p>
+<p>我跟Claude说了我的想法，它很快理解了我要的方向：把微积分拆成「微分思维」和「积分思维」两个工具，完全不涉及数学公式。</p>
+<p>然后它帮我选了一个我完全没听过的专家 Donella Meadows，《系统之美》的作者，系统动力学领域的顶级专家。选她的理由是，她提出的「存量与流量」模型，本质上就是微积分思维的直观表达。</p>
+<p>存量是积分，累积的结果。流量是微分，每个时刻的变化率。</p>
+<p>而且她名字够小众，不是芒格、马斯克这种人人都在用的例子，本身就是一个差异点。</p>
+<p>Claude用Meadows的「浴缸模型」来解释微积分思维，浴缸里的水（存量）取决于水龙头的流入速度（流入率）和排水口的流出速度（流出率）。</p>
+<p>你的粉丝数、收入、技能、口碑，全是浴缸。</p>
+<p>然后它帮我把这个思维模型落到了我自己的业务场景里：微分思维（拆解）：原来我的私教课录制拖了好几个月，就是因为一直想着「要录完一整套课程体系」，太大了不敢开始。</p>
+<p>用微分思维拆解之后，变成了「今天只需要打开录屏软件，讲清楚一个知识点就行」。行动门槛从巨大工程降到了10分钟就能完成的事。</p>
+<p>积分思维（累积）：我从2020年开始做小红书，写了15万字运营手册，做了3本39元手册、1个社群、1个私教体系。</p>
+<p>单看每一天，就是发一条笔记、回答一个学员问题、写一段手册内容，不算起眼。</p>
+<p>但 6 年的积分结果，就是现在的「叁斤」。</p>
+<p>这个思维模型写出来之后，我自己都觉得震惊，一个数学概念，经过AI的转化，变成了我能直接用在选品、内容、产品迭代上的决策工具。</p>
+<p>这就是 AI 作为学习伙伴的价值，它不只是帮你查资料，它帮你把别人的知识转化成你自己的认知体系。</p>
+<h4>四、AI 驱动工作系统</h4>
+<p>这是我最近投入最多时间、也收获最大的部分。</p>
+<p>在春节期间，我用Claude Code搭建了一套完整的内容生产系统，覆盖了小红书、公众号、短内容的全流程。</p>
+<h4>4.1 小红书搜索笔记系统</h4>
+<p>先说背景。我做虚拟电商，卖的是39元的数字手册（个人IP起号手册、虚拟电商手册、商单变现手册）。</p>
+<p>在小红书上，搜索流量是最精准的，用户主动搜关键词，说明他有明确需求。</p>
+<p>所以我需要大量的「搜索笔记」来布局关键词。</p>
+<p>在意识到这个问题后，我做笔记一直很注重关键词布局，我的搜索支付也从7天951，提升到3500，效果还算不错。</p>
+<p>但手写搜索笔记是很痛苦的事情。</p>
+<p>一篇搜索笔记要考虑：关键词怎么选、标题怎么埋搜索词、正文的关键词密度、内容结构要符合搜索排名逻辑。</p>
+<p>如果还要考虑推荐流量的话，一篇至少要磨半小时到一小时。</p>
+<p>而 Claude Code 彻底改变了这个流程。</p>
+<p>我做了什么：先说一个前置动作。在搭建这个系统之前，我先用 AI 写了一本《小红书搜索SEO实操手册》。</p>
+<p>过程是这样的：我在 B 站找到了小红书算法工程师录的搜索引擎技术课程，但课程全是技术语言，看不懂。</p>
+<p>就把这些逐字稿全部喂给 AI，让它把技术原理翻译成创作者能理解的实操方法，搜索引擎怎么决定你的笔记排第几、哪些因素权重最高、你应该怎么做。</p>
+<p>但这只是半成品。真正让这本手册有价值的，是我在整理过程中投喂了大量自己做小红书 6 年的实战经验，哪些方法论是我验证过有效的、哪些常见操作其实是误区、什么样的关键词策略在我的品类里转化率最高。</p>
+<p>AI帮我把技术原理和实战经验融合在一起，最后出来的是一本既有底层逻辑、又能直接落地的手册。</p>
+<p>手册写完之后，它就变成了整个搜索笔记系统的「方法论」。</p>
+<p>接下来才是搭系统的部分：第一步，建立「叁斤的大脑」文件夹体系。根目录下有产品库、关键词库、方法论、输出等子文件夹。</p>
+<p>第二步，把我写的《小红书搜索SEO实操手册》放进去，作为Claude Code的方法论。</p>
+<p>第三步，创建 Skill。Skill是Claude Code的技能包，本质就是一个SKILL.md文件，告诉Claude Code遇到什么任务该怎么做，去哪里读产品信息、去哪里找关键词、按什么方法论写笔记、输出到哪个文件夹。</p>
+<p>第四步，测试。我只需要说一句话：帮小红书个人IP起号手册写5篇搜索笔记，Claude Code就会自动调用Skill、读产品库、选关键词、按方法论写笔记、保存到待发布文件夹。</p>
+<p>第一次跑出来的笔记质量让我震惊，关键词埋得精准、内容结构符合搜索排名逻辑、标题里的搜索词密度都控得很好。</p>
+<p>其实 Claude Code这个工具，去年就装了，但一直没用。因为被「它是编程工具」这个标签先入为主了，直到我尝试让它做内容生产的任务，才发现它在内容领域也极其强大。</p>
+<p>工具的天花板，不是工具本身，而是使用者的认知边界。</p>
+<p>另外，不懂 Claude code 没关系，一点都看不懂也没关系，我就看不懂。</p>
+<p>但 AI 懂，我的做法是，套娃式学习。用Claude 教我怎么用 Claude code，每一步不懂的就截图问它。</p>
+<p>如果遇到 AI 也不是很清楚的知识点，那就找网上的教程，发过去，让 AI 学习。</p>
+<p>比如，关于 skill 这个，我是真的一点不懂，那就找到 Claude skill 的说明文件，发回给Claude，它就能用这里的知识帮你搭建skill。</p>
+<h4>4.2 Skill进化系统</h4>
+<p>搜索笔记系统跑通之后，我把思路扩展了，如果一个Skill能搞定搜索笔记，那是不是每种内容类型都能有自己的Skill？</p>
+<p>于是我在Claude的帮助下设计了好几个Skill：1、搜索笔记生成Skill：输入产品和关键词，自动生成小红书搜索笔记2、新IP文案生成Skill：基于我的IP定位和风格，生成长文3、短内容Skill：生成朋友圈、短小红书笔记等碎片化内容4、录音处理Skill：把录音逐字稿自动归类、提炼选题、整理方法论……</p>
+<p>这些Skill不是一次性写好的，它们会进化。</p>
+<p>每次我发现笔记质量不够好，就会更新方法论文件，Skill下次调用的时候就会按新的方法论来写。只要我的方法论在升级，AI的输出质量也能同步升级。</p>
+<p>还有，我用录音工具记录了线下讲课、跟朋友交流、突发的灵感想法。这些录音转成逐字稿之后，Claude Code能帮我：1、从逐字稿中提炼出有价值的观点和金句2、判断这些内容适合做小红书笔记、公众号文章还是朋友圈3、归入对应的选题库4、如果涉及方法论更新，自动整理并更新到方法论文件夹这意味着我每一次对外分享、每一次跟人交流，都在喂养这个系统。系统越用越聪明，因为我的方法论在不断更新。</p>
+<p>当然，最重要的是，不需要我手动更新，只需要跟他说「升级系统」，就能执行进化学习的流程。</p>
+<h4>4.3 知识沉淀的完整链路</h4>
+<p>我一直有听课、学习的习惯。以前听完一个课程，笔记就会零散地记在手机备忘录或飞书文档里，很少系统整理。</p>
+<p>现在的流程完全不一样了。</p>
+<p>我把课程的逐字稿分段发给 AI ，它帮我提取框架、去重、整理成结构化的知识笔记。</p>
+<p>比如小红书数据复盘课、自媒体拍摄课、李叫兽的文案方法论，这些我都让AI整理过。</p>
+<p>整理的规则是：不遗漏任何知识点、去掉重复内容、按课程逻辑重新排列。</p>
+<p>如果原课程缺少某个环节（比如数据复盘课没有讲AI辅助分析），我还会让 AI 根据我的知识库，补充一下内容。</p>
+<p>这些整理好的知识，最终会沉淀到我的方法论文件夹里。</p>
+<p>下次Claude Code帮我写内容的时候，它就能调用这些方法论，输出质量自然更高。</p>
+<h4>4.4 文件夹即大脑</h4>
+<p>写到这的时候，我的整个工作系统大概长这样：每次我启动Claude Code，它会自动读取CLAUDE.md，知道我是谁、有哪些产品、文件结构是什么。</p>
+<p>我只需要用一句自然语言下任务，它就知道去哪找资料、用哪个Skill、输出到哪里。</p>
+<h4>五、AI 驱动产品升级</h4>
+<p>这是整篇文章里对我业务影响最大的部分。AI不只帮我提效，还帮我重新定义了产品。</p>
+<h4>5.1 背景：</h4>
+<p>先简单介绍一下我的业务模型。我做 AI+ 虚拟电商，主要在小红书和微信生态运营，产品线是一个三级漏斗：1、引流层（39元）：数字手册，有3个，《小红书个人IP起号手册》《小红书商单变现手册》《小红书虚拟电商手册》2、中间层（原399元，现499元）：小红书社群/年度会员3、高价层（6980元）：一对一私教课另外还有一个单独的知识产品，《超级个体进化知识库》，原价99元。</p>
+<p>这个结构在实际运营中问题很多，AI帮我一步步理清了这些问题。</p>
+<h4>5.2 社群权益重构</h4>
+<p>399社群运营了 2 年多，权益列了 9 条，运营手册、AI创作器、微信社群、直播分享、专属文章、虚拟资料、知识星球、在线答疑、ima知识库。</p>
+<p>看起来是很丰富，但实际上用户进来会有点懵，这么多平台、这么多内容，从哪开始？</p>
+<p>我把完整的权益说明发给Claude，让它帮我审视。</p>
+<p>它指出了几个关键问题：第一，平台太散。</p>
+<p>用户加入后要加微信群、飞书、ima知识库、知识星球四个平台，功能还有重叠。建议砍到2个，微信群负责交流答疑，飞书负责所有内容沉淀。</p>
+<p>第二，权益呈现方式有问题。</p>
+<p>9 条里很多在说同一件事，「在线答疑」出现了两次。条目多不等于价值感强，反而让用户抓不住核心。建议重新梳理成3个核心价值：系统知识、实战工具、持续陪伴。</p>
+<p>第三，「谁适合加入」这段等于没写。</p>
+<p>「无论新手还是老手」对所有社群都适用，没有任何筛选力。</p>
+<p>第四，最关键的，社群的定位跟我新 IP 不匹配。</p>
+<p>我现在深度使用 AI ，早就不局限于「小红书运营」这一技能了，而是 AI 做产品、经验变现、一人公司，小红书只是流量渠道之一。</p>
+<p>但社群权益从头到尾都是「小红书运营」，新IP吸引来的人，第一需求未必是学小红书，而是怎么靠自己赚钱。</p>
+<p>这个分析直接推动了后面的产品合并和升级。</p>
+<h4>5.3 产品合并：一人变现系统</h4>
+<p>我有一天突然想到：399社群的核心是「小红书运营」，99知识库的核心是「超级个体认知和搞钱方法论」，这两个东西本来就应该是一体的。</p>
+<p>我把这个想法告诉 AI ，它说：合在一起产品逻辑就变成了「上层是搞钱认知和方法论，下层是小红书这个具体工具」。而且99知识库一直营销的少，单独卖定位模糊、受众不清晰，并入社群之后它不再需要单独获客，天然就有了分发渠道。</p>
+<h4>5.4 产品重新定义</h4>
+<p>合并之后这个产品叫什么？AI 建议不叫社群也不叫知识库，而是用一个有记忆点的名字。经过几轮讨论，我们定了——「叁斤·一人变现系统」。</p>
+<p>「一人变现系统」这五个字，把产品从「小红书运营社群」升维到了「帮你搭建个人收入系统」。</p>
+<p>定位变了，目标人群也变了，内容还是那些内容，但叙事框架跟我新IP完全对齐了。</p>
+<p>AI 还帮我重新设计了产品介绍。以前是按权益类型列（知识库、工具、社群……），现在改成按用户行动路径的四层结构：第一步：想清楚——超级个体知识库（思维模型、个人定位、搞钱认知）第二步：做出来——AI创作工具、虚拟产品制作方法第三步：卖出去——小红书运营手册（搜索SEO、内容策略、数据分析）第四步：持续迭代——社群交流、直播分享、持续更新小红书运营手册从「产品主体」变成了「流量工具」，超级个体知识库自然地融入了第一步和第二步。整个产品的价值叙事完全变了。</p>
+<p>最终的内容结构长这样，整体框架维持 AI 给的四步排序，但是会按照用户阅读习惯做了优化，尽可能减少点击次数。</p>
+<h4>5.5 AI在产品升级中扮演的角色</h4>
+<p>AI 在这个升级过程中，提供了非常重要的思考指导。</p>
+<p>它帮我看到了我自己看不到的问题：平台太多、权益混乱、定位与IP错位。</p>
+<p>它帮我验证了我的直觉，399和99合并是对的，但给出了具体的理由和风险分析。</p>
+<p>它帮我做了我不擅长的事，产品定价策略、用户行动路径设计、权益重新包装。</p>
+<p>我的经验和判断力是不可替代的，我知道我的用户是谁、我的优势在哪、市场的真实情况是什么。</p>
+<p>但AI把我的模糊的直觉变成了更清晰的方案。</p>
+<p>有事没事，真应该多跟 AI 聊聊天。</p>
+<h4>六、AI管理工作全局</h4>
+<p>除了以上这些具体场景，AI还有一个隐藏的作用，帮我管理整体的工作状态。</p>
+<p>我经常让 AI 读取所有我们的对话记录，帮我梳理待办事项。</p>
+<p>它整理出来的清单比我自己列的更完整，它记得我说过的每一个「之后要做」的事情，包括我自己都忘了的。</p>
+<p>它按优先级分了三档：第一优先级是新IP起号和Obsidian插件安装第二优先级是公众号更新和产品落地第三优先级是Claude Code Skills开发和社区发帖（就这篇）。</p>
+<p>这已经不是 AI 在管理我，而是它帮我做了一件我不擅长的事：把脑子里乱七八糟的事情全部摊开整理好。</p>
+<h4>七、回到本质</h4>
+<p>写到这里，我想说说用了这么久AI之后的真实感受。</p>
+<h4>7.1 AI最大的价值不是效率</h4>
+<p>在我看来，效率提升只是副产品。AI真正改变的是我的决策质量。</p>
+<p>以前我做决策靠直觉、靠经验、靠拍脑袋。现在我会把决策过程拆解出来，让AI帮我补盲区、做分析、验证假设。</p>
+<p>不管是买一个耳机、还是调整产品定价、还是选择一个减脂方案，决策的过程变得更系统、更理性了。</p>
+<h4>7.2 AI不能替代什么</h4>
+<p>AI 不能替代我的经验。我做了 6 年小红书，踩过的坑、积累的案例，这些是AI没有的。AI只能在我的经验基础上放大效率，不能从0创造经验。</p>
+<p>AI 不能替代我的判断。AI 给我的建议，大约有80%我会采纳，20%我会否决或调整。它不了解市场的微妙变化、不了解我学员的真实反馈、不了解某个功能在实际使用中的体感。这些需要人来判断。</p>
+<p>AI 也不能替代人的连接。我跟学员的关系、跟朋友的交流、线下活动的碰撞，这些是 AI 参与不了的。</p>
+<p>录音工具可以记录这些对话，AI可以帮我整理，但对话本身的价值来自人与人之间的连接。</p>
+<h4>7.3 一个普通人的AI观</h4>
+<p>我不是技术人员，不懂编程（虽然Claude Code让我看起来像会编程），不是什么 AI 专家，所以你会看到我跟 AI 的沟通过程非常朴实无华，没有什么提示词技巧。</p>
+<p>我只是一个30岁的自由职业者，但正因为普通，我才觉得这个经验有参考价值。</p>
+<p>你不需要懂技术，不需要会编程，不需要成为专家。你只需要做一件事，遇到任何问题，先问一下AI。</p>
+<p>把你的真实情况、真实需求、真实困惑，完整地告诉它。然后听它的分析，用你的判断力做最终决定。</p>
+<p>就这么简单。</p>
+<p>做多了，AI就会融入你的思维方式。再做多一点，它就会融入你的生活。</p>
+<p>然后有一天你回头看，会发现AI已经渗透到了你生活的每一个角落，你的身体、你的消费、你的学习、你的工作、你的产品。</p>
+<p>不是因为你刻意去用它，而是因为它已经变成了你思考的一部分。</p>
+</article>
+<article data-id="a7" data-title="AI 时代，流量能力比产品本身重要 100 倍" data-tag="认知">
+<p>现在 AI 这么厉害，我想问大家 2 个问题：</p>
+<p>1、你用 AI 赚到钱了吗？</p>
+<p>2、为什么没有？</p>
+<p>我相信关注叁斤的小伙伴或多或少都接触了 AI 工具，并用 AI 提效。</p>
+<p>但是，至少有 80% 的人，没有用 AI 赚到钱，为什么？</p>
+<p>因为重点放错了，现在大部分人都把重心放在了「学习最新的 AI 工具」「制作更好的产品」，没有人</p>
+<p>把心思花在流量上。</p>
+<p>其实，任何产品，做出来只是开始，让人看到才是最关键的事情。</p>
+<p>而这个任务，AI 帮不了你。</p>
+<p>01. AI到底帮你解决了什么？</p>
+<p>答案很简单，AI能帮我们解决了生产的问题。</p>
+<p>以前做一个东西（内容、图片、产品……），需要学很多技能、花很多时间。现在有了AI，门槛大幅</p>
+<p>降低，几个小时就能做出一个能用的东西。</p>
+<p>但是，「做出来」和「卖出去」之间，还隔着一道巨大的鸿沟。</p>
+<p>就是，你能不能让人知道你做了这个东西？</p>
+<p>我见过很多人，产品做得真的很用心，功能很全面，但就是没人买。</p>
+<p>他们很困惑，问我为什么，担心是不是自己做得还不够好？还会花更多时间打磨产品。</p>
+<p>其实问题根本不在产品上。</p>
+<p>问题在于，你做了一个东西，但没人知道。没人知道，就等于这个东西不存在。</p>
+<p>这个问题不是 AI 带来的，而是每一次技术进步都会出现的问题。</p>
+<p>你想想，印刷术发明之后，写书这件事变便宜了。</p>
+<p>以前要手抄，现在可以批量印刷。</p>
+<p>但「让你的书被人读到」这件事变简单了吗？没有。书印出来，还是要靠出版商、靠书店、靠口碑才</p>
+<p>能卖出去。</p>
+<p>互联网出现之后，「发布内容」这件事变免费了。以前要上电视、上报纸，现在注册个账号就能发。</p>
+<p>但「让内容被人看到」这件事变简单了吗？也没有。</p>
+<p>发出去的内容，还是要靠平台推荐、靠算法、靠你自己想办法才能被看到。</p>
+<p>现在AI来了，「做产品」也变得前所未有地容易。但「让产品被人看到」这件事呢？</p>
+<p>一点都没变，甚至更难了，因为供给太大了。</p>
+<p>02. 为什么被看到变难了？</p>
+<p>原因很简单。</p>
+<p>AI 降低了生产门槛，意味着能做出东西、写出内容的人变多了。以前做一个像样的东西需要专业技</p>
+<p>能，现在小白用AI也能做出来。</p>
+<p>供给一下子增加了很多倍。</p>
+<p>但需求没有变化。人的注意力是有限的，每个人每天还是24小时，能看的内容没有变多。</p>
+<p>你刷手机的时间就那么多，不会因为AI出现了就多出几个小时来。</p>
+<p>供给增加，需求不变。</p>
+<p>结果就是每一份注意力都变得更贵了，更难获取了。</p>
+<p>这就是为什么同样质量的内容，三年前发出去可能火，现在发出去没什么动静。因为竞争变激烈了，</p>
+<p>而且这个趋势只会越来越严重。</p>
+<p>你做出来的东西，是和所有用 AI 提高了效率的人竞争。</p>
+<p>这个竞争的激烈程度，比以前高了不知道多少倍。</p>
+<p>为什么大多数人还是把所有精力都花在「做东西」上，不花在「让人看到」上？</p>
+<p>我观察下来，原因有这么几个。</p>
+<p>第一个：做东西有确定性的成就感</p>
+<p>你花三天做了一个东西，做完的那一刻，成就感是实实在在存在的。你看着自己的作品，心里觉得挺</p>
+<p>好的。</p>
+<p>但你把它发出去，没几个人看，那种挫败感也是实实在在的。</p>
+<p>人的本能就是趋利避害。</p>
+<p>有成就感的事情愿意做，有挫败感的事情不愿意面对。</p>
+<p>所以很多人就陷入了一个循环：</p>
+<p>做东西 → 发出去没人看 → 觉得是东西不够好 → 继续做更好的东西 → 还是没人看 → 继续做更好</p>
+<p>的……</p>
+<p>他不敢面对「内容发不出去没人看」这个问题。</p>
+<p>第二个：没人教我们吆喝</p>
+<p>想想你从小到大接受的教育，是不是都在强调做好自己的事？</p>
+<p>好好学习、好好工作、把手头的事做好，自然会有人看到你。</p>
+<p>是金子总会发光、酒香不怕巷子深，对吧？这句话在今天严重不成立。</p>
+<p>现在是「酒香也怕巷子深」「金子的光线根本发不出来」。</p>
+<p>因为巷子里有一万家酒馆，每家都在说自己的酒香。你不吆喝，没人知道你在哪。</p>
+<p>但大多数人从来没学过怎么吆喝。</p>
+<p>甚至觉得吆喝是不体面的事情，是营销、是割韭菜。</p>
+<p>这是一个很深的认知障碍。</p>
+<p>第三个：幸存者偏差</p>
+<p>我们看到的成功案例，往往是这样的叙事：他的产品太好了，所以火了。</p>
+<p>于是我们得出结论：产品好，就会火。</p>
+<p>但我们看不到的是：有多少产品也很好，但没火的？那些沉默的大多数，你根本听不到他们的声音，</p>
+<p>因为他们没被看到。</p>
+<p>能被你看到的，都是「被看到」了的。这是一个逻辑上的同义反复。</p>
+<p>所以我们接收到的信息是被严重扭曲的。</p>
+<p>我们以为做得好是成功的原因，但很可能「被看到」才是更重要的原因。只是「被看到」这件事不像</p>
+<p>「产品好」那么容易被讲述和传播。</p>
+<p>03. 两条曲线正在交叉</p>
+<p>我再给你讲一个趋势判断，这个判断可能会颠覆你对「什么能力值钱」的认知。</p>
+<p>以前，什么能力值钱？</p>
+<p>会做东西的能力。因为会做东西的人稀缺。</p>
+<p>你会写代码、会做设计、会剪视频、会写文章，这些都是「专业技能」，有溢价。</p>
+<p>但现在，AI让「做东西」这件事民主化了。</p>
+<p>以前只有专业的人能做出来的东西，现在普通人用 AI 也能做出个七八分。专业技能的稀缺性在快速下</p>
+<p>降。</p>
+<p>你花十年学会的手艺，AI几秒钟就能做出差不多的效果。这个手艺还值多少钱？</p>
+<p>但另一种能力，AI帮不了你，而且越来越稀缺。</p>
+<p>就是「让东西被看到」的能力。</p>
+<p>算法不会自动帮你火。AI不会替你理解人性。平台不会因为你东西好就给你流量。这些事情，只能你</p>
+<p>自己来。</p>
+<p>所以现在有两条曲线在交叉：</p>
+<h4>1、生产能力的价值在下降</h4>
+<h4>2、流量能力的价值在上升</h4>
+<p>以前你会做东西，就能赚钱。以后不行了，不仅会做，还得让人看到。</p>
+<p>如果你问我，未来五年，「懂技术的人」和「懂流量的人」哪个更值钱？</p>
+<p>我的答案是：懂流量的人。</p>
+<p>不是说技术不重要，而是技术越来越容易被替代，流量越来越难被替代。</p>
+<p>说到这里，我要澄清一个误解。</p>
+<p>很多人一听「流量能力」，就想到投广告、买流量、写标题党。</p>
+<p>这不是我说的流量能力。</p>
+<p>投广告是花钱买流量，不可持续。钱烧完了，流量就没了。</p>
+<p>写标题党是骗点击，伤害信任。你骗人点进来一次，他就再也不信你了。</p>
+<p>真正的流量能力是什么？</p>
+<p>是理解注意力如何流动，并且能让自己的内容也参与流动。</p>
+<p>这个定义有两层意思。</p>
+<p>第一层是「理解」。</p>
+<p>你得知道平台的算法是怎么运作的，用户的注意力是怎么分配的，什么样的内容会被传播，什么样的</p>
+<p>不会。这是认知层面的。</p>
+<p>第二层是「能做到」。</p>
+<p>光理解不行，你还得能把你的东西用符合这个流动规律的方式呈现出来。这是执行层面的。</p>
+<p>很多人卡在第一层，根本不理解流量是怎么回事。也有人理解了，但做不到。两层都得过。</p>
+<p>我把流量能力再拆细一点，它其实包含三个层次：</p>
+<p>第一、让人看到。</p>
+<p>这是解决曝光的问题。你的内容能不能被平台推荐？能不能出现在用户的信息流里？这需要你理解平</p>
+<p>台规则、理解算法逻辑。</p>
+<p>第二、让人记住。</p>
+<p>看完就忘了也没用，你的内容能不能在用户心里留下点什么？他刷一百条内容，凭什么记住你这一</p>
+<p>条？</p>
+<p>第三、让人传播。</p>
+<p>最高级的流量是让别人帮你流量。用户看完你的内容，愿不愿意转发？愿不愿意推荐给朋友？这是增</p>
+<p>长的核心引擎。</p>
+<p>这三层，每一层都是一道门槛。很多人连第一层都过不去。</p>
+<p>而这三层的核心能力，其实就是一个词：会说话。</p>
+<p>会说话是什么意思？</p>
+<p>是能把一个东西，用让人愿意听、听完能记住、记住了想转发的方式说出来。</p>
+<p>这是一种能力。而且是AI帮不了你的能力。</p>
+<p>AI能帮你写出一篇「正确」的文章，但写不出一篇「让人想转发」的文章。</p>
+<p>因为「让人想转发」这件事，涉及到对人性的理解、对情绪的把握、对时机的判断，这些AI还做不</p>
+<p>到。</p>
+<p>至少现在做不到。</p>
+<p>04. 这对你意味着什么？</p>
+<p>如果你是想用AI做副业或者自由职业的人，我有几个建议。</p>
+<p>第一，不要把所有时间都花在学AI工具上。</p>
+<p>AI工具当然要学，但那是所有人都在学的东西。你学会了，别人也学会了。供给在同质化，你的竞争</p>
+<p>优势在哪里？</p>
+<p>在AI领域，我见过很多人，天天研究这个AI工具、那个AI工具，每天都在喊「AI已经彻底颠覆</p>
+<p>了……」。</p>
+<p>但是，工具只是工具。</p>
+<p>第二，花至少一半的时间在流量上。</p>
+<p>我的分配是，50%做东西（用AI提效），50%研究怎么让人看到。</p>
+<p>省下来的时间，不要用来做更多东西，而是用来研究流量、研究平台、研究什么内容会火。</p>
+<p>即使用 AI 写公众号，写内容，我依然会花大量时间研究「写什么」。</p>
+<p>做出十个没人看的东西，不如做出一个有人看的东西。</p>
+<p>第三，改变思考顺序。</p>
+<p>现在我写内容的思路是，我的目标用户需要什么？我怎么让他们看到？怎么用AI做出来？</p>
+<p>先想清楚「谁需要」，再想清楚「怎么让他们知道」，最后才是「做出来」。</p>
+<p>做产品、写内容，是最后一步，不是第一步。而且是最简单的一步，因为有AI帮你。</p>
+<p>文章到这里，我想给你留一个问题。</p>
+<p>你可以用这个问题来判断自己现在的竞争力。</p>
+<p>问题是：如果AI能帮所有人做出和我一样的东西，我还剩下什么？</p>
+<p>认真想一想。</p>
+<p>如果你的答案是「好像没什么了」，说明你现在的竞争优势全部建立在「生产能力」上，这个优势正</p>
+<p>在快速被AI稀释。</p>
+<p>这是在一个错误的维度上竞争。</p>
+<p>如果你的答案是「但我能被人看到」，那你就找到了真正的护城河。</p>
+<p>普通人在AI时代的机会，不是成为技术专家，你永远拼不过人工智能领域的真正专家。</p>
+<p>真正的机会，是成为「会说话」的人。</p>
+<p>会用AI做东西的人会越来越多，但是能被人看到的，依然还是那么少。</p>
+</article>
+<article data-id="a8" data-title="我不再教小红书了" data-tag="产品升级">
+<p>做了两年的小红书运营社群，今天我决定把它推翻重来，从头到尾，升级一遍。</p>
+<h4>为什么要升级？</h4>
+<p>很多人根本不知道自己该做什么，不知道怎么把自己的经验变成一个产品，甚至不知道自己到底要不要做小红书。</p>
+<p>小红书运营只是「怎么获得流量」的问题，但大部分人卡住的地方，是在获客之前，方向没想清楚。</p>
+<p>回头看我这几年，真正让我赚到钱的，不是「学会了小红书运营」，而是想清楚了要做什么、并且用AI做出了能卖的产品、然后才是用小红书把它卖出去。</p>
+<h4>社群升级还有一个更大的原因：AI。</h4>
+<p>2025年到现在，AI工具的能力已经完全不一样了。我自己的工作流里，选品、写文案、做虚拟产品、写公众号、回答学员问题……几乎每一个环节都有AI的参与。</p>
+<p>但原来的社群内容里，AI 只是作为一个独立模块存在的，放了几个工具推荐和教程。</p>
+<p>这远远不够，AI 应该贯穿在从想方向、做产品、获流量到持续迭代的每一步里。</p>
+<p>所以这次升级， AI 不再是一个板块，而是整个系统的底层能力 。</p>
+<p>只教小红书运营，是不完整的。没有AI加持的一人变现，也是低效的。</p>
+<h4>1、把社群变成了「系统」</h4>
+<p>原来的产品叫「小红书运营社群」，核心就是一份15万字的运营手册加上微信群。</p>
+<p>现在叫「叁斤·一人变现系统」。</p>
+<p>不仅名字变了，整个 产品逻辑都变了 。</p>
+<p>原来的逻辑是，教会你做小红书。</p>
+<p>现在的逻辑是：教会你搭建一套完整的个人收入系统，小红书只是其中获客的那一环。</p>
+<h4>2、内容从一条线变成四层结构</h4>
+<p>我把所有内容重新梳理了一遍，按照「从想法到赚钱」的完整路径，分成了四层：</p>
+<h4>第一，想清楚</h4>
+<p>大部分人不是不努力，是方向没想清楚就开始干了。</p>
+<p>这一层放的是底层认知的东西，思维模型（逆向思维、第一性原理、二八定律、微积分思维）、真实的创业案例拆解、商业模式分析、还有账号定位方法论。</p>
+<p>目的就一个，帮你想清楚「能做什么、该怎么切入」。</p>
+<h4>第二：做出来</h4>
+<p>方向想清楚了，下一步是把你的经验和知识打包成可以卖的东西。</p>
+<p>这一层是 AI 感知最强的地方。</p>
+<p>虚拟电商选品方法、用 AI 从零制作一份能卖钱的虚拟产品、提示词工程最佳实践、AI 写公众号和小红书的完整工作流，还有叁斤创作器（输入关键词就能一键生成文案和定位分析）。</p>
+<p>整个产品搭建的流程，都大量用上AI，一两天就能出一个能卖的成品。我的几份手册，都是这么做出来的。</p>
+<h4>第三：卖出去</h4>
+<p>这一层就是原来的核心，15万字小红书运营手册。</p>
+<p>从平台基础、起号定位、内容创作、搜索SEO、数据分析，到引流技巧、商单变现、品牌运营、电商运营、投流策略，全链路覆盖。</p>
+<p>这份手册我用了两年多，持续在更新，是我5年小红书经验的完整沉淀。</p>
+<p>另外，手册已经放到了 AI 问答知识库，24小时在线，随时提问随时解答。相当于一个永远不下班的叁斤。你半夜12点想到一个运营问题，直接问AI就行，秒回。</p>
+<h4>第四：持续进化</h4>
+<p>微信社群日常交流和即时答疑、不定期直播分享（往期可回看）、社群专属的深度文章、爆款笔记库和封面素材库、账号案例拆解、每日红书资讯、Dan Koe等海外一人公司方法论精读……</p>
+<p>这一层不是静态的知识库，是一群正在靠自己干出结果的人，持续互相推着往前走。</p>
+<h4>3、AI贯穿每一层</h4>
+<p>我对AI的理解是， 它不是一个功能模块，而是你做一人生意的基础能力。</p>
+<p>你看这四层结构里，AI在每一层都有位置：</p>
+<p>想清楚 ：用AI帮你做市场调研、分析竞品、梳理自己的能力清单</p>
+<p>做出来 ：用AI写内容、做虚拟产品、生成文案和逐字稿</p>
+<p>卖出去 ：AI辅助写小红书笔记、做SEO关键词分析、24小时知识库问答</p>
+<p>持续进化 ：AI工具库持续更新，新工具新玩法第一时间分享</p>
+<p>我自己现在每天的工作里，大概有60-70%的环节都有AI参与。一个人能干的事，因为有了AI，翻了好几倍。</p>
+<p>所以新社群里，AI 相关的内容更新频率会很高。</p>
+<p>有好用的新工具、新的工作流、新的玩法，我会第一时间在社群里分享。未来我还计划把知识库做成可交互的AI产品，你不用翻文档，直接跟AI对话就能学到东西、拿到方案。</p>
+<p>如果你觉得「AI跟我没关系」，那这个社群可能不适合你。如果你觉得「AI我想学但不知道怎么用」，那这个社群就是为你准备的。</p>
+<p>这次升级的核心，其实就是一句话</p>
+<h4>从「教你做小红书」，变成「帮你搭建一套靠自己赚钱的系统」。</h4>
+<p>小红书运营依然是最核心的部分，但它不再是全部。你还需要想清楚方向、做出能卖的产品、然后持续迭代。这四件事串起来，才是一个完整的闭环。</p>
+<p>我自己就是这么走过来的。从打工到自由职业，靠的不是某一个技巧，而是一套系统。现在我把这套系统整理出来，希望对你也有用。</p>
+<h4>谁适合加入？</h4>
+<p>你不想一辈子打工，想靠自己的能力和经验赚钱，但不知道从哪开始，这套系统就是帮你起步的。</p>
+<p>想摆脱打工探索自由职业的人、想用AI加自媒体搭建个人收入的人、想系统学习小红书运营和变现的人、想找到一群同频的人不再一个人摸索的人，都适合。</p>
+<p>不适合只想要速成方法、不愿意花时间执行的人。</p>
+<h4>**</h4>
+</article>
+<article data-id="a9" data-title="虚拟资料就是垃圾项目，90% 的人都赚不到钱" data-tag="方法论">
+<p>我发现很多人做虚拟电商赚不到钱，不是产品不行，不是运气不好，是从底层思路上就有问题。</p>
+<p>不是品上的够多，笔记发的够多，就能出单。也不是解决了自动化、跳实名问题，就能赚钱。</p>
+<p>90%的人赚不到钱，就是这个原因，从第一步，就做错了。</p>
+<p>今天这篇，我把自己踩过的坑、走过的弯路，整理成 6 条经验，帮助你快速在虚拟电商项目上，赚到</p>
+<p>第一块钱。</p>
+<h4>1、明确一点，目标就是赚钱</h4>
+<p>很多人做媒体，设定的目标都不是最终目标，比如想涨5万粉，涨5万粉，然后呢？写一篇爆文，什么</p>
+<p>是爆文？多爆才算？爆了之后呢？</p>
+<p>我们做的就是虚拟电商，就是卖产品的，终极目标就是变现，这不丢人。</p>
+<p>为什么要先讲这个？</p>
+<p>90%的新手，表面上看是卖虚拟产品，但做的事情都跟变现没有直接关联，都是一堆自嗨的事：</p>
+<p>比如：</p>
+<p>花大量时间做一个完美的产品，结果没人买。</p>
+<p>只盯着点赞等互动指标，没有人点赞就焦虑，宁愿送产品换别人的点赞。</p>
+<p>还有为了快速变现，定极低的价格，觉得这样很良心，应该可以快速变现。</p>
+<p>结果就是，这些动作都赚不到钱</p>
+<p>只有承认自己想赚钱，你才会认真思考，用户到底愿意为什么付费？你才会认真思考，哪些是真正需</p>
+<p>要关注的变现指标？</p>
+<p>而这，才是做虚拟产品的起点。</p>
+<h4>2、克服恐惧，别想了先干</h4>
+<p>执行力差的人都有一个共同点：喜欢「谋定而后动」，</p>
+<p>写公众号、卖虚拟产品到现在，有非常多人加我，问过很多问题，绝大多数的问题都是：</p>
+<p>这个项目能赚钱吗？多久能变现？多久能回本？还能做吗？能做多久？我这个选题有没有人做过？我</p>
+<p>的产品够不够好？万一没人买怎么办？火了之后会不会被人骂？……</p>
+<p>类似的问题真的太多了，对于这些，我只想说，你想个锤子，这些问题是能想出来吗？你得做啊！</p>
+<p>你想100遍，不如做一篇笔记，上架一个产品。</p>
+<p>2022年我写了第一个小红书手册，现在看是挺糙的。但开始卖之后，用户的反馈告诉我哪里不行、哪</p>
+<p>里需要补充，我就改哪里。</p>
+<p>迭代很多次之后，产品才真正成型，最终成为一份10w多字的《小红书运营手册》。价值从9.9一下升</p>
+<p>级到399。</p>
+<p>如果我一直在想，这个产品有没有人要？写的这么拉，被人骂怎么办？……</p>
+<p>那这个资料一定发不出来。</p>
+<p>用户的反馈，比你自己的想象靠谱100倍。</p>
+<p>第一份资料这么拉，没有人找我退钱，没有人骂我，都在给我提意见，想看哪些内容，能不能写。</p>
+<h4>3、准备打持久战</h4>
+<p>我刚做小红书的第 1 个月，发了30多条笔记，点赞基本就是个位数到几十个。第一份虚拟产品只买了</p>
+<p>50多份，一份只卖9.9。</p>
+<p>现在新店铺是5月份开的，找了 2 个小伙伴合作一起帮我买，到6月份，一共卖了1380块钱，后来另外</p>
+<p>两个小伙伴都放弃了，剩我一个人在做，现在由我老婆接手。</p>
+<p>换你，你能坚持吗？能熬过低谷期吗？</p>
+<p>做任何项目，前 1～3 个月，可能一单都没有，或者零零散散出几单，这是再正常不过的情况。</p>
+<p>别被那些从 0 起步第一个月赚多少多少的帖子给带偏了，那都是吸引人的手段，不这么写，你不会</p>
+<p>看。</p>
+<p>真实情况就是，要做好前 3 个月 0 收入的准备。</p>
+<p>大部分人看到这个，或者第一个月 0 收入，就放弃了，然后得出结论：这玩意儿不行、我不适合、市</p>
+<p>场太卷了。</p>
+<p>但你去看那些做起来的人，谁不是扛过了低谷期？</p>
+<p>后来怎么起来的？</p>
+<p>我的店铺到第 2 个月，爆了一条笔记，月销售涨到 1 万多。到了 7 月份，又翻了一倍，销售额涨到了</p>
+<p>2.6万多。</p>
+<p>虚拟电商的销售额，几乎就等于利润了，没什么成本。</p>
+<p>你得熬过低谷期，确保自己在牌桌上，机会来的时候，你才接得住。</p>
+<h4>4、选自己真正懂的品</h4>
+<p>不要刻意凹人设，凹出来的人设早晚会枯竭，做自己永远不会枯竭。</p>
+<p>这是我做虚拟电商，最关键的坚持。</p>
+<p>很多人喜欢追热门，看别人卖简历模板赚钱，自己也去做。看别人卖AI课程火，自己也跟着搞。看什</p>
+<p>么赛道热就做什么。</p>
+<p>问题是，你不懂这个领域，你怎么做出有价值的产品？做不出，就只能搬运、做盗版。</p>
+<p>就算勉强做出来了，用户问你问题，你答不上来；用户要售后，你也搞不定。</p>
+<p>最后累死自己，还做不出口碑。</p>
+<p>我的建议一直是：选你真正有积累的领域。</p>
+<p>你做过的工作、踩过的坑、解决过的问题，这些才是你能持续产出的东西。</p>
+<p>追热门是短期思维，做自己懂的才是长期生意。</p>
+<p>很多人觉得「自己只是个普通人，没什么可分享的」，这也是个思维局限。</p>
+<p>即便是个菜鸟，也可以分享。因为谁都有小白学习的阶段。</p>
+<p>小白里面又有小小白，小白教小小白效果可能比高手教小小白好，因为小白能够更明白小小白的处</p>
+<p>境，能感同身受，反而教得更好。</p>
+<p>还是我的第一份虚拟产品，那会是2022年，小红书大佬没现在这么多，我也不算非常专业，但优势是</p>
+<p>比别人早一点接触，早一点做，所以整了一份资料，哪怕是入门级别，给小小白看，也是绰绰有余。</p>
+<h4>5、解决真实问题</h4>
+<p>写到这我想到一个案例，很早之前看樊登读书，他讲了一个案例我记到现在，他说有个人发现一个需</p>
+<p>求「很多人上厕所时，拉下去的那一坨会溅起水，炸到屁股」，他觉得这是个商机，开发了一个不会</p>
+<p>溅水的马桶。</p>
+<p>结果没人买。为什么？</p>
+<p>因为这个问题只要在马桶垫上一张纸就可以解决，零成本。</p>
+<p>这就是一个伪需求，属于产品自嗨，不把用户当人。</p>
+<p>我们一定要理解一个点，小红书笔记的背后都是活生生的人，而不是一个点赞、评论、关注。他们有</p>
+<p>自己的想法喜好，不是你想怎么支配就怎么支配的。</p>
+<p>做虚拟电商，最怕的也是产品思维，我做了一个产品，你们来买吧。这个产品这么好，你为什么不</p>
+<p>买？都已经有10个加购了，为什么还不卖？</p>
+<p>错了，跟做不溅水马桶的产品经理一样。</p>
+<p>用户买的不是你的产品，是解决方案。</p>
+<p>他买简历模板，是因为他不会，或者不想写简历，但想找到工作。 他买小红书教程，是因为他想在小</p>
+<p>红书赚钱。 他买育儿手册，是因为他带娃焦虑，想要答案。</p>
+<p>而这些解决方案，都有替代。</p>
+<p>要找工作，不仅需要一个好的简历，一套面试沟通逻辑、简历美化，都是解决方案。</p>
+<p>其他也一样，你得站在用户角度想：</p>
+<p>他真正的问题是什么？具体痛点是什么？愿意为什么付费？</p>
+<p>把用户当真人，而不是当流量、当韭菜。</p>
+<p>这是任何生意的底层逻辑，你真正解决问题，用户才会购买、才会推荐、才会给你带来更多生意。</p>
+<h4>6、你的经历就是产品</h4>
+<p>你的生活不管是过的幸福还是苦难，都是别人接触不到的东西。不要默认大家都了解你的生活是怎么</p>
+<p>样的，也不要默认大家都比你聪明。</p>
+<p>很多人觉得自己没什么可卖的、我的经历很普通。</p>
+<p>但你想想，你做过的工作、你解决过的问题、你踩过的坑，对于还没经历过的人来说，就是信息差。</p>
+<p>前面说了，小白下面还有小小白，假设你做过电商运营，想入行的新人就想听你怎么说，想听听你的</p>
+<p>过往。</p>
+<p>你带过娃踩过坑，新手妈妈就想知道你的经验。从0开始做小红书做到月入过万，想做小红书的人就想</p>
+<p>学你的方法。</p>
+<p>你觉得普通的东西，对别人来说可能是一次全新的认知升级。</p>
+<p>除了你的经历，还有你正在学习的东西、你解决过的具体问题、你的生活方式和态度，这些都有可能</p>
+<p>做成虚拟产品。</p>
+<p>这就是虚拟电商的本质：把你的经历和认知，打包成产品，卖给需要的人。</p>
+<p>最后</p>
+<p>虚拟电商这条路，说难也难，说简单也简单。</p>
+<p>难的是，大部分人熬不过前3个月，或者一直在自嗨。</p>
+<p>简单的是，你只要想明白一件事：用户为什么愿意付钱给你？</p>
+<p>剩下的就是干。</p>
+<p>别想太多，先发第一条笔记，先上架第一个产品。</p>
+<p>做了，才有反馈；有反馈，才能迭代；迭代多了，钱自然就来了。</p>
+</article>
+<article data-id="a10" data-title="复盘贴｜6 年小红书运营经验，全写在这了｜认知篇" data-tag="经验背书">
+<p>2021年，我做了个零食号和家居号，有很多笔记点赞都过万了。</p>
+<p>我拿着万粉的账号去接广告，被品牌方拒绝了。比较熟悉的PR跟我说：你这粉丝全是凑热闹的，没有</p>
+<p>投放价值。</p>
+<p>同年，我发了「收纳工具推荐」和「小家电选购指南」的笔记。阅读量只有几千个，点赞在100左右。</p>
+<p>按以前的标准，这是废帖。</p>
+<p>但第二天就来了几条商单合作邀约，成功合作了4条广告。</p>
+<p>这件事我想了很久，最后得出一个结论：流量和生意，根本是两件事。</p>
+<h4>1、博主思维vs生意思维：两种完全不同的游戏</h4>
+<p>为什么会出现「高流量低转化」这种反直觉的现象？</p>
+<p>因为大多数人在用博主思维做生意人的事。</p>
+<h4>1.1  博主思维的核心指标是曝光。</h4>
+<p>追求点赞、收藏、涨粉。内容目标是「让更多人看到我」。</p>
+<p>典型内容是热点、段子、情绪共鸣。变现路径是广告，品牌方买的就是你的曝光量。</p>
+<h4>1.2  生意思维的核心指标是转化。</h4>
+<p>追求咨询量、成交额、复购率。内容目标是「让对的人找到我」。典型内容是痛点解决方案、决策参</p>
+<p>考。</p>
+<p>变现路径是产品和服务（也可以是接广告），客户买的是你能帮他解决问题。</p>
+<p>这两种思维没有对错，但它们适用的时代完全不一样。</p>
+<p>在小红书的早期，商家投放预算高，小红书博主也不多，单纯的曝光量还有价值。但越到后期，商家</p>
+<p>预算越少，博主也越多，单纯的曝光已经没什么意义了。</p>
+<p>商家投放要的是确定性转化，如果广告费不能带来对应的转化，这笔投放就是亏损的，不值得的。</p>
+<p>所以，任何平台的自媒体，最终的指标一定是「转化」。</p>
+<p>现在最怕的是用博主思维做生意，具体体现为：先做些曝光的内容涨涨粉，粉丝涨起来后，直播带货</p>
+<p>变现。</p>
+<p>这是很早期的做法，现在时代完全不适用。</p>
+<h4>2、把小红书当搜索引擎，不是朋友圈</h4>
+<p>很多人把小红书当朋友圈，发点生活、攒点粉丝、慢慢变现。</p>
+<p>这个理解是错的。</p>
+<p>对于做生意的人来说，小红书的本质是搜索引擎。</p>
+<p>一个女生想买洗面奶，她可能会打开小红书搜「油皮洗面奶推荐」。</p>
+<p>想装修房子，搜「小户型装修避坑」。</p>
+<p>想找副业，搜「下班后能做的副业」。</p>
+<p>小红书日搜索量已经接近百度，日截图量1.2亿次。</p>
+<p>这意味着，用户来这里不只是消遣的，还是带着决策意图来的。手里攥着钱，就差一个下单理由。</p>
+<p>理解了这一点，运营策略会发生三个转变：</p>
+<p>第一，不再迷信发布时间。</p>
+<p>晚上8点发最好，这对搜索流量没什么意义。搜索流量不在乎你什么时候发，它在乎的是：用户搜这个</p>
+<p>词的时候，你的内容能不能被搜到。</p>
+<p>第二，开始研究关键词。</p>
+<p>以前想的是「这个选题能不能爆」。现在想的是「有没有人在搜这个问题」。</p>
+<p>方法很简单：去搜索框打几个关键词，看下拉推荐。下拉推荐就是用户真实在搜的词。围绕这些词写</p>
+<p>内容，比瞎想的选题更靠谱。</p>
+<p>第三，埋好关键词，做好封面。</p>
+<p>发布时把内容打磨好、关键词埋对，然后它就自己工作了。这是真正的「睡后流量」，你的内容在持</p>
+<p>续替你工作。</p>
+<h4>3、积累1000个铁杆粉丝</h4>
+<p>凯文·凯利说过：你不需要百万粉丝，只要1000个愿意持续付费的人，就足够养活自己。</p>
+<p>我用 6 年时间验证了这个理论。从来没做到过10万粉，但每个月都有稳定的咨询和成交。</p>
+<h4>3.1  普通粉丝vs铁杆粉丝：</h4>
+<p>普通粉丝因为某篇内容关注你，内容不吸引了就取关。铁杆粉丝关注的是你这个人，认可你的专业、</p>
+<p>信任你的判断。</p>
+<p>普通粉丝是免费内容的消费者。铁杆粉丝愿意为你的建议付费。</p>
+<p>普通粉丝是一个数字。铁杆粉丝是一段关系。</p>
+<h4>3.2  怎么找到这1000个铁杆粉丝？</h4>
+<p>绝对不是靠互粉互赞。刷出来的数字权重接近于零，还会打乱账号标签，让平台不知道该把你推给</p>
+<p>谁。</p>
+<p>铁粉一定是靠持续输出对特定人群有价值的内容。让他们觉得这个人懂我、这个人说的是真话。</p>
+<p>垂直，不是垂直于赛道，而是垂直于信任。</p>
+<h4>4、资产思维：一个判断标准</h4>
+<p>六年下来，我见过很多博主，粉丝很多，但每天必须更新，一停更流量就没了。</p>
+<p>他们本质上是在给自己打一份高薪的工。</p>
+<p>从2024年开始，我做任何事之前都会问自己三个问题：</p>
+<p>第一，停下来3个月，还有收入吗？</p>
+<p>我不能实时在线，因为这个本质是用时间换钱。 我要考虑的是具备「睡收」属性的业务。</p>
+<p>第二，做第100个客户的成本，比做第1个低吗？</p>
+<p>如果是一样高，说明边际成本不递减，会被困在线性增长里。</p>
+<p>如果可以更低，说明在建立规模效应，值得花时间。</p>
+<p>第三，一年后，这些积累还值钱吗？</p>
+<p>如果不值钱，那就是在做消耗性的事，越做越累还越不值钱。</p>
+<p>如果还值钱，甚至更值钱，就说明这是在构建资产。</p>
+<p>用这个标准分类：</p>
+<p>蹭热点肯定不是资产，热点一会就没了。</p>
+<p>接一单算一单的广告也不是资产，这没有积累。</p>
+<p>什么是资产？被搜索收录的高价值笔记。可以反复售卖的知识产品。在垂直领域建立的信任。</p>
+<p>最后</p>
+<p>这六年我最大的转变，是从「流量操盘手」变成「资产搭建者」。</p>
+<p>流量操盘手会追爆款、追热点、追数据。资产搭建者考虑的是：这个动作有没有强化护城河？</p>
+<p>具体到行动，就是：</p>
+<p>不再纠结今天涨了几个粉，我关心的是今天有没有帮用户解决什么问题。</p>
+<p>不再追求让所有人看到你，更追求的是让对的人找到你。</p>
+<p>不再为了数据好看去做泛内容，要为了转化精准去做垂直内容。</p>
+<p>这就是我花了六年才想明白的事。</p>
+<p>6年小红书运营经验，全写在这了丨IP篇</p>
+<p>我曾经发过一篇「自媒体运营工具合集」，收藏量破千。</p>
+<p>当时挺得意，但是这条笔记没有带来一个咨询。</p>
+<p>收藏量高是因为他们把我的笔记当成「信息源」，顺手点个收藏就走了，根本不在乎我是谁。</p>
+<p>这种内容我称之为「工具人内容」。</p>
+<p>整理100个工具、盘点10部电影、汇总Excel快捷键，都属于这类内容，收藏量高，商业价值几乎为</p>
+<p>零。</p>
+<p>2026年了，AI 可以在 10 秒内能生成10条资源合集。还在做工具人的博主，一定会被批量替代。</p>
+<h4>1、用户对博主的三层认知</h4>
+<p>用户关注一个博主，会经历三个阶段：</p>
+<h4>1.1  始于封面。</h4>
+<p>封面好看、标题吸引人，用户点进来了。这一层解决的是「点击率」问题。</p>
+<h4>1.2  陷于内容。</h4>
+<p>内容有干货、有价值，用户收藏了、关注了。这一层解决的是「涨粉」问题。</p>
+<h4>1.3  忠于人品。</h4>
+<p>用户认可你这个人，信任你的判断，愿意为你付费。这一层解决的是「变现」问题。</p>
+<p>大多数工具人博主卡在第二层。他们有流量、有粉丝，但没有信任。用户记住了他们的内容，没记住</p>
+<p>他们这个人。</p>
+<p>核心问题是，可替代性太强。</p>
+<p>你能整理100个AI工具，别人就能整理200个。你的内容没有「人感」，换个人写一模一样，用户根本</p>
+<p>不在乎作者是谁。</p>
+<h4>2、工具人内容和 IP 内容的区别</h4>
+<h4>2.1 工具人内容的特征：</h4>
+<p>纯信息搬运，没有观点。任何人都能写，没有门槛。</p>
+<p>用户用完就走，不关心作者。</p>
+<h4>2.2  IP内容的特征：</h4>
+<p>有观点、有态度、有个人经历。只有你能写，因为融入了你的思考和故事。</p>
+<p>用户因为认可你而持续关注。变现可以靠信任，他们买的不是内容，而是「你推荐的」。</p>
+<p>举个例子：</p>
+<p>工具人写法：推荐10个AI写作工具，第一个是xxx，功能包括xxx...</p>
+<p>IP写法：我测了 20 个 AI 写作工具，删掉了 19 个。留下的这个，是因为它解决了我一个很具体的问</p>
+<p>题。</p>
+<p>我写公众号总是卡在开头，而这个工具的「续写」功能真的帮了大忙。那篇爆款XXXXX的开头，就是它</p>
+<p>帮我写的。</p>
+<p>区别在哪？</p>
+<p>第一种是信息，任何人都能写。第二种是经历+判断，只有你能写。</p>
+<h4>3、人设的三维模型</h4>
+<p>做IP不是让你装成某种人，而是把你真实的一面结构化呈现出来。</p>
+<p>一个好的人设，需要三个维度：</p>
+<h4>3.1  专业度：你确实懂点东西。</h4>
+<p>不需要成为顶级专家。正在学习中的人也是一种专业度，你可以分享学习过程、踩过的坑、验证过的</p>
+<p>方法。</p>
+<p>关键是，你说的东西要经得起检验。不能全是正确的废话，要有具体的、可操作的、经过验证的内</p>
+<p>容。</p>
+<h4>3.2  人感：你是个活人，不是个机器。</h4>
+<p>会开心、会焦虑、会犯错、会迷茫。敢晒真实数据，敢说「这个方法我试了，失败了」。</p>
+<p>为什么人性感很重要？</p>
+<p>因为用户早就看腻了那些完美的专家。他们更想看的，是一个和自己差不多的普通人，怎么一步步解</p>
+<p>决问题。</p>
+<h4>3.3  价值观：你对某些事有鲜明态度。</h4>
+<p>比如我相信长期主义、我觉得内卷是伪命题……</p>
+<p>价值观的作用是筛选。</p>
+<p>它会让一部分人非常认可你，同时让另一部分人讨厌你。</p>
+<p>这是好事。</p>
+<p>你需要的是1000个铁粉，不是10万个觉得你还行的路人。</p>
+<h4>4、两种人设路线的对比</h4>
+<h4>4.1  专家路线：</h4>
+<p>常见表达是：我是xxxxxx的大佬，我来教你xxxxx。</p>
+<p>这种优势是，权威感更强，适合高客单价。</p>
+<p>但也有明显劣势，就是距离感太强，容易被质疑。如果你没有足够的背书（大厂经历、媒体报道、行</p>
+<p>业奖项），很难立住。</p>
+<h4>4.2  养成系路线：</h4>
+<p>常见表达是：我是xxx，这是我xxxxx的第xxxxx天。今天踩了一个坑，我把xxxxxx分享给你们。</p>
+<p>优势是，亲切感强，用户有代入感，愿意跟着你一起成长。</p>
+<p>但不好的地方是，专业度需要靠内容反复验证，前期信任建立较慢。</p>
+<p>如果你不是已经有光环的大V，养成系路线更适合普通人起步。</p>
+<p>真实，是这个时代最稀缺的硬通货。</p>
+<h4>5、内容优先级公式</h4>
+<p>很多博主笔记发出去没人看，不是写得不好，是优先级搞错了。</p>
+<p>选题 &gt; 首图 &gt; 标题 &gt; 正文</p>
+<h4>5.1  选题才是最重要的。</h4>
+<p>选题错了，后面全白费。用户根本不关心你写得多好，因为他们对这个话题没兴趣。</p>
+<p>怎么找好选题？</p>
+<p>记住一句话：太阳底下无新鲜事，火过的内容永远可以再火一遍。</p>
+<p>去搜同领域的爆款笔记，拆解它的核心痛点。然后换个角度重新切。</p>
+<p>举个例子：</p>
+<p>原选题「如何早起」，可以改成「为什么你坚持早起却越来越累」，感兴趣的人还是一样，但这个内</p>
+<p>容是新鲜的，他们没看过。</p>
+<h4>5.2  首图&amp;标题决定点击率。</h4>
+<p>它是用户看到笔记的第一眼，直接决定了用户是否点击。</p>
+<h4>5.3  正文决定互动率。</h4>
+<p>它是内容的本体，决定用户要不要点赞、收藏、评论、关注。</p>
+<h4>6、对标不是抄袭，是组合创新</h4>
+<p>我有段时间陷入「抄袭羞耻」，觉得看别人的就是不对。</p>
+<p>后来想通了：像素级复刻叫抄袭，拆解重组叫创新。</p>
+<p>我的组合创新方式是：</p>
+<p>A的选题（痛点）+ B的封面结构（视觉形式）+ C的叙事风格（语气）+ 你自己的亲身经历（灵魂）=</p>
+<p>原创内容</p>
+<p>举个例子：</p>
+<p>看到一篇爆款讲「自律的方法」（选题），另一篇爆款用了对比图的封面（形式），第三篇爆款用反</p>
+<p>问+自嘲的语气写作。</p>
+<p>把这三个元素拆出来，加上自己尝试自律失败又成功的真实经历，写出来的就是一篇全新的、只有你</p>
+<p>能写的内容。</p>
+<p>没有任何爆款是凭空产生的。所有好内容都是站在前人肩膀上的重新组合。</p>
+<h4>7、恰饭笔记的写法</h4>
+<p>为什么有的广告一发就掉粉，有的发了反而涨粉？</p>
+<p>区别在于，你是帮品牌读说明书，还是帮粉丝解决问题。</p>
+<p>硬广的写法是： 这个面霜成分有A、B、C，非常好用，买它！</p>
+<p>种草的写法是： 最近熬夜写方案，脸垮得没法看。试了三个方法，发现只有这招最管用...顺便提一</p>
+<p>句，搭配这个面霜效果更好。</p>
+<p>好的恰饭笔记，是把产品自然融入到解决问题的场景里。给品牌提供商业价值，同时给粉丝提供情绪</p>
+<p>价值或信息价值。</p>
+<h4>8、筛选比讨好更重要</h4>
+<p>做IP的过程，本质是把路人筛选成铁粉的过程。</p>
+<p>不要试图讨好所有人。如果你想让所有人都觉得你「还行」，那你注定平庸。</p>
+<p>你需要让10个人爱死你，哪怕代价是5个人讨厌你。</p>
+<p>筛选的两个方法：</p>
+<p>1. 敢于表达观点。</p>
+<p>只有鲜明的观点才能筛选同频的人。「我觉得都挺好的」不会让任何人记住你。「我觉得A比B强十</p>
+<p>倍，原因是xxx」才会。</p>
+<p>2. 设置门槛。</p>
+<p>一上来就问「能不能白嫖」的人，绝对不是你的客户。礼貌拒绝，把时间留给认可价值的人。</p>
+<p>我见过百万粉丝的博主接不到广告，也见过几千粉的博主靠咨询活得很好。</p>
+<p>粉丝数是虚荣指标。信任才是真正的资产。</p>
+<p>6年小红书运营经验，全写在这了丨电商篇</p>
+<p>2023年，刚转型做小红书电商的第一周，我经历了巨大的心理落差。</p>
+<p>做博主时，笔记发出后，当天阅读量都能迅速破千。开始挂车卖货后，发现带货笔记的数据低得要</p>
+<p>命，阅读量几十，点赞个位数，或者0。</p>
+<p>按以前的标准，这种笔记应该删掉。</p>
+<p>但当时我在旅游，没来得及纠结数据问题，所以没删除笔记。</p>
+<p>结果很震惊，发了3篇笔记，一共8个点赞，卖了一单298元的产品。</p>
+<p>那一刻我意识到，我之前的判断标准全错了。</p>
+<p>博主看的是赞藏数，电商看的是GMV。这是两套完全不同的评估体系。</p>
+<h4>1、为什么带货笔记数据低是正常的</h4>
+<p>带货笔记是很难获得高互动的，原因有三个：</p>
+<p>第一，内容目的不同。</p>
+<p>博主内容的目的是「让你喜欢我」，所以要有趣、有共鸣、有情绪价值。用户喜欢了，就会点赞收</p>
+<p>藏。</p>
+<p>带货内容的目的是「让你买东西」，所以要讲清楚产品能解决什么问题。用户被说服了，会直接下</p>
+<p>单，不一定会点赞。</p>
+<p>第二，用户行为不同。</p>
+<p>看完一篇搞笑段子，用户的反应是觉得有意思，然后点赞。</p>
+<p>看完一篇带货笔记，用户的反应是「这个东西不错」，然后点击商品进去下单。</p>
+<p>下单和点赞是两种完全不同的行为路径。下单的人可能根本不会点赞，因为他的注意力已经转移到购</p>
+<p>买流程上了。</p>
+<p>第三，平台分发逻辑不同。</p>
+<p>带货笔记会被推给「有购买意图」的用户。</p>
+<p>这群人的特征是：目的明确、决策快、不闲逛。</p>
+<p>他们不会像刷娱乐内容那样随手点赞，但他们的商业价值高得多。</p>
+<p>所以，用互动数据评估带货笔记，就是刻舟求剑，完全没有意义。</p>
+<p>应该要评估指标是：商品点击率、私信咨询量、成交额、ROI。</p>
+<h4>2、选品的底层逻辑</h4>
+<p>做电商第一步是选品，90%的新手都卡在这里。</p>
+<p>他们问的问题通常是：美妆赛道还能做吗？家居赛道卷不卷？xxx产品有机会吗？……</p>
+<p>这叫赛道思维，只盯着产品看、盯着竞争对手看。这是红海打法，永远在和别人抢。</p>
+<p>在小红书做电商，要用人群思维，就是只盯着一群人看。</p>
+<p>赛道思维的问题：</p>
+<p>选品库有限。你选了美妆，就只能卖美妆。市场饱和了，你就没得做了。</p>
+<p>容易陷入价格战。同样的产品，别人卖得比你便宜，你就没优势。</p>
+<p>人群思维的优势：</p>
+<p>选品库无限。只要你锁定了一群人，他们的所有需求都是你的选品范围。</p>
+<p>可以差异化。你卖的不是产品，是「适合这群人的解决方案」。</p>
+<p>我举个例子：</p>
+<p>定位在「25-30岁独居职场女性」这群人：</p>
+<p>她们下班累想放松，就可以卖折叠泡脚桶、香薰机</p>
+<p>她们租房空间小，可以卖收纳神器、折叠家具</p>
+<p>她们无聊想找寄托，可以卖毛绒玩具、桌面绿植</p>
+<p>她们想提升自己，卖书单、课程、知识库</p>
+<p>围绕一群人的全生命周期组货，比天天追爆款稳定得多。</p>
+<h4>3、电商模式的进化路径</h4>
+<p>小红书电商有两个阶段，你要清楚自己在哪个阶段：</p>
+<p>1.0阶段：无货源</p>
+<p>一般会在1688或拼多多找品，溢价搬运到小红书卖。优势是成本较低，不用压货，试错成本低。</p>
+<p>劣势也很明显，利润薄、容易被判违规、没有壁垒。</p>
+<p>一般情况下，这个阶段是用来测品的。通过无货源找到好卖的品类和人群，验证需求存在。</p>
+<p>2.0阶段：IP化+有货源</p>
+<p>测出爆品后，找厂家谈囤货或定制。同时把账号做成主理人IP。这么做的优势是，利润更高、有复</p>
+<p>购、有护城河。</p>
+<p>而且，用户买你的东西，不仅因为产品好，更因为「我想拥有和你一样的生活方式」。</p>
+<p>当然，这个阶段也更难，大部分人会一直待在「无货源」阶段，或者进阶到「有货源」，但是不做IP</p>
+<p>化。</p>
+<p>如果要从 1.0 升级到 2.0 ，必须要做的事情是：</p>
+<p>第一，找到稳定货源，控制供应链。</p>
+<p>第二，建立人设，让用户记住「人」而不只是「货」。</p>
+<p>第三，建立私域，把一次性买家变成长期客户。</p>
+<h4>4、运营心法：完成比完美重要</h4>
+<p>做电商最忌讳「准备」。</p>
+<p>等我把图修得再完美一点...、等我把详情页设计得再好一点...等我再研究一下竞品...</p>
+<p>等你准备好，黄花菜都凉了。</p>
+<p>做电商一定要快，产品只要及格，图片只要清晰，立刻上一篇笔记去测。</p>
+<p>市场是最好的老师。</p>
+<p>之前看过@戚越的模拟人生 的视频，当时他发现了一个「理想L9冰箱杯架」的需求，立马去找设计师</p>
+<p>做图纸，在找3D打印店做样品，确认没问题了，找工厂生产，在生产过程中，让设计师做渲染图立刻</p>
+<p>上架淘宝销售，当天销售额就破了9000+。</p>
+<p>但此时此刻，他手上连货都还没有，做的是预售。这就是极致效率。</p>
+<p>做小红书电商也是，发出去没流量，那就换图、换标题、换痛点角度，再测。</p>
+<p>当你发出去有人问「怎么买」的时候，在考虑把详情页做得更好看，再考虑投流放大。 当有用户反馈</p>
+<p>了，再考虑进一步改进产品或调整话术。</p>
+<p>产品是在卖的过程中迭代出来的，不是在脑子里想出来的。</p>
+<p>很多赚钱的品，第一版笔记都糙得很。但它切中了真实痛点，所以有人买单。</p>
+<h4>5、带货文案的AB点理论</h4>
+<p>带货笔记写成「产品说明书」是最常见的错误。</p>
+<p>用户不关心你的产品有多好，他们只关心「这跟我有什么关系」。</p>
+<p>李叫兽有一套文案方法，叫AB点理论：</p>
+<p>A点（痛苦）：描述用户没用产品前的糟糕状态。</p>
+<p>B点（爽感）：描述用了产品后的美好状态。</p>
+<p>桥梁（产品）：你的产品如何帮他从A走到B。</p>
+<p>举个例子：</p>
+<p>A点：每到梅雨天，衣服晾不干，一股霉味，穿在身上痒痒的。</p>
+<p>B点：现在回到家，穿上刚烘干的衣服，暖呼呼的，带着太阳的味道。</p>
+<p>桥梁：多亏了这个折叠烘干机，小小一个不占地。</p>
+<p>再加几个钩子放大效果：</p>
+<p>省钱钩子：一杯奶茶钱就能提升幸福感。</p>
+<p>人群钩子：租房党/学生党闭眼冲。</p>
+<p>场景钩子：出差必备/换季必囤/南方回南天救星。</p>
+<p>紧迫钩子：库存只剩最后XX件。</p>
+<p>核心原则是，一定不要讲太多产品参数，用户不在意，要讲用户能感知到的变化。</p>
+<h4>6、高客单价的特殊逻辑</h4>
+<p>如果你卖的是装修设计、私教陪跑、高端定制这种几千上万的产品，逻辑不一样。</p>
+<p>用户是不会在小红书店铺直接下单的，决策成本太高，用户不会对着一个陌生账号付几千块。</p>
+<p>所以，高客单价的转化路径要改一改：</p>
+<p>用内容展示专业度、案例、审美，然后引导用户私信，投流开通私信获客权限（投流部分下一期</p>
+<p>讲），发送咨询卡片，导流到私域再深度沟通成交</p>
+<p>小红书的作用是获客，不是成交。成交发生在私域，可以用朋友圈、一对一聊天、案例展示去建立信</p>
+<p>任。</p>
+<p>内容策略的区别：</p>
+<p>低客单价：内容重点是「产品有多好」，短平快成交。</p>
+<p>高客单价：内容重点是「你有多专业」，长周期信任建立。</p>
+<p>6年小红书运营经验，全写在这了丨投流篇</p>
+<p>刚开始做投放时，我真的心惊胆战的，相信很多新手都一样。</p>
+<p>看着账户里几百块钱花出去，超级紧张，那时候觉得投流就是烧钱，真正冤大头。</p>
+<p>当时做的是高客单的业务，我算了下，如果花500投了一篇笔记，能来了10个精准咨询，成交 1 单，利</p>
+<p>润都远超这500的投入。</p>
+<p>在当时老板的支持下，我理解了一个事情，只要ROI能打正，投流就值得继续。</p>
+<h4>1、投流的本质：买时间和买确定性</h4>
+<p>对于新号来说，最稀缺的资源是什么？是时间。</p>
+<p>靠自然流慢慢磨，可能三个月都测不出哪篇内容好、哪个品好卖。</p>
+<p>投流可以把这个过程压缩到三天。</p>
+<p>投流主要买的是两样东西：</p>
+<p>第一，买时间。</p>
+<p>自然流需要等平台慢慢分发、等数据慢慢积累。投流可以直接把内容推到目标人群面前，快速拿到反</p>
+<p>馈。</p>
+<p>第二，买确定性。</p>
+<p>自然流有很大随机性，同样的内容可能爆也可能一单卖不出去。投流让你主动控制流量的大小和方</p>
+<p>向，减少不确定性。</p>
+<p>但是，很多人担心一旦投了广告，自然流就没了。</p>
+<p>这真的瞎扯，付费反而可以撬动免费。</p>
+<p>付费流量带来的精准点击和互动（点赞、收藏、评论），是可以拉高笔记的权重的。平台一看数据不</p>
+<p>错，就会把它放进更大的自然流量池。</p>
+<p>我最好的几篇自然流爆款，起步阶段都投过助推。</p>
+<p>但是，如果一个新笔记直接投流，确实会损耗一些自然流，就是平台本来会用免费流量推到用户A面</p>
+<p>前，但你直接付费了，提前推送到，成本就会变高一些。</p>
+<p>所以，要最低成本的话，可以等自然流跑干净了再投。</p>
+<h4>2、薯条vs聚光vs千帆</h4>
+<p>小红书主要有三种投放工具：薯条、聚光和千帆。</p>
+<p>90%的人都不太会用。</p>
+<p>薯条的本质是笔记加热。</p>
+<p>买的是曝光，让更多人看到你的内容。 适合博主涨粉、打造个人影响力。 如果笔记自然数据已经不</p>
+<p>错，可以用薯条加热放大。</p>
+<p>聚光和千帆的本质是商业推广。</p>
+<p>买的是行为，让用户做特定动作，比如私信、填表单、下单购买。 适合商家获客、电商转化。可以直</p>
+<p>接测笔记转化效果，看ROI。</p>
+<p>聚光主要是私信获客和表单，千帆主要是直播和电商。</p>
+<p>薯条只能帮你买曝光。 聚光/千帆可以帮你买行为。做生意的人，要的不是虚荣的曝光量，是实打实的</p>
+<p>客资和成交。所以应该主投聚光/千帆，而不是薯条。</p>
+<p>还有，很多人问过我，某篇笔记数据太差了，能不能投薯条？</p>
+<p>或者，发的笔记数据太差，投薯条也没效果。</p>
+<p>这纯属肉包子打狗。</p>
+<p>数据差说明内容本身有问题，给垃圾内容投薯条只会亏更多。</p>
+<p>薯条的正确用法是锦上添花，内容已经验证可行，用薯条放大它的效果。不是雪中送炭，内容本身不</p>
+<p>行的，投出去还是不行。</p>
+<h4>3、赛马机制</h4>
+<p>投放最忌讳「我觉得」。</p>
+<p>我觉得这篇写得好，多投点。这种主观判断通常会吃亏。</p>
+<p>高手的投流打法都是赛马，让数据替你做判断。</p>
+<p>第一步：建计划。</p>
+<p>准备3-5篇不同角度的笔记。比如同一个产品，一篇讲痛点、一篇讲干货、一篇讲故事、一篇讲对比。</p>
+<p>第二步：小预算测试。</p>
+<p>每篇笔记给50-100元预算，跑全站智投。不要一开始就砸大钱。</p>
+<p>第三步：看数据。</p>
+<p>跑24-48小时，看核心指标（私信开口成本、点击率、转化率、roi）。</p>
+<p>第四步：对比数据。</p>
+<p>数据差的（私信成本高、点击率低），立刻关停，。 数据好的（私信成本低、转化稳定），追加预</p>
+<p>算，把钱全砸给它。</p>
+<p>一个内容，数据反馈不行，它就是垃圾，哪怕你写得很用心，也是垃圾。</p>
+<p>数据反馈好，就算你觉得写得一般，也要追加投放。</p>
+<p>市场比你的判断准。</p>
+<h4>4、搜索广告：离钱最近的流量</h4>
+<p>如果预算有限，只能投一种广告，我的建议是：投搜索广告。（大部分行业都适用）</p>
+<p>原因在第一篇讲过，小红书是搜索引擎。</p>
+<p>当用户主动搜索「平价洗面奶」或「杭州装修设计」时，他的需求已经非常明确了，手里有预算，就</p>
+<p>差一个决策依据。</p>
+<p>这时候你的笔记出现在搜索结果前排，就是更容易转化。</p>
+<p>搜索广告vs信息流广告的区别：</p>
+<p>信息流是，你主动把内容推给用户，他可能有需求也可能没有。</p>
+<p>搜索是，用户主动在找解决方案，你只需要出现在他面前。</p>
+<p>搜索流量的转化率，通常是信息流的 3-5 倍。因为用户意图更明确。</p>
+<p>如果要在信息流和搜索流中分配预算的话，我建议60%投搜索广告，覆盖核心关键词。 40%投信息流</p>
+<p>（全站智投），用来种草和测试新素材。</p>
+<h4>5、投放的核心认知</h4>
+<p>第一，投流不是烧钱。三天跑完三个月的测试量，这是用钱换效率。</p>
+<p>第二，付费和免费不是对立关系。付费撬动免费，投放是可以加速的，不是替代自然流。</p>
+<p>第三，薯条和商业广告是完全不同的工具，别用错了。博主用薯条买曝光，商家用商业广告买转化。</p>
+<p>第四，搜索广告是离钱最近的流量。预算有限就先投搜索，ROI最高。</p>
+<p>第五，让数据替你做判断。小预算测试、看核心指标、杀伐果断。不要对内容有感情。</p>
+</article>
+<article data-id="a11" data-title="30 岁，盘点我尝试过的副业，失败了 19 个，最后 all in 小红书" data-tag="个人故事">
+<p>今年我终于也 30 了，在生日后的一两个月，给自己准备了 2 份礼物：</p>
+<p>一份是全身体检，一份是小房子。</p>
+<p>人到 30 ，身体状态、思路、想法，都不一样了。原来我是坚定的不买房党，我喜欢体验不同城市，但</p>
+<p>却给自己买了套房……</p>
+<p>刚好裸辞也 2 年了，趁这时间盘点一下我做过的所有副业，一共十几个，有成功的也有失败的，你会</p>
+<p>发现我并没有一帆风顺。</p>
+<p>以下排名不分先后，图片均非本人账号</p>
+<p>1. 淘宝无货源电商</p>
+<p>这是第一次接触副业，时间比较早了，以我当时的世界观，能想到的副业也就是淘宝无货源了。</p>
+<p>淘宝无货源也比较简单，跟1688是同一家，上品发货都不难，就选了一些品去买。</p>
+<p>卖过饰品、小文具、学习工具等等，当时有个「口袋打印机」做的还可以，算赚到钱了。</p>
+<p>最后因为打印机是无版权售卖（1688一件代发不意味着有授权可以卖），被品牌方要求下架，差点赔</p>
+<p>钱了。</p>
+<p>2. 小红书博主</p>
+<p>接触小红书的第一个副业就是做小红书博主，运营的时间早，流量好，且容易接广告。</p>
+<p>当时做过好物分享、穿搭、家居分享、美食、美妆……</p>
+<p>为什么能做这么多？因为内容很简单：</p>
+<p>还有更简单的，只要把淘宝店铺截图，裁剪一下发到小红书，就能涨粉，就能接广告。</p>
+<p>我做博主还挺久的，当时一个月能接一两万的广告费，后面不做是因为平台对水下广告打击太严重，</p>
+<p>合作必须走蒲公英，我没那么多实名认证。</p>
+<p>如果只做一两个号的话，收入天花板又太低了，于是放弃。</p>
+<p>3. 得物好物种草</p>
+<p>在做小红书博主期间，有商家要求把内容同步到得物，给我加50块钱，我同步了。</p>
+<p>然后顺便把所有内容逐渐同步到得物，发现这个平台的种草也很不错。</p>
+<p>不仅有商单可以接，还有种草收益、视频收益等等，整体比小红书的丰富很多，更适合新手入门。</p>
+<p>后面放弃也是因为收入天花板太低了，得物毕竟还是个电商平台，用户量不够大，收益 提不上去。</p>
+<p>4. 多多视频搬运</p>
+<p>拼多多刚上视频带货不久，我就开始做这个了，算是比较早期做多多视频带货的人。</p>
+<p>但没接触过带货类型的视频，只能搬运抖音、快手的视频，做了半个月，变现了几百块钱。</p>
+<p>后面放弃是因为有些商家先用高比例佣金吸引创作者发内容，视频爆了之后立马改佣金比例。</p>
+<p>爆了几个视频，每一单只有 0.01 进账，而且当时拼多多开始限制搬运内容，就放弃了。</p>
+<p>5. 视频号带货</p>
+<p>有段时间视频号带货书单这些很火，我也试过，剪辑一些国学的视频放到视频号，挂上了书籍链接。</p>
+<p>刚做第三天就出单了，很清楚记得有一本书60多块钱，给我佣金有20多，感觉还挺香的。</p>
+<p>后面赚了有两三百块钱的时候受不了天天做重复的时期，也放弃了。</p>
+<p>这个跟多多视频一样，天天都得做重复、机械化的工作，我很讨厌。</p>
+<p>6. 闲鱼无货源</p>
+<p>抽空还做过闲鱼无货源电商，最早的时候是闲鱼和转转一起做，早期的转转是有二手闲置物品出售</p>
+<p>的。</p>
+<p>一开始卖盆栽，拼多多上找几块钱的低价盆栽上架到闲鱼和转转，卖9.9或者十几块，结果转转卖的比</p>
+<p>闲鱼好……</p>
+<p>后面转转调整了业务，重新选品在闲鱼上卖，卖过懒人沙发之类的，均价在100~300，利润20%～</p>
+<p>30%。</p>
+<p>在尝试了 1 个星期后，出了第一单懒人沙发，单价160，利润30。</p>
+<p>后面因为闲鱼的客服咨询太麻烦了，做过的都知道，事特别多，我暴脾气受不了，彻底放弃闲鱼。</p>
+<p>7. 抖音资料号</p>
+<p>这是我第一次做虚拟资料，那会是通过小红书、抖音发布虚拟资料（主要是学科类）的图片，留钩子</p>
+<p>引导用户加微信，再通过私域转化，让用户付费购买资料或者进入资料群。</p>
+<p>比现在直接挂链接的稍微麻烦一点点，那会主要是通过 QQ 群、网盘群和网站之类的渠道交付。</p>
+<p>卖的比较多的都是：学科资料（小学初中高中）、考证资料（教资、幼师等）、考研资料、TED资料。</p>
+<p>因为本质上还是纯搬运，内容搬运、资料搬运，我不太喜欢干，就放弃了，这个项目一分没赚。</p>
+<p>8. 抖音游戏推广</p>
+<p>看过那种小游戏视频吗？就是明明感觉能过关，录视频的就非得瞎玩，装蠢，然后你看的心痒痒，点</p>
+<p>进去小游戏……</p>
+<p>以前我也干过这种，算是蛮理想的副业，可以一边玩游戏一边赚钱。</p>
+<p>但现实是，收益极低，之前也爆过视频，但是总共算下来，只有不到100块钱的收入。</p>
+<p>玩游戏还得玩到关键关卡才能录到吸引人的视频，常规关卡没意义。</p>
+<p>要玩到后面，首先创作者就得看不少广告……</p>
+<p>9. 抖音橱窗带货</p>
+<p>这个到现在还挺多人做的，就是从选品广场找到有产品上架到橱窗，发布视频吸引人到橱窗购买产</p>
+<p>品，获得分佣。</p>
+<p>现在大多还是实拍 + 混剪，我做的时候只是把小红书上的穿搭图片搬运到抖音上发布，类似以下这</p>
+<p>种：</p>
+<p>又是搬运又是机械化工作，不是我想要的，一分钱没赚到，放弃了。</p>
+<p>10. ChatGPT 问答</p>
+<p>ChatGPT刚火不久，我就开始用了，但那会没有深度使用 AI ，也不知道 AI 有多厉害。</p>
+<p>就只是跟风做了个 ChatGPT 问答的账号，找一些热门问题问ChatGPT，把 AI 的回答截图发小红</p>
+<p>书……</p>
+<p>吸引了几千个粉丝，但是没有基本变现逻辑，也尝试引流用户到私域，但没有产品可以转化。</p>
+<p>后面一分没赚到，放弃。</p>
+<p>11. AI 绘画</p>
+<p>同样是 AI 绘画刚火不久，用了一下Midjourney做头像，然后发现小红书挺多人做这个卖的，也试了一</p>
+<p>下。</p>
+<p>但是我的提示词能力太弱了，也不知道应该怎么描述光线之类的，所以做出来的图片总是一言难尽。</p>
+<p>这个是最失败的项目，钱没赚到，粉丝也没涨动，还贴钱买了几个月MJ会员。</p>
+<p>12. 小红书电商</p>
+<p>还是无货源，小红书刚开始大力推电商的时候，大约是22年底，23年初那会，我对接了一些供应链在</p>
+<p>小红书卖。</p>
+<p>当时卖过小家电、qqny、手机壳、饰品、穿戴甲等等，基本上都能卖点，也有些卖的还不错的，在小</p>
+<p>红书电商这算是拿到过比较大的成绩（月入10w+）。</p>
+<p>这个项目其实挺好的，现在没有继续，是找到了更好的。</p>
+<p>而且无货源电商其实还挺受货源的影响，不熟的供应商动不动涨价，或者质量不可控、库存不同步之</p>
+<p>类的，问题很多。</p>
+<p>还有就是实体电商的通病：卖的越多，成本越高，人越累。</p>
+<p>后来跟很多做小红书电商的人聊，能做大的几乎都是团队，我是个体，跟团队是没办法竞争的。</p>
+<p>深刻认识到这个问题后，决定暂时放弃。</p>
+<p>13. 公众号爆文</p>
+<p>之前公众号改了一下算法，多了很多推荐流量，同时还取消了一天发一条的内容限制，公众号自此摆</p>
+<p>脱了私域限制。</p>
+<p>有很多人研究出了公众号爆文的玩法，就是批量写一些吸引流量的内容，不断获取推荐流量，靠流量</p>
+<p>主变现。</p>
+<p>我也拿了个新号去试，发了几篇，然后发现我只能写这个号，写其他号都不得劲。</p>
+<p>又断更了……一分没赚到，流量主都没开通。</p>
+<p>14. 红包封面</p>
+<p>做项目早期的时候还尝试过卖红包封面，那会还专门找了一些供应的货源卖。</p>
+<p>从小红书、抖音、公众号等渠道引流用户到私域，在微店成交。</p>
+<p>想着春节期间在家的时候做内容卖，真到了春节我又不爱动了……</p>
+<p>最终卖了20块钱，连自己买红包封面做素材的成本都没赚到。</p>
+<p>15. 小绿书带货</p>
+<p>跟公众号类似，那会公众号刚开始推图文，然后还开通了图文带货的功能。</p>
+<p>基于对公众号和微信庞大用户的理解，去试了小绿书带货。</p>
+<p>尝试带一下书单和日用品，但是公众号跟其他平台的流量算法不太一样，是存在完全0流量的……</p>
+<p>这个项目最终没有变现。</p>
+<p>16. 旅游头条号</p>
+<p>从小红书、抖音等平台把别人的旅游攻略、旅游照片等搬过来，AI洗一下稿，图片加些滤镜，直接发</p>
+<p>到微头条去赚钱。</p>
+<p>微头条只要有阅读，就会有收入。虽然有100粉丝的门槛，但难度不大，很简单达到。</p>
+<p>这个项目赚了一点点，十几块钱。因为我不爱写这东西，我旅游从来不做攻略，喜欢到哪算哪，体验</p>
+<p>派。</p>
+<p>写这个东西让我很折磨，虽然是搬运，但也很折磨，就放弃了。</p>
+<p>17. 小红书广告代投</p>
+<p>有一段时间我帮助品牌方在小红书获客，给他们做一些内容规划、广告投放等等。</p>
+<p>现在陆续也会接一些相关业务，但不做重心。而且这属于卖能力的副业，大部分人不可复制。</p>
+<p>好处是，没什么竞争，我个人代投比官方代投或者代理投放的效果都要好一些。</p>
+<p>虽然挣钱，但整体太费时间，能接的客户有上限。</p>
+<p>18. 小红书虚拟电商</p>
+<p>这是我现在花重心做的项目，之前有尝试过资料号，我不喜欢，然后花了小一个月时间写了一份</p>
+<p>10w+字的《小红书运营手册》，附带社群，做我的第一个虚拟产品。</p>
+<p>今年 AI 工具大爆发，出了很多 AI 神器，又借助 AI 写了好几份小红书运营相关的手册，卖的还不错。</p>
+<p>放弃小红书实体电商，找到的更好项目，就是虚拟电商，实体电商的缺点，在这里都不存在。</p>
+<p>原创资料，原创内容，还没什么成本，这是我目前觉得最适合自己的项目了。</p>
+<p>19. 个人 IP 打造</p>
+<p>严格来说这不是个副业，是一个持续做的 IP，会给我间接带来收入。</p>
+<p>目前主要在公众号更新，但计划将来会重新做视频，同步各视频平台，这个事情会加快落实。</p>
+<p>20. 考虑过但放弃的副业</p>
+<p>除了以上真正尝试过的副业，还有很多想过，做过调研但放弃的，比如：快递驿站、qq用品外卖、无</p>
+<p>人qq用品、开烧烤店、推车卖水果。</p>
+<p>是的，推车卖水果我也想过，因为看起来是小项目，但了解了一下是真赚钱……</p>
+<p>有些大叔大妈卖水果，一个月能挣几万，那会是真想做。</p>
+<p>我之前发小红书，说「我做失败的副业比你知道的还多」，真不是瞎扯。</p>
+<p>在真正 ALL IN 小红书之前，我做过的太多了。</p>
+<p>大部分都没赚到什么钱，但对筛选项目多多少少又些借鉴作用。</p>
+<p>比如，有闲鱼、淘宝无货源的失败经历，我做小红书无货源的时候机智很多，知道先找好供应商再</p>
+<p>干，避免版权啥的问题……</p>
+<p>然后卖更高客单价，避免遇到特别难搞的客户……</p>
+<p>还有，尝试过公众号爆文、小绿书带货，都失败了，才真正决定我就适合写这一个公众号，多一个可</p>
+<p>能都是负担。</p>
+<p>做抖音、多多视频的失败，让我明确了，我就不适合干搬运的事。</p>
+<p>之前我一直说，执行力执行力，想干啥项目先干了再说。</p>
+<p>很多人说万一失败了咋办，那不是浪费时间吗？</p>
+<p>这种人很难劝，只能说，如果你不试试，永远不知道有哪些项目是适合自己的。</p>
+<p>我能想起来的只有这些，但真正动手做过的肯定不止，我就是个三心二意的人，做项目不喜欢就放弃</p>
+<p>了。</p>
+<p>但能决定 ALL IN 一个项目，就说明真的很适合我，一定能从这里面赚到钱。</p>
+</article>
+  </div>
 
   <script>
     const 观察器 = new IntersectionObserver((条目们) => {
-      条目们.forEach((条目) => {
-        if (条目.isIntersecting) {
-          条目.target.classList.add("出现");
-          观察器.unobserve(条目.target);
-        }
-      });
-    }, { threshold: 0.16 });
+      条目们.forEach((条目) => { if (条目.isIntersecting) { 条目.target.classList.add("出现"); 观察器.unobserve(条目.target); } });
+    }, { threshold: 0.12 });
+    document.querySelectorAll(".淡入").forEach((el) => { if (!el.classList.contains("出现")) 观察器.observe(el); });
 
-    document.querySelectorAll(".淡入").forEach((元素) => {
-      if (!元素.classList.contains("出现")) {
-        观察器.observe(元素);
-      }
-    });
+    const 文章库 = document.getElementById("文章库");
+    const 遮罩 = document.getElementById("阅读遮罩");
+    const 正文 = document.getElementById("阅读正文");
+    const 标题框 = document.getElementById("阅读标题");
+    const 标签框 = document.getElementById("阅读标签");
+    const 层 = 遮罩.querySelector(".阅读层");
+    function 打开(id) {
+      const 源 = 文章库.querySelector('[data-id="' + id + '"]');
+      if (!源) return;
+      标题框.textContent = 源.dataset.title || "";
+      标签框.textContent = 源.dataset.tag || "";
+      正文.innerHTML = 源.innerHTML;
+      遮罩.classList.add("显示"); 遮罩.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+      if (层) 层.scrollTop = 0;
+    }
+    function 关闭() { 遮罩.classList.remove("显示"); 遮罩.setAttribute("aria-hidden", "true"); document.body.style.overflow = ""; }
+    document.addEventListener("click", (e) => { const c = e.target.closest(".文章项[data-article]"); if (c) 打开(c.dataset.article); });
+    document.getElementById("阅读关闭").addEventListener("click", 关闭);
+    遮罩.addEventListener("click", (e) => { if (e.target === 遮罩) 关闭(); });
+    document.addEventListener("keydown", (e) => { if (e.key === "Escape") 关闭(); });
   </script>
 </body>
 </html>
